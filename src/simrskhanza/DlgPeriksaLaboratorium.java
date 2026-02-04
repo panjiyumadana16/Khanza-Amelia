@@ -2565,6 +2565,17 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
     
     private void tampiltarif() {     
+        
+        String no_rawat = "";
+        String kd_pj = "";
+        
+        String status_lanjut = "";
+        
+        Double kenaikan=0.0;
+        
+        String kode_bpjs = Sequel.cariIsi("SELECT kd_bpjs from setting_lab");
+        String kode_umum = Sequel.cariIsi("SELECT kd_umum from setting_lab");
+        
         try{
             jml=0;
             for(i=0;i<tbTarif.getRowCount();i++){
@@ -2573,27 +2584,16 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 }
             }
 
-            pilih=null;
             pilih=new boolean[jml];
-            kode=null;
             kode=new String[jml];
-            nama=null;
             nama=new String[jml];
-            total=null;
             total=new double[jml];
-            bagian_rs=null;
             bagian_rs=new double[jml];
-            bhp=null;
             bhp=new double[jml];
-            tarif_perujuk=null;
             tarif_perujuk=new double[jml];
-            tarif_tindakan_dokter=null;
             tarif_tindakan_dokter=new double[jml];
-            tarif_tindakan_petugas=null;
             tarif_tindakan_petugas=new double[jml];
-            kso=null;
             kso=new double[jml];
-            menejemen=null;
             menejemen=new double[jml];
 
             index=0; 
@@ -2613,11 +2613,64 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     index++;
                 }
             }
+            
+            no_rawat = TNoRw.getText();
+            kd_pj = Sequel.cariIsi("SELECT kd_pj from reg_periksa where no_rawat = '"+no_rawat+"'");
+
+            status_lanjut = Sequel.cariIsi("SELECT status_lanjut from reg_periksa where no_rawat = '"+no_rawat+"'");
+
+            if(status_lanjut.equals("Ranap")){
+                String kelas = Sequel.cariIsi("SELECT kamar.kelas from kamar_inap JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar where kamar_inap.stts_pulang <> 'Pindah kamar' AND kamar_inap.no_rawat = '"+no_rawat+"'");
+                boolean isKhusus = Sequel.cariIsiBoolean(
+                    "SELECT count(*)>0 FROM set_harga_lab_ranap WHERE kd_pj='" + kd_pj + "' AND kelas='"+kelas+"'"
+                );
+                if (!isKhusus) {
+                    kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ranap.hargajual/100) from set_harga_lab_ranap where set_harga_lab_ranap.kd_pj='-' and set_harga_lab_ranap.kelas='"+kelas+"'");
+                } else {
+                    kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ranap.hargajual/100) from set_harga_lab_ranap where set_harga_lab_ranap.kd_pj='"+kd_pj+"' and set_harga_lab_ranap.kelas='"+kelas+"'");
+                }
+            }else{
+                boolean isKhusus = Sequel.cariIsiBoolean(
+                    "SELECT count(*)>0 FROM set_harga_lab_ralan WHERE kd_pj='" + kd_pj + "'"
+                );
+                if (!isKhusus) {
+                    kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ralan.hargajual/100) from set_harga_lab_ralan where set_harga_lab_ralan.kd_pj=?","-");
+                } else {
+                    kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ralan.hargajual/100) from set_harga_lab_ralan where set_harga_lab_ralan.kd_pj=?",kd_pj);
+                }
+            }
 
             Valid.tabelKosong(tabMode2);
             
             for(i=0;i<jml;i++){
-                tabMode2.addRow(new Object[] {pilih[i],kode[i],nama[i],total[i],bagian_rs[i],bhp[i],tarif_perujuk[i],tarif_tindakan_dokter[i],tarif_tindakan_petugas[i],kso[i],menejemen[i]});
+                double tarif_mrg =  0.0;
+                
+                if(kenaikan > 0){
+                    String kd_jns_prw = kode[i];
+                    Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+
+                    double total_bayar =  total[i];
+                    
+                    double rate_umum = (total_bayar * (1 + kenaikan));
+
+                    if(kenaikan_per_jns > 0){
+                       rate_umum = (total_bayar * (1 + kenaikan_per_jns));
+                    }
+
+                    if(kd_pj.equals(kode_bpjs)){
+                        total_bayar = total_bayar * (1 + kenaikan);
+                    }else if(kd_pj.equals(kode_umum)){
+                        total_bayar = rate_umum;
+                    }else{
+                        total_bayar = (rate_umum * (1 + kenaikan));
+                    }
+
+                    tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
+                }else{
+                    tarif_mrg =  total[i];
+                }
+                
+                tabMode2.addRow(new Object[] {pilih[i],kode[i],nama[i],tarif_mrg,bagian_rs[i],bhp[i],tarif_perujuk[i],tarif_tindakan_dokter[i],tarif_tindakan_petugas[i],kso[i],menejemen[i]});
             }       
             
             if(cara_bayar_lab.equals("Yes")&&kelas_lab.equals("No")){
@@ -2657,48 +2710,6 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     "jns_perawatan_lab.kategori='PK' and jns_perawatan_lab.status='1' and (jns_perawatan_lab.kelas=? or jns_perawatan_lab.kelas='-') and (jns_perawatan_lab.kd_jenis_prw like ? or jns_perawatan_lab.nm_perawatan like ?)  "+
                     "order by jns_perawatan_lab.kd_jenis_prw");
             } 
-            
-//            if(cara_bayar_lab.equals("Yes")&&kelas_lab.equals("No")){
-//                pstindakan=koneksi.prepareStatement(
-//                    "select jns_perawatan_lab.kd_jenis_prw,jns_perawatan_lab.nm_perawatan,jns_perawatan_lab.total_byr,"+
-//                    "jns_perawatan_lab.bagian_rs,jns_perawatan_lab.bhp,jns_perawatan_lab.tarif_perujuk,"+
-//                    "jns_perawatan_lab.tarif_tindakan_dokter,jns_perawatan_lab.tarif_tindakan_petugas,"+
-//                    "jns_perawatan_lab.kso,jns_perawatan_lab.menejemen,penjab.png_jawab "+
-//                    "from jns_perawatan_lab left join penjab_lab on penjab_lab.kd_jenis_prw = jns_perawatan_lab.kd_jenis_prw " +
-//                    "left join penjab on penjab.kd_pj = penjab_lab.kd_pj where "+
-//                    "jns_perawatan_lab.kategori='PK' and jns_perawatan_lab.status='1' and (penjab_lab.kd_pj=? or penjab_lab.kd_pj='-') and (jns_perawatan_lab.kd_jenis_prw like ? or jns_perawatan_lab.nm_perawatan like ?) "+
-//                    "group by jns_perawatan_lab.kd_jenis_prw order by jns_perawatan_lab.kd_jenis_prw");
-//            }else if(cara_bayar_lab.equals("No")&&kelas_lab.equals("No")){
-//                pstindakan=koneksi.prepareStatement(
-//                    "select jns_perawatan_lab.kd_jenis_prw,jns_perawatan_lab.nm_perawatan,jns_perawatan_lab.total_byr,"+
-//                    "jns_perawatan_lab.bagian_rs,jns_perawatan_lab.bhp,jns_perawatan_lab.tarif_perujuk,"+
-//                    "jns_perawatan_lab.tarif_tindakan_dokter,jns_perawatan_lab.tarif_tindakan_petugas,"+
-//                    "jns_perawatan_lab.kso,jns_perawatan_lab.menejemen, ifnull(group_concat(penjab.png_jawab),'') as png_jawab "+
-//                    "from jns_perawatan_lab left join penjab_lab on penjab_lab.kd_jenis_prw = jns_perawatan_lab.kd_jenis_prw " +
-//                    "left join penjab on penjab.kd_pj = penjab_lab.kd_pj where "+
-//                    "jns_perawatan_lab.kategori='PK' and jns_perawatan_lab.status='1' and (jns_perawatan_lab.kd_jenis_prw like ? or jns_perawatan_lab.nm_perawatan like ?)  "+
-//                    "group by jns_perawatan_lab.kd_jenis_prw order by jns_perawatan_lab.kd_jenis_prw");
-//            }else if(cara_bayar_lab.equals("Yes")&&kelas_lab.equals("Yes")){
-//                pstindakan=koneksi.prepareStatement(
-//                    "select jns_perawatan_lab.kd_jenis_prw,jns_perawatan_lab.nm_perawatan,jns_perawatan_lab.total_byr,"+
-//                    "jns_perawatan_lab.bagian_rs,jns_perawatan_lab.bhp,jns_perawatan_lab.tarif_perujuk,"+
-//                    "jns_perawatan_lab.tarif_tindakan_dokter,jns_perawatan_lab.tarif_tindakan_petugas,"+
-//                    "jns_perawatan_lab.kso,jns_perawatan_lab.menejemen,penjab.png_jawab "+
-//                    "from jns_perawatan_lab left join penjab_lab on penjab_lab.kd_jenis_prw = jns_perawatan_lab.kd_jenis_prw " +
-//                    "left join penjab on penjab.kd_pj = penjab_lab.kd_pj where "+
-//                    "jns_perawatan_lab.kategori='PK' and jns_perawatan_lab.status='1' and (penjab_lab.kd_pj=? or penjab_lab.kd_pj='-') and (jns_perawatan_lab.kelas=? or jns_perawatan_lab.kelas='-') and (jns_perawatan_lab.kd_jenis_prw like ? or jns_perawatan_lab.nm_perawatan like ?) "+
-//                    "group by jns_perawatan_lab.kd_jenis_prw order by jns_perawatan_lab.kd_jenis_prw");
-//            }else if(cara_bayar_lab.equals("No")&&kelas_lab.equals("Yes")){
-//                pstindakan=koneksi.prepareStatement(
-//                    "select jns_perawatan_lab.kd_jenis_prw,jns_perawatan_lab.nm_perawatan,jns_perawatan_lab.total_byr,"+
-//                    "jns_perawatan_lab.bagian_rs,jns_perawatan_lab.bhp,jns_perawatan_lab.tarif_perujuk,"+
-//                    "jns_perawatan_lab.tarif_tindakan_dokter,jns_perawatan_lab.tarif_tindakan_petugas,"+
-//                    "jns_perawatan_lab.kso,jns_perawatan_lab.menejemen,ifnull(group_concat(penjab.png_jawab),'') as png_jawab "+
-//                    "from jns_perawatan_lab left join penjab_lab on penjab_lab.kd_jenis_prw = jns_perawatan_lab.kd_jenis_prw " +
-//                    "left join penjab on penjab.kd_pj = penjab_lab.kd_pj where "+
-//                    "jns_perawatan_lab.kategori='PK' and jns_perawatan_lab.status='1' and (jns_perawatan_lab.kelas=? or jns_perawatan_lab.kelas='-') and (jns_perawatan_lab.kd_jenis_prw like ? or jns_perawatan_lab.nm_perawatan like ?)  "+
-//                    "group by jns_perawatan_lab.kd_jenis_prw order by jns_perawatan_lab.kd_jenis_prw");
-//            } 
             try {
                 if(cara_bayar_lab.equals("Yes")&&kelas_lab.equals("No")){
                     pstindakan.setString(1,Penjab.getText().trim());
@@ -2721,9 +2732,64 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     pstindakan.setString(3,"%"+Pemeriksaan.getText().trim()+"%");
                     rstindakan=pstindakan.executeQuery();
                 } 
+                
+                no_rawat = TNoRw.getText();
+                kd_pj = Sequel.cariIsi("SELECT kd_pj from reg_periksa where no_rawat = '"+no_rawat+"'");
+
+                status_lanjut = Sequel.cariIsi("SELECT status_lanjut from reg_periksa where no_rawat = '"+no_rawat+"'");
+
+                if(status_lanjut.equals("Ranap")){
+                    String kelas = Sequel.cariIsi("SELECT kamar.kelas from kamar_inap JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar where kamar_inap.stts_pulang <> 'Pindah kamar' AND kamar_inap.no_rawat = '"+no_rawat+"'");
+                    boolean isKhusus = Sequel.cariIsiBoolean(
+                        "SELECT count(*)>0 FROM set_harga_lab_ranap WHERE kd_pj='" + kd_pj + "' AND kelas='"+kelas+"'"
+                    );
+                    if (!isKhusus) {
+                        kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ranap.hargajual/100) from set_harga_lab_ranap where set_harga_lab_ranap.kd_pj='-' and set_harga_lab_ranap.kelas='"+kelas+"'");
+                    } else {
+                        kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ranap.hargajual/100) from set_harga_lab_ranap where set_harga_lab_ranap.kd_pj='"+kd_pj+"' and set_harga_lab_ranap.kelas='"+kelas+"'");
+                    }
+                }else{
+                    boolean isKhusus = Sequel.cariIsiBoolean(
+                        "SELECT count(*)>0 FROM set_harga_lab_ralan WHERE kd_pj='" + kd_pj + "'"
+                    );
+                    if (!isKhusus) {
+                        kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ralan.hargajual/100) from set_harga_lab_ralan where set_harga_lab_ralan.kd_pj=?","-");
+                    } else {
+                        kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ralan.hargajual/100) from set_harga_lab_ralan where set_harga_lab_ralan.kd_pj=?",kd_pj);
+                    }
+                }
+                
+                System.out.println("Kenaikan : " + kenaikan);
                             
-                while(rstindakan.next()){                
-                    tabMode2.addRow(new Object[]{false,rstindakan.getString(1),rstindakan.getString(2),rstindakan.getDouble(3),rstindakan.getDouble(4),rstindakan.getDouble(5),rstindakan.getDouble(6),rstindakan.getDouble(7),rstindakan.getDouble(8),rstindakan.getDouble(9),rstindakan.getDouble(10)});
+                while(rstindakan.next()){      
+                    
+                    double tarif_mrg =  0.0;
+
+                    if(kenaikan > 0){
+                        String kd_jns_prw = rstindakan.getString(1);
+                        Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+
+                        double total_bayar =  rstindakan.getDouble(3);
+                        
+                        double rate_umum = (total_bayar * (1 + kenaikan));
+                         
+                        if(kenaikan_per_jns > 0){
+                           rate_umum = (total_bayar * (1 + kenaikan_per_jns));
+                        }
+
+                        if(kd_pj.equals(kode_bpjs)){
+                            total_bayar = total_bayar * (1 + kenaikan);
+                        }else if(kd_pj.equals(kode_umum)){
+                            total_bayar = rate_umum;
+                        }else{
+                            total_bayar = (rate_umum * (1 + kenaikan));
+                        }
+
+                        tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
+                    }else{
+                        tarif_mrg =  rstindakan.getDouble(3);
+                    }
+                    tabMode2.addRow(new Object[]{false,rstindakan.getString(1),rstindakan.getString(2),tarif_mrg,rstindakan.getDouble(4),rstindakan.getDouble(5),rstindakan.getDouble(6),rstindakan.getDouble(7),rstindakan.getDouble(8),rstindakan.getDouble(9),rstindakan.getDouble(10)});
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : "+e);
@@ -2741,6 +2807,17 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
     
     private void tampiltarif(String order) {     
+        
+        String no_rawat = "";
+        String kd_pj = "";
+        
+        String status_lanjut = "";
+        
+        Double kenaikan=0.0;
+        
+        String kode_bpjs = Sequel.cariIsi("SELECT kd_bpjs from setting_lab");
+        String kode_umum = Sequel.cariIsi("SELECT kd_umum from setting_lab");
+        
         try{
             Valid.tabelKosong(tabMode2);
             pstindakan=koneksi.prepareStatement(
@@ -2753,9 +2830,57 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 "permintaan_pemeriksaan_lab.noorder=? order by jns_perawatan_lab.kd_jenis_prw");
             try {
                 pstindakan.setString(1,order);
-                rstindakan=pstindakan.executeQuery();                       
-                while(rstindakan.next()){                
-                    tabMode2.addRow(new Object[]{true,rstindakan.getString(1),rstindakan.getString(2),rstindakan.getDouble(3),rstindakan.getDouble(4),rstindakan.getDouble(5),rstindakan.getDouble(6),rstindakan.getDouble(7),rstindakan.getDouble(8),rstindakan.getDouble(9),rstindakan.getDouble(10)});
+                rstindakan=pstindakan.executeQuery();
+                
+                no_rawat = TNoRw.getText();
+                kd_pj = Sequel.cariIsi("SELECT kd_pj from reg_periksa where no_rawat = '"+no_rawat+"'");
+
+                status_lanjut = Sequel.cariIsi("SELECT status_lanjut from reg_periksa where no_rawat = '"+no_rawat+"'");
+
+                        if(status_lanjut.equals("Ranap")){
+                    String kelas = Sequel.cariIsi("SELECT kamar.kelas from kamar_inap JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar where kamar_inap.stts_pulang <> 'Pindah kamar' AND kamar_inap.no_rawat = '"+no_rawat+"'");
+                    boolean isKhusus = Sequel.cariIsiBoolean(
+                        "SELECT count(*)>0 FROM set_harga_lab_ranap WHERE kd_pj='" + kd_pj + "' AND kelas='"+kelas+"'"
+                    );
+                    if (!isKhusus) {
+                        kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ranap.hargajual/100) from set_harga_lab_ranap where set_harga_lab_ranap.kd_pj='-' and set_harga_lab_ranap.kelas='"+kelas+"'");
+                    } else {
+                        kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ranap.hargajual/100) from set_harga_lab_ranap where set_harga_lab_ranap.kd_pj='"+kd_pj+"' and set_harga_lab_ranap.kelas='"+kelas+"'");
+                    }
+                }else{
+                    boolean isKhusus = Sequel.cariIsiBoolean(
+                        "SELECT count(*)>0 FROM set_harga_lab_ralan WHERE kd_pj='" + kd_pj + "'"
+                    );
+                    if (!isKhusus) {
+                        kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ralan.hargajual/100) from set_harga_lab_ralan where set_harga_lab_ralan.kd_pj=?","-");
+                    } else {
+                        kenaikan=Sequel.cariIsiAngka("select (set_harga_lab_ralan.hargajual/100) from set_harga_lab_ralan where set_harga_lab_ralan.kd_pj=?",kd_pj);
+                    }
+                }
+        
+                while(rstindakan.next()){           
+                    double tarif_mrg =  0.0;
+                
+                    if(kenaikan > 0){
+                        String kd_jns_prw = rstindakan.getString(1);
+                        Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+
+                        double total_bayar = rstindakan.getDouble(3);
+                        double rate_umum = (total_bayar * (1 + kenaikan_per_jns));
+
+                        if(kd_pj.equals(kode_bpjs)){
+                            total_bayar = total_bayar * (1 + kenaikan);
+                        }else if(kd_pj.equals(kode_umum)){
+                            total_bayar = rate_umum;
+                        }else{
+                            total_bayar = (rate_umum * (1 + kenaikan));
+                        }
+
+                        tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
+                    }else{
+                        tarif_mrg =  rstindakan.getDouble(3);
+                    }
+                    tabMode2.addRow(new Object[]{true,rstindakan.getString(1),rstindakan.getString(2),tarif_mrg,rstindakan.getDouble(4),rstindakan.getDouble(5),rstindakan.getDouble(6),rstindakan.getDouble(7),rstindakan.getDouble(8),rstindakan.getDouble(9),rstindakan.getDouble(10)});
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : "+e);

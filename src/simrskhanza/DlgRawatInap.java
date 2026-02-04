@@ -31,6 +31,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -4742,6 +4743,53 @@ public final class DlgRawatInap extends javax.swing.JDialog {
                                 cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
                                 BagianRS.getText(),Bhp.getText(),JmDokter.getText(),KSO.getText(),Menejemen.getText(),TTnd.getText()
                             })==true){
+                                
+                                String kode_paket = TKdPrw.getText().toString();
+
+                                ArrayList<String[]> listAlkes = Sequel.ambilDuaKolom("SELECT kode_brng, jml FROM alkes_paket_tindakan WHERE kode_paket = '"+kode_paket+"'");
+
+                                String no_resep = Sequel.cariString("SELECT no_resep FROM resep_obat ORDER BY no_resep DESC LIMIT 1");
+                                
+                                long new_no_resep;
+                                String prefix = "OP";
+
+                                if (no_resep != null && !no_resep.isEmpty()) {
+                                    // Cek apakah sudah ada prefix OP
+                                    if (no_resep.startsWith("OP")) {
+                                        // Ambil bagian numerik setelah OP
+                                        String numericPart = no_resep.substring(2);
+                                        new_no_resep = Long.parseLong(numericPart) + 1;
+                                    } else {
+                                        // Masih format lama (numerik saja), konversi ke format baru
+                                        new_no_resep = Long.parseLong(no_resep) + 1;
+                                    }
+                                } else {
+                                    // Jika belum ada data, mulai dari 1
+                                    new_no_resep = 1;
+                                }
+
+                                String new_no_resep_str = prefix + new_no_resep;
+
+                                //no_resep = new_no_resep     
+                                String tgl_perawatan = "0000-00-00";
+                                String jam = "00:00:00";
+                                //no_rawat = TNoRw.getText()
+                                //kd_dokter = KdDok.getText()
+                                String tgl_peresepan = Valid.SetTgl(DTPTgl.getSelectedItem().toString());
+                                String jam_peresepan = cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem();
+                                String status = "ranap";
+                                String tgl_penyerahan = "0000-00-00";
+                                String jam_penyerahan = "00:00:00";
+
+                                if(Sequel.menyimpantf("resep_obat","?,?,?,?,?,?,?,?,?,?","Obat",10,new String[]{
+                                    new_no_resep_str,tgl_perawatan,jam,TNoRw.getText(),KdDok.getText(),tgl_peresepan,jam_peresepan,status,tgl_penyerahan,jam_penyerahan
+                                })==true){
+                                    for (String[] baris : listAlkes) {
+                                        System.out.println("Kode Barang: " + baris[0] + ", Jumlah: " + baris[1]);
+                                        Sequel.menyimpan("resep_dokter","'"+new_no_resep_str+"','"+baris[0]+"',"+Double.parseDouble(baris[1])+",'-'");
+                                    }
+                                }
+                            
                                 Sequel.queryu("delete from tampjurnal");
                                 if(Valid.SetAngka(TTnd.getText())>0){
                                     Sequel.menyimpan("tampjurnal","'"+Suspen_Piutang_Tindakan_Ranap+"','Suspen Piutang Tindakan Ranap','"+TTnd.getText()+"','0'","debet=debet+'"+(TTnd.getText())+"'","kd_rek='"+Suspen_Piutang_Tindakan_Ranap+"'");                              
@@ -4807,6 +4855,54 @@ public final class DlgRawatInap extends javax.swing.JDialog {
                                 cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
                                 BagianRS.getText(),Bhp.getText(),JmPerawat.getText(),KSO.getText(),Menejemen.getText(),TTnd.getText()
                             })==true){
+                                
+                                String kode_paket = TKdPrwPetugas.getText().toString();
+
+                                ArrayList<String[]> listAlkes = Sequel.ambilDuaKolom("SELECT kode_brng, jml FROM alkes_paket_tindakan WHERE kode_paket = '"+kode_paket+"'");
+
+                                String no_resep = Sequel.cariString("SELECT no_resep FROM resep_obat ORDER BY no_resep DESC LIMIT 1");
+                                
+                                long new_no_resep;
+                                String prefix = "OP";
+
+                                if (no_resep != null && !no_resep.isEmpty()) {
+                                    // Cek apakah sudah ada prefix OP
+                                    if (no_resep.startsWith("OP")) {
+                                        // Ambil bagian numerik setelah OP
+                                        String numericPart = no_resep.substring(2);
+                                        new_no_resep = Long.parseLong(numericPart) + 1;
+                                    } else {
+                                        // Masih format lama (numerik saja), konversi ke format baru
+                                        new_no_resep = Long.parseLong(no_resep) + 1;
+                                    }
+                                } else {
+                                    // Jika belum ada data, mulai dari 1
+                                    new_no_resep = 1;
+                                }
+
+                                String new_no_resep_str = prefix + new_no_resep;
+
+                                //no_resep = new_no_resep     
+                                String tgl_perawatan = "0000-00-00";
+                                String jam = "00:00:00";
+                                //no_rawat = TNoRw.getText()
+                                //String kd_dokter = KdDok.getText();
+                                String tgl_peresepan = Valid.SetTgl(DTPTgl.getSelectedItem().toString());
+                                String jam_peresepan = cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem();
+                                String status = "ranap";
+                                String tgl_penyerahan = "0000-00-00";
+                                String jam_penyerahan = "00:00:00";
+
+
+                                if(Sequel.menyimpantf("resep_obat","?,?,?,?,?,?,?,?,?,?","Obat",10,new String[]{
+                                    new_no_resep_str,tgl_perawatan,jam,TNoRw.getText(),KdDok.getText(),tgl_peresepan,jam_peresepan,status,tgl_penyerahan,jam_penyerahan
+                                })==true){
+                                    for (String[] baris : listAlkes) {
+                                        System.out.println("Kode Barang: " + baris[0] + ", Jumlah: " + baris[1]);
+                                        Sequel.menyimpan("resep_dokter","'"+new_no_resep_str+"','"+baris[0]+"',"+Double.parseDouble(baris[1])+",'-'");
+                                    }
+                                }
+                            
                                 Sequel.queryu("delete from tampjurnal");
                                 if(Valid.SetAngka(TTnd.getText())>0){
                                     Sequel.menyimpan("tampjurnal","'"+Suspen_Piutang_Tindakan_Ranap+"','Suspen Piutang Tindakan Ranap','"+TTnd.getText()+"','0'","debet=debet+'"+(TTnd.getText())+"'","kd_rek='"+Suspen_Piutang_Tindakan_Ranap+"'");  

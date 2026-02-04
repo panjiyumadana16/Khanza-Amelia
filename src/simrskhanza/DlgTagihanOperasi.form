@@ -275,14 +275,14 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel2">
+            <Container class="widget.PanelBiasa" name="PanelAccor">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title=" Obat &amp; BHP ">
+                    <TitledBorder title="Obat BHP Yang Sudah Masuk Paket Operasi">
                       <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                         <LineBorder>
-                          <Color PropertyName="color" blue="ea" green="f4" red="ef" type="rgb"/>
+                          <Color PropertyName="color" blue="cc" green="cc" red="cc" type="rgb"/>
                         </LineBorder>
                       </Border>
                       <Font PropertyName="font" name="Tahoma" size="11" style="0"/>
@@ -290,10 +290,12 @@
                     </TitledBorder>
                   </Border>
                 </Property>
-                <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
-                <Property name="opaque" type="boolean" value="false"/>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[35, 20]"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="PanelAccor" noResource="true"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[350, 102]"/>
+                  <Dimension value="[370, 10]"/>
                 </Property>
               </Properties>
 
@@ -302,112 +304,16 @@
                 <Property name="verticalGap" type="int" value="1"/>
               </Layout>
               <SubComponents>
-                <Container class="widget.panelisi" name="panelisi4">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="null"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="panelisi4" noResource="true"/>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[100, 43]"/>
-                    </Property>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                      <BorderConstraints direction="Last"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
-                    <Property name="alignment" type="int" value="0"/>
-                    <Property name="horizontalGap" type="int" value="4"/>
-                    <Property name="verticalGap" type="int" value="9"/>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="widget.Label" name="label9">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Key Word :"/>
-                        <Property name="name" type="java.lang.String" value="label9" noResource="true"/>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[68, 23]"/>
-                        </Property>
-                      </Properties>
-                    </Component>
-                    <Component class="widget.TextBox" name="TCari">
-                      <Properties>
-                        <Property name="toolTipText" type="java.lang.String" value="Alt+C"/>
-                        <Property name="name" type="java.lang.String" value="TCari" noResource="true"/>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[215, 23]"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TCariKeyPressed"/>
-                      </Events>
-                    </Component>
-                    <Component class="widget.Button" name="BtnCari1">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/picture/accept.png"/>
-                        </Property>
-                        <Property name="mnemonic" type="int" value="49"/>
-                        <Property name="toolTipText" type="java.lang.String" value="Alt+1"/>
-                        <Property name="name" type="java.lang.String" value="BtnCari1" noResource="true"/>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[28, 23]"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCari1ActionPerformed"/>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BtnCari1KeyPressed"/>
-                      </Events>
-                    </Component>
-                    <Component class="widget.Button" name="BtnAll">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/picture/Search-16x16.png"/>
-                        </Property>
-                        <Property name="mnemonic" type="int" value="50"/>
-                        <Property name="toolTipText" type="java.lang.String" value="Alt+2"/>
-                        <Property name="name" type="java.lang.String" value="BtnAll" noResource="true"/>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[28, 23]"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnAllActionPerformed"/>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="BtnAllKeyPressed"/>
-                      </Events>
-                    </Component>
-                    <Component class="widget.Button" name="BtnTambah">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/picture/plus_16.png"/>
-                        </Property>
-                        <Property name="mnemonic" type="int" value="51"/>
-                        <Property name="toolTipText" type="java.lang.String" value="Alt+3"/>
-                        <Property name="name" type="java.lang.String" value="BtnTambah" noResource="true"/>
-                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[28, 23]"/>
-                        </Property>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnTambahActionPerformed"/>
-                      </Events>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="widget.ScrollPane" name="Scroll">
+                <Container class="widget.PanelBiasa" name="FormDetailBHP">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                         <LineBorder>
-                          <Color PropertyName="color" blue="fd" green="ff" red="ff" type="rgb"/>
+                          <Color PropertyName="color" blue="fe" green="ff" red="ff" type="rgb"/>
                         </LineBorder>
                       </Border>
                     </Property>
-                    <Property name="name" type="java.lang.String" value="Scroll" noResource="true"/>
-                    <Property name="opaque" type="boolean" value="true"/>
+                    <Property name="name" type="java.lang.String" value="FormDetailBHP" noResource="true"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -415,18 +321,41 @@
                     </Constraint>
                   </Constraints>
 
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                    <Property name="columns" type="int" value="0"/>
+                    <Property name="horizontalGap" type="int" value="1"/>
+                    <Property name="rows" type="int" value="1"/>
+                    <Property name="verticalGap" type="int" value="1"/>
+                  </Layout>
                   <SubComponents>
-                    <Component class="widget.Table" name="tbObat">
+                    <Container class="widget.ScrollPane" name="Scroll7">
                       <Properties>
-                        <Property name="toolTipText" type="java.lang.String" value="Silahkan klik untuk memilih data yang mau diedit ataupun dihapus"/>
-                        <Property name="name" type="java.lang.String" value="tbObat" noResource="true"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                            <LineBorder>
+                              <Color PropertyName="color" blue="fe" green="ff" red="ff" type="rgb"/>
+                            </LineBorder>
+                          </Border>
+                        </Property>
+                        <Property name="name" type="java.lang.String" value="Scroll7" noResource="true"/>
+                        <Property name="opaque" type="boolean" value="true"/>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[454, 807]"/>
+                        </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbObatMouseClicked"/>
-                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tbObatKeyPressed"/>
-                      </Events>
-                    </Component>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="widget.Table" name="tbDetailBHP">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" value="tbDetailBHP" noResource="true"/>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[454, 807]"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
               </SubComponents>

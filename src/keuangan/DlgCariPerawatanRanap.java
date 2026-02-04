@@ -56,12 +56,12 @@ import simrskhanza.DlgKtgPerawatan;
  * @author dosen
  */
 public final class DlgCariPerawatanRanap extends javax.swing.JDialog {
-    private final DefaultTableModel tabMode;
+    private final DefaultTableModel tabMode,tabModeDetailBHP;
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
     private Connection koneksi=koneksiDB.condb();
     private Jurnal jur=new Jurnal();
-    private PreparedStatement psinputrawatdr,psinputrawatpr,psinputrawatdrpr,
+    private PreparedStatement ps,psinputrawatdr,psinputrawatpr,psinputrawatdrpr,
             pscari,pscari2,pscari3,pscari4,pstarif,psrekening,pscari5,pscari6,pscari7,pscari8;
     private ResultSet rs,rstarif,rsrekening;
     private String pilihtable="",kd_pj="",kd_bangsal="",ruang_ranap="Yes", cara_bayar_ranap="Yes",
@@ -164,6 +164,27 @@ public final class DlgCariPerawatanRanap extends javax.swing.JDialog {
             }
         }
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        tabModeDetailBHP=new DefaultTableModel(null,new Object[]{
+                "Nama BHP","Jumlah"
+            }){
+              @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
+        };
+        tbDetailBHP.setModel(tabModeDetailBHP);
+
+        tbDetailBHP.setPreferredScrollableViewportSize(new Dimension(500,500));
+        tbDetailBHP.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for (i = 0; i < 2; i++) {
+            TableColumn column = tbDetailBHP.getColumnModel().getColumn(i);
+            if(i==0){
+                column.setPreferredWidth(70);
+            }else if(i==1){
+                column.setPreferredWidth(10);
+            }
+        }
+        tbDetailBHP.setDefaultRenderer(Object.class, new WarnaTable());
+        
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
         kddokter.setDocument(new batasInput((byte)20).getKata(kddokter));
         KdPtg2.setDocument(new batasInput((byte)20).getKata(KdPtg2));
@@ -404,6 +425,11 @@ public final class DlgCariPerawatanRanap extends javax.swing.JDialog {
         NmPtg2 = new widget.TextBox();
         btnPetugas = new widget.Button();
         jLabel6 = new widget.Label();
+        PanelAccor = new widget.PanelBiasa();
+        ChkAccor = new widget.CekBox();
+        FormDetailBHP = new widget.PanelBiasa();
+        Scroll7 = new widget.ScrollPane();
+        tbDetailBHP = new widget.Table();
 
         Popup.setName("Popup"); // NOI18N
 
@@ -666,7 +692,7 @@ public final class DlgCariPerawatanRanap extends javax.swing.JDialog {
         FormInput.setLayout(null);
 
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-05-2021" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "05-08-2021" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -798,6 +824,48 @@ public final class DlgCariPerawatanRanap extends javax.swing.JDialog {
 
         internalFrame1.add(FormInput, java.awt.BorderLayout.PAGE_START);
 
+        PanelAccor.setBackground(new java.awt.Color(255, 255, 255));
+        PanelAccor.setName("PanelAccor"); // NOI18N
+        PanelAccor.setPreferredSize(new java.awt.Dimension(270, 43));
+        PanelAccor.setLayout(new java.awt.BorderLayout(1, 1));
+
+        ChkAccor.setBackground(new java.awt.Color(255, 250, 250));
+        ChkAccor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/kiri.png"))); // NOI18N
+        ChkAccor.setSelected(true);
+        ChkAccor.setFocusable(false);
+        ChkAccor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ChkAccor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ChkAccor.setName("ChkAccor"); // NOI18N
+        ChkAccor.setPreferredSize(new java.awt.Dimension(15, 20));
+        ChkAccor.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/kiri.png"))); // NOI18N
+        ChkAccor.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/kanan.png"))); // NOI18N
+        ChkAccor.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/kanan.png"))); // NOI18N
+        ChkAccor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkAccorActionPerformed(evt);
+            }
+        });
+        PanelAccor.add(ChkAccor, java.awt.BorderLayout.WEST);
+
+        FormDetailBHP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 254)));
+        FormDetailBHP.setName("FormDetailBHP"); // NOI18N
+        FormDetailBHP.setLayout(new java.awt.GridLayout(1, 0, 1, 1));
+
+        Scroll7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 254)));
+        Scroll7.setName("Scroll7"); // NOI18N
+        Scroll7.setOpaque(true);
+        Scroll7.setPreferredSize(new java.awt.Dimension(454, 807));
+
+        tbDetailBHP.setName("tbDetailBHP"); // NOI18N
+        tbDetailBHP.setPreferredSize(new java.awt.Dimension(454, 807));
+        Scroll7.setViewportView(tbDetailBHP);
+
+        FormDetailBHP.add(Scroll7);
+
+        PanelAccor.add(FormDetailBHP, java.awt.BorderLayout.CENTER);
+
+        internalFrame1.add(PanelAccor, java.awt.BorderLayout.EAST);
+
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -844,10 +912,16 @@ public final class DlgCariPerawatanRanap extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnAllKeyPressed
 
     private void tbKamarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKamarMouseClicked
-        if(tbKamar.getRowCount()!=0){
-            if(evt.getClickCount()==2){
-                dispose();
-            }
+        try {
+            ChkAccor.setSelected(true);
+            isMenu();
+            getMasalah();
+
+        } catch (java.lang.NullPointerException e) {
+        
+        }
+        if(evt.getClickCount()==2){
+            dispose();
         }
 }//GEN-LAST:event_tbKamarMouseClicked
 
@@ -1262,6 +1336,15 @@ private void ppPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         Valid.pindah(evt,KdKtg,TCari);
     }//GEN-LAST:event_btnKategoriKeyPressed
 
+    private void ChkAccorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkAccorActionPerformed
+        if(tbKamar.getSelectedRow()!= -1){
+            isMenu();
+        }else{
+            ChkAccor.setSelected(false);
+            JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih data yang mau ditampilkan...!!!!");
+        }
+    }//GEN-LAST:event_ChkAccorActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1284,8 +1367,10 @@ private void ppPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private widget.Button BtnKeluar;
     private widget.Button BtnSimpan;
     private widget.Button BtnTambah;
+    private widget.CekBox ChkAccor;
     private widget.CekBox ChkJln;
     private widget.Tanggal DTPTgl;
+    private widget.PanelBiasa FormDetailBHP;
     private widget.PanelBiasa FormInput;
     private widget.TextBox KdKtg;
     private widget.TextBox KdPtg2;
@@ -1293,8 +1378,10 @@ private void ppPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private widget.Label LblPetugas;
     private widget.TextBox NmKtg;
     private widget.TextBox NmPtg2;
+    private widget.PanelBiasa PanelAccor;
     private javax.swing.JPopupMenu Popup;
     private widget.ScrollPane Scroll;
+    private widget.ScrollPane Scroll7;
     private widget.TextBox TCari;
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
@@ -1317,6 +1404,7 @@ private void ppPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JMenuItem ppDokter;
     private javax.swing.JMenuItem ppPetugas;
     private javax.swing.JMenuItem ppPetugasDokter;
+    private widget.Table tbDetailBHP;
     private widget.Table tbKamar;
     // End of variables declaration//GEN-END:variables
 
@@ -1751,5 +1839,59 @@ private void ppPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 JOptionPane.showMessageDialog(null,"Data tidak ditemukan...!");
             }
         } 
+    }
+    
+    private void isMenu(){
+        if(ChkAccor.isSelected()==true){
+            ChkAccor.setVisible(false);
+            PanelAccor.setPreferredSize(new Dimension(470,HEIGHT));
+//            FormMenu.setVisible(true);
+//            FormMasalahRencana.setVisible(true);
+            ChkAccor.setVisible(true);
+        }else if(ChkAccor.isSelected()==false){   
+            ChkAccor.setVisible(false);
+            PanelAccor.setPreferredSize(new Dimension(15,HEIGHT));
+//            FormMenu.setVisible(false);
+//            FormMasalahRencana.setVisible(false);
+            ChkAccor.setVisible(true);
+        }
+    }
+     
+    private void getMasalah() {
+        if (tbKamar.getSelectedRow() != -1) { 
+            try {
+                Valid.tabelKosong(tabModeDetailBHP);
+
+                ps = koneksi.prepareStatement(
+                    "SELECT db.nama_brng AS nama_barang, " +
+                    "       apo.jml " +
+                    "FROM jns_perawatan_inap po " +
+                    "JOIN alkes_paket_tindakan apo ON apo.kode_paket = po.kd_jenis_prw " +
+                    "JOIN databarang db ON apo.kode_brng = db.kode_brng " +
+                    "WHERE po.kd_jenis_prw = ? " +
+                    "ORDER BY apo.kode_paket"
+                );
+
+                try {
+                    // Ambil kode_paket dari tbKamar kolom pertama (index 0)
+                    ps.setString(1, tbKamar.getValueAt(tbKamar.getSelectedRow(), 1).toString());
+
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        tabModeDetailBHP.addRow(new Object[]{
+                            rs.getString("nama_barang"),
+                            rs.getString("jml")
+                        });
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notif : " + e);
+                } finally {
+                    if (rs != null) rs.close();
+                    if (ps != null) ps.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : " + e);
+            }
+        }
     }
 }

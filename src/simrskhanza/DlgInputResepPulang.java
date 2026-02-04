@@ -1138,27 +1138,42 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
         Jam.setText(jam);
         KdPj.setText(Sequel.cariIsi("select reg_periksa.kd_pj from reg_periksa where reg_periksa.no_rawat=?",norwt));
         kelas.setText(Sequel.cariIsi(
-                "select reg_periksa.kd_pj from kamar inner join kamar_inap INNER JOIN reg_periksa on kamar.kd_kamar=kamar_inap.kd_kamar AND kamar_inap.no_rawat=reg_periksa.no_rawat "+
-                "where reg_periksa.no_rawat=? OR stts_pulang='Rencana Pulang' OR stts_pulang='Kasir' OR stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",norwt));
-        if(kelas.getText().equals("UMU")){
+                "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
+                "where kamar_inap.no_rawat=? and kamar_inap.stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',kamar_inap.jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",norwt));
+        if(kelas.getText().equals("Kelas 1")){
             Jeniskelas.setSelectedItem("Kelas 1");
-        }else if(kelas.getText().equals("BPJ")){
+        }else if(kelas.getText().equals("Kelas 2")){
+            Jeniskelas.setSelectedItem("Kelas 2");
+        }else if(kelas.getText().equals("Kelas 3")){
+            Jeniskelas.setSelectedItem("Kelas 3");
+        }else if(kelas.getText().equals("Kelas Utama")){
             Jeniskelas.setSelectedItem("Utama");
+        }else if(kelas.getText().equals("Kelas VIP")){
+            Jeniskelas.setSelectedItem("VIP");
+        }else if(kelas.getText().equals("Kelas VVIP")){
+            Jeniskelas.setSelectedItem("VVIP");
+        }        
+        
+        boolean isKhusus = Sequel.cariIsiBoolean(
+            "SELECT count(*)>0 FROM set_harga_obat_ranap WHERE kd_pj='" + KdPj.getText() + "'"
+        );
+        
+        if (!isKhusus) {
+            kenaikan=Sequel.cariIsiAngka("select (set_harga_obat_ranap.hargajual/100) from set_harga_obat_ranap where set_harga_obat_ranap.kd_pj='-' and set_harga_obat_ranap.kelas='"+kelas.getText()+"'");
+        } else {
+            kenaikan=Sequel.cariIsiAngka("select (set_harga_obat_ranap.hargajual/100) from set_harga_obat_ranap where set_harga_obat_ranap.kd_pj='"+KdPj.getText()+"' and set_harga_obat_ranap.kelas='"+kelas.getText()+"'");
         }
-//        else if(kelas.getText().equals("Kelas 3")){
-//            Jeniskelas.setSelectedItem("Kelas 3");
-//        }else if(kelas.getText().equals("Kelas Utama")){
-//            Jeniskelas.setSelectedItem("Utama");
-//        }else if(kelas.getText().equals("Kelas VIP")){
-//            Jeniskelas.setSelectedItem("VIP");
-//        }else if(kelas.getText().equals("Kelas VVIP")){
-//            Jeniskelas.setSelectedItem("VVIP");
-//        }        
-        kenaikan=Sequel.cariIsiAngka("select (hargajual/100) from set_harga_obat_ranap where kd_pj='"+KdPj.getText()+"' and kelas='"+kelas.getText()+"'");
         this.nopermintaan="";
     }
     
     public void tampil2(String nopermintaan) {
+        String kode_pj = KdPj.getText();
+        String set_harga = "h_beli";
+        
+        if(kode_pj.equals("BPJ")){
+            set_harga="dasar";
+        }
+        
         this.nopermintaan=nopermintaan;
         TNoResep.setText(nopermintaan);
         //BtnTelaah.setVisible(true);
@@ -1280,13 +1295,43 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
             }else{
                 if(kenaikan>0){
                     psobat=koneksi.prepareStatement(
-                            " select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,(databarang.h_beli+(databarang.h_beli*?)) as harga,gudangbarang.stok,"+
-                            " databarang.letak_barang,detail_permintaan_resep_pulang.jml,detail_permintaan_resep_pulang.dosis, "+
-                            " if(gudangbarang.stok>detail_permintaan_resep_pulang.jml,detail_permintaan_resep_pulang.jml,gudangbarang.stok) as sisa "+
-                            " from databarang inner join jenis on databarang.kdjns=jenis.kdjns inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
-                            " inner join detail_permintaan_resep_pulang on detail_permintaan_resep_pulang.kode_brng=databarang.kode_brng "+
-                            " where gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.stok>0 and gudangbarang.kd_bangsal=? "+
-                            " and databarang.status='1' and detail_permintaan_resep_pulang.no_permintaan=? order by databarang.nama_brng");  
+                            "SELECT " +
+                        "    databarang.kode_brng, " +
+                        "    databarang.nama_brng, " +
+                        "    jenis.nama, " +
+                        "    databarang.kode_sat, " +
+                        "    CASE " +
+                        "        WHEN setpenjualanperbarang.kode_brng IS NOT NULL " +
+                        "        THEN (databarang."+set_harga+" + (databarang."+set_harga+" * (setpenjualanperbarang.ralan/100))) " +
+                        "        ELSE (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
+                        "    END AS harga, " +
+                        "    gudangbarang.stok, " +
+                        "    databarang.letak_barang, " +
+                        "    industrifarmasi.nama_industri, " +
+                        "    databarang.h_beli, " +
+                        "    kategori_barang.nama AS kategori, " +
+                        "    golongan_barang.nama AS golongan, " +
+                        "    detail_permintaan_resep_pulang.jml, " +
+                        "    detail_permintaan_resep_pulang.dosis, " +
+                        "    IF(gudangbarang.stok > detail_permintaan_resep_pulang.jml, " +
+                        "        detail_permintaan_resep_pulang.jml, " +
+                        "        gudangbarang.stok) AS sisa, " +
+                        "    databarang.dasar AS dasar " +
+                        "FROM databarang " +
+                        "INNER JOIN jenis ON databarang.kdjns = jenis.kdjns " +
+                        "INNER JOIN gudangbarang ON databarang.kode_brng = gudangbarang.kode_brng " +
+                        "INNER JOIN detail_permintaan_resep_pulang ON detail_permintaan_resep_pulang.kode_brng = databarang.kode_brng " +
+                        "INNER JOIN industrifarmasi ON industrifarmasi.kode_industri = databarang.kode_industri " +
+                        "INNER JOIN golongan_barang ON databarang.kode_golongan = golongan_barang.kode " +
+                        "INNER JOIN kategori_barang ON databarang.kode_kategori = kategori_barang.kode " +
+                        "LEFT JOIN setpenjualanperbarang ON setpenjualanperbarang.kode_brng = databarang.kode_brng " +
+                        "WHERE gudangbarang.no_batch = '' " +
+                        "  AND gudangbarang.no_faktur = '' " +
+                        "  AND gudangbarang.stok > 0 " +
+                        "  AND gudangbarang.kd_bangsal = ? " +
+                        "  AND databarang.status = '1' " +
+                        "  AND detail_permintaan_resep_pulang.no_permintaan = ? " +
+                        "ORDER BY databarang.nama_brng");
                 }else{
                     psobat=koneksi.prepareStatement(
                             " select databarang.kode_brng, databarang.nama_brng,jenis.nama, databarang.kode_sat,databarang.kelas1,databarang.kelas2,databarang.kelas3,databarang.utama,"+

@@ -34,6 +34,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -82,6 +83,34 @@ public final class sekuel {
         } catch (Exception e) {
             System.out.println("Notifikasi : "+e); 
         }            
+    }
+    
+    public ArrayList<String[]> ambilDuaKolom(String sql) {
+        ArrayList<String[]> hasil = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = connect.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String kolom1 = rs.getString(1);
+                String kolom2 = rs.getString(2);
+                hasil.add(new String[]{kolom1, kolom2});
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : " + e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+            } catch (Exception e) {
+                System.out.println("Notifikasi : " + e);
+            }
+        }
+
+        return hasil;
     }
     
     public void menyimpan2(String table,String value,String sama){
@@ -1945,6 +1974,34 @@ public final class sekuel {
         }
             
         return dicari;
+    }
+    
+    public boolean cariIsiBoolean(String sql){
+        boolean hasil = false;
+        try {
+            ps = connect.prepareStatement(sql);
+            try {
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    hasil = rs.getBoolean(1);
+                } else {
+                    hasil = false;
+                }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : " + e);
+            } finally {
+                if(rs != null){
+                    rs.close();
+                }
+                if(ps != null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : " + e);
+        }
+
+        return hasil;
     }
 
     private String gambar(String id) {
