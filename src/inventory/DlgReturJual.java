@@ -140,29 +140,10 @@ public class DlgReturJual extends javax.swing.JDialog {
                         Kdbar.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),1).toString());                    
                         nmbar.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),2).toString());
                         Satuanbar.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),6).toString());
-                        if(Jenisjual.getSelectedItem().equals("Jual Bebas")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),20).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("Karyawan")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),21).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("Beli Luar")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),19).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("Rawat Jalan")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),12).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("Kelas 1")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),13).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("Kelas 2")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),14).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("Kelas 3")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),15).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("Utama/BPJS")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),16).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("VIP")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),17).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("VVIP")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),18).toString()); 
-                        }else if(Jenisjual.getSelectedItem().equals("Harga Beli")){
-                               Hargaretur.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),11).toString()); 
-                        }        
+                        
+                        String KodeBarang = form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),1).toString();
+                        String hargajual = Sequel.cariIsi("select biaya_obat from detail_pemberian_obat where no_rawat='"+norawat+"' and kode_brng='"+KodeBarang+"'");
+                        Hargaretur.setText(hargajual);  
                         
                         if(aktifkanbatch.equals("yes")){
                             NoBatch.setText(form.barang.getTable().getValueAt(form.barang.getTable().getSelectedRow(),32).toString());
@@ -1387,11 +1368,14 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private void getData() {
        int row=tbDokter.getSelectedRow();
         if(row!= -1){
+            String KodeBarang = tabMode.getValueAt(row,1).toString();
+            String hargajual = Sequel.cariIsi("select biaya_obat from detail_pemberian_obat where no_rawat='"+norawat+"' and kode_brng='"+KodeBarang+"'");
+            
              NoNota.setText(tabMode.getValueAt(row,0).toString());
              Kdbar.setText(tabMode.getValueAt(row,1).toString());
              nmbar.setText(tabMode.getValueAt(row,2).toString());
              Satuanbar.setText(tabMode.getValueAt(row,3).toString());
-             Hargaretur.setText(tabMode.getValueAt(row,4).toString());
+             Hargaretur.setText(hargajual);
              Jmlretur.setText(tabMode.getValueAt(row,5).toString());
              NoBatch.setText(tabMode.getValueAt(row,7).toString());
              NoFaktur.setText(tabMode.getValueAt(row,8).toString());
@@ -1448,30 +1432,12 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 ps.setString(2,Kdbar.getText());
                 ps.setString(3,NoFaktur.getText());
                 rs=ps.executeQuery();
+                
+                String KodeBarang = Kdbar.getText();
+                String hargajual = Sequel.cariIsi("select biaya_obat from detail_pemberian_obat where no_rawat='"+norawat+"' and kode_brng='"+KodeBarang+"'");
+                
                 if(rs.next()){
-                    if(Jenisjual.getSelectedItem().equals("Karyawan")){
-                        Hargaretur.setText(rs.getString("karyawan"));
-                    }else if(Jenisjual.getSelectedItem().equals("Jual Bebas")){
-                        Hargaretur.setText(rs.getString("jualbebas"));
-                    }else if(Jenisjual.getSelectedItem().equals("Beli Luar")){
-                        Hargaretur.setText(rs.getString("beliluar"));
-                    }else if(Jenisjual.getSelectedItem().equals("Rawat Jalan")){
-                        Hargaretur.setText(rs.getString("ralan"));
-                    }else if(Jenisjual.getSelectedItem().equals("Kelas 1")){
-                        Hargaretur.setText(rs.getString("kelas1"));
-                    }else if(Jenisjual.getSelectedItem().equals("Kelas 2")){
-                        Hargaretur.setText(rs.getString("kelas2"));
-                    }else if(Jenisjual.getSelectedItem().equals("Kelas 3")){
-                        Hargaretur.setText(rs.getString("kelas3"));
-                    }else if(Jenisjual.getSelectedItem().equals("Utama/BPJS")){
-                        Hargaretur.setText(rs.getString("utama"));
-                    }else if(Jenisjual.getSelectedItem().equals("VIP")){
-                        Hargaretur.setText(rs.getString("vip"));
-                    }else if(Jenisjual.getSelectedItem().equals("VVIP")){
-                        Hargaretur.setText(rs.getString("vvip"));
-                    }else if(Jenisjual.getSelectedItem().equals("Harga Beli")){
-                        Hargaretur.setText(rs.getString("h_beli"));
-                    }
+                    Hargaretur.setText(hargajual);
                 }
             } catch (Exception e) {
                 System.out.println("Notif : "+e);

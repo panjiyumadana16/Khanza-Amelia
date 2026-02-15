@@ -2021,10 +2021,30 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public void tampil() {           
         String kode_pj = KdPj.getText();
         String set_harga = "h_beli";
+        String kelas_obat = "ralan";
+        String kelas_px = "Rawat Jalan";
         
         if(kode_pj.equals("BPJ")){
             set_harga="dasar";
         }
+        
+        kelas_px = Sequel.cariIsi(
+                "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
+                "where kamar_inap.no_rawat=? and kamar_inap.stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',kamar_inap.jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",TNoRw.getText());
+        
+        if(kelas_px.equals("Kelas 1")){
+            kelas_obat = "kelas1";
+        }else if(kelas_px.equals("Kelas 2")){
+            kelas_obat = "kelas2";
+        }else if(kelas_px.equals("Kelas 3")){
+            kelas_obat = "kelas3";
+        }else if(kelas_px.equals("Kelas Utama")){
+            kelas_obat = "utama";
+        }else if(kelas_px.equals("Kelas VIP")){
+            kelas_obat = "vip";
+        }else if(kelas_px.equals("Kelas VVIP")){
+            kelas_obat = "vvip";
+        } 
                 
         jml=0;
         for(i=0;i<tbObat.getRowCount();i++){
@@ -2214,15 +2234,24 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                             " inner join maping_obat_pcare on maping_obat_pcare.kode_brng=databarang.kode_brng "+
                             " inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng ";
                     }else{
+                        String norwt = TNoRw.getText();
+                        String kdpj = Sequel.cariIsi("select reg_periksa.kd_pj from reg_periksa where reg_periksa.no_rawat=?",norwt);
+                        String shop = "";
+                        
+                        if(kdpj.equals("BPJ")){
+                            shop =  "    (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
+                                    "    AS harga, ";
+                        }else{
+                            shop =  "    CASE " +
+                                    "        WHEN setpenjualanperbarang.kode_brng IS NOT NULL THEN (databarang."+set_harga+" + (databarang."+set_harga+" * (setpenjualanperbarang."+kelas_obat+"/100))) " +
+                                    "        ELSE (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
+                                    "    END AS harga, ";
+                        }
                         sql="SELECT " +
                             "    databarang.kode_brng, " +
                             "    databarang.nama_brng, " +
                             "    jenis.nama, " +
-                            "    databarang.kode_sat, " +
-                            "    CASE " +
-                            "        WHEN setpenjualanperbarang.kode_brng IS NOT NULL THEN (databarang."+set_harga+" + (databarang."+set_harga+" * (setpenjualanperbarang.ralan/100))) " +
-                            "        ELSE (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
-                            "    END AS harga, " +
+                            "    databarang.kode_sat, " + shop +
                             "    databarang.letak_barang, " +
                             "    industrifarmasi.nama_industri, " +
                             "    databarang.h_beli, " +
@@ -3543,9 +3572,29 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     public void tampilobat2(String no_resep) { 
         String kode_pj = KdPj.getText();
         String set_harga = "h_beli";
+        String kelas_obat = "ralan";
+        String kelas_px = "Rawat Jalan";
         
         if(kode_pj.equals("BPJ")){
             set_harga="dasar";
+        }
+        
+        kelas_px = Sequel.cariIsi(
+                "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
+                "where kamar_inap.no_rawat=? and kamar_inap.stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',kamar_inap.jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",TNoRw.getText());
+        
+        if(kelas_px.equals("Kelas 1")){
+            kelas_obat = "kelas1";
+        }else if(kelas_px.equals("Kelas 2")){
+            kelas_obat = "kelas2";
+        }else if(kelas_px.equals("Kelas 3")){
+            kelas_obat = "kelas3";
+        }else if(kelas_px.equals("Kelas Utama")){
+            kelas_obat = "utama";
+        }else if(kelas_px.equals("Kelas VIP")){
+            kelas_obat = "vip";
+        }else if(kelas_px.equals("Kelas VVIP")){
+            kelas_obat = "vvip";
         }
         
         this.noresep=no_resep;
@@ -3642,16 +3691,25 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                         }
                     } 
                 }else{
+                    String norwt = TNoRw.getText();
+                    String kdpj = Sequel.cariIsi("select reg_periksa.kd_pj from reg_periksa where reg_periksa.no_rawat=?",norwt);
+                    
+                    String shop = "";
+                    if(kdpj.equals("BPJ")){
+                        shop =  "    (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
+                                "    AS harga, ";
+                    }else{
+                        shop =  "    CASE " +
+                                "        WHEN setpenjualanperbarang.kode_brng IS NOT NULL THEN (databarang."+set_harga+" + (databarang."+set_harga+" * (setpenjualanperbarang."+kelas_obat+"/100))) " +
+                                "        ELSE (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
+                                "    END AS harga, ";
+                    }
                     psobat=koneksi.prepareStatement(
                         "SELECT " +
                         "    databarang.kode_brng, " +
                         "    databarang.nama_brng, " +
                         "    jenis.nama, " +
-                        "    databarang.kode_sat, " +
-                        "    CASE " +
-                        "        WHEN setpenjualanperbarang.kode_brng IS NOT NULL THEN (databarang."+set_harga+" + (databarang."+set_harga+" * (setpenjualanperbarang.ralan/100))) " +
-                        "        ELSE (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
-                        "    END AS harga, " +
+                        "    databarang.kode_sat, " + shop +
                         "    databarang.letak_barang, " +
                         "    industrifarmasi.nama_industri, " +
                         "    databarang.h_beli, " +

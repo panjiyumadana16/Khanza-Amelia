@@ -2650,7 +2650,6 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
 
                     double total_bayar =  total[i];
-                    
                     double rate_umum = (total_bayar * (1 + kenaikan));
 
                     if(kenaikan_per_jns > 0){
@@ -2658,11 +2657,15 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     }
 
                     if(kd_pj.equals(kode_bpjs)){
-                        total_bayar = total_bayar * (1 + kenaikan);
+                        total_bayar = total_bayar;
                     }else if(kd_pj.equals(kode_umum)){
                         total_bayar = rate_umum;
                     }else{
-                        total_bayar = (rate_umum * (1 + kenaikan));
+                        if(kenaikan_per_jns > 0){
+                            total_bayar = (rate_umum * (1 + kenaikan));;
+                        }else{
+                            total_bayar = rate_umum;
+                        }
                     }
 
                     tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
@@ -2770,7 +2773,6 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
 
                         double total_bayar =  rstindakan.getDouble(3);
-                        
                         double rate_umum = (total_bayar * (1 + kenaikan));
                          
                         if(kenaikan_per_jns > 0){
@@ -2778,11 +2780,15 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         }
 
                         if(kd_pj.equals(kode_bpjs)){
-                            total_bayar = total_bayar * (1 + kenaikan);
+                            total_bayar = total_bayar;
                         }else if(kd_pj.equals(kode_umum)){
                             total_bayar = rate_umum;
                         }else{
-                            total_bayar = (rate_umum * (1 + kenaikan));
+                            if(kenaikan_per_jns > 0){
+                                total_bayar = (rate_umum * (1 + kenaikan));;
+                            }else{
+                                total_bayar = rate_umum;
+                            }
                         }
 
                         tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
@@ -2869,11 +2875,15 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         double rate_umum = (total_bayar * (1 + kenaikan_per_jns));
 
                         if(kd_pj.equals(kode_bpjs)){
-                            total_bayar = total_bayar * (1 + kenaikan);
+                            total_bayar = total_bayar;
                         }else if(kd_pj.equals(kode_umum)){
                             total_bayar = rate_umum;
                         }else{
-                            total_bayar = (rate_umum * (1 + kenaikan));
+                            if(kenaikan_per_jns > 0){
+                                total_bayar = (rate_umum * (1 + kenaikan));;
+                            }else{
+                                total_bayar = rate_umum;
+                            }
                         }
 
                         tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;

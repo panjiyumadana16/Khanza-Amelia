@@ -1776,11 +1776,15 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                     }
 
                     if(kd_pj.equals(kode_bpjs)){
-                        total_bayar = total_bayar * (1 + kenaikan);
+                        total_bayar = total_bayar;
                     }else if(kd_pj.equals(kode_umum)){
                         total_bayar = rate_umum;
                     }else{
-                        total_bayar = (rate_umum * (1 + kenaikan));
+                        if(kenaikan_per_jns > 0){
+                            total_bayar = (rate_umum * (1 + kenaikan));;
+                        }else{
+                            total_bayar = rate_umum;
+                        }
                     }
 
                     tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
@@ -1901,11 +1905,15 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                         }
                         
                         if(kd_pj.equals(kode_bpjs)){
-                            total_bayar = total_bayar * (1 + kenaikan);
+                            total_bayar = total_bayar;
                         }else if(kd_pj.equals(kode_umum)){
                             total_bayar = rate_umum;
                         }else{
-                            total_bayar = (rate_umum * (1 + kenaikan));
+                            if(kenaikan_per_jns > 0){
+                                total_bayar = (rate_umum * (1 + kenaikan));;
+                            }else{
+                                total_bayar = rate_umum;
+                            }
                         }
 
                         tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
@@ -2270,11 +2278,15 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                         }
 
                         if(kd_pj.equals(kode_bpjs)){
-                            total_bayar = total_bayar * (1 + kenaikan);
+                            total_bayar = total_bayar;
                         }else if(kd_pj.equals(kode_umum)){
                             total_bayar = rate_umum;
                         }else{
-                            total_bayar = (rate_umum * (1 + kenaikan));
+                            if(kenaikan_per_jns > 0){
+                                total_bayar = (rate_umum * (1 + kenaikan));;
+                            }else{
+                                total_bayar = rate_umum;
+                            }
                         }
 
                         tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;

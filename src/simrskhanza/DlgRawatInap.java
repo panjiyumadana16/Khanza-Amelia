@@ -4781,12 +4781,13 @@ public final class DlgRawatInap extends javax.swing.JDialog {
                                 String tgl_penyerahan = "0000-00-00";
                                 String jam_penyerahan = "00:00:00";
 
-                                if(Sequel.menyimpantf("resep_obat","?,?,?,?,?,?,?,?,?,?","Obat",10,new String[]{
-                                    new_no_resep_str,tgl_perawatan,jam,TNoRw.getText(),KdDok.getText(),tgl_peresepan,jam_peresepan,status,tgl_penyerahan,jam_penyerahan
-                                })==true){
-                                    for (String[] baris : listAlkes) {
-                                        System.out.println("Kode Barang: " + baris[0] + ", Jumlah: " + baris[1]);
-                                        Sequel.menyimpan("resep_dokter","'"+new_no_resep_str+"','"+baris[0]+"',"+Double.parseDouble(baris[1])+",'-'");
+                                if(!listAlkes.isEmpty()){
+                                    if(Sequel.menyimpantf("resep_obat","?,?,?,?,?,?,?,?,?,?","Obat",10,new String[]{
+                                        new_no_resep_str,tgl_perawatan,jam,TNoRw.getText(),KdDok.getText(),tgl_peresepan,jam_peresepan,status,tgl_penyerahan,jam_penyerahan
+                                    })==true){
+                                        for (String[] baris : listAlkes) {
+                                            Sequel.menyimpan("resep_dokter","'"+new_no_resep_str+"','"+baris[0]+"',"+Double.parseDouble(baris[1])+",'-'");
+                                        }
                                     }
                                 }
                             
@@ -4894,12 +4895,13 @@ public final class DlgRawatInap extends javax.swing.JDialog {
                                 String jam_penyerahan = "00:00:00";
 
 
-                                if(Sequel.menyimpantf("resep_obat","?,?,?,?,?,?,?,?,?,?","Obat",10,new String[]{
-                                    new_no_resep_str,tgl_perawatan,jam,TNoRw.getText(),KdDok.getText(),tgl_peresepan,jam_peresepan,status,tgl_penyerahan,jam_penyerahan
-                                })==true){
-                                    for (String[] baris : listAlkes) {
-                                        System.out.println("Kode Barang: " + baris[0] + ", Jumlah: " + baris[1]);
-                                        Sequel.menyimpan("resep_dokter","'"+new_no_resep_str+"','"+baris[0]+"',"+Double.parseDouble(baris[1])+",'-'");
+                                if(!listAlkes.isEmpty()){
+                                    if(Sequel.menyimpantf("resep_obat","?,?,?,?,?,?,?,?,?,?","Obat",10,new String[]{
+                                        new_no_resep_str,tgl_perawatan,jam,TNoRw.getText(),KdDok.getText(),tgl_peresepan,jam_peresepan,status,tgl_penyerahan,jam_penyerahan
+                                    })==true){
+                                        for (String[] baris : listAlkes) {
+                                            Sequel.menyimpan("resep_dokter","'"+new_no_resep_str+"','"+baris[0]+"',"+Double.parseDouble(baris[1])+",'-'");
+                                        }
                                     }
                                 }
                             

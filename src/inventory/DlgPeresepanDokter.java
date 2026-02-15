@@ -1088,7 +1088,49 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             JOptionPane.showMessageDialog(null,"Maaf, silahkan masukkan terlebih dahulu obat yang mau diberikan...!!!");
             TCari.requestFocus();
         }else{
-            int reply = JOptionPane.showConfirmDialog(rootPane,"Eeiiiiiits, udah bener belum data yang mau disimpan..??","Konfirmasi",JOptionPane.YES_NO_OPTION);
+            // 1. Ambil dan bersihkan format angka
+            String str_total_tagihan = LTotal.getText().trim();
+            double total_tagihan = 0;
+
+            try {
+                if (!str_total_tagihan.isEmpty()) {
+                    // Hapus koma pemisah ribuan: "1,549,999" -> "1549999"
+                    String cleanNumber = str_total_tagihan.replace(",", "");
+                    total_tagihan = Double.parseDouble(cleanNumber);
+                }
+            } catch (NumberFormatException e) {
+                total_tagihan = 0;
+                System.out.println("Error parsing: " + str_total_tagihan);
+            }
+
+            // 2. Tentukan pesan berdasarkan kondisi
+            String pesan;
+            String judul = "Konfirmasi";
+            
+            String kd_poli = Sequel.cariIsi("SELECT kd_poli FROM reg_periksa WHERE no_rawat='"+TNoRw.getText()+"'");
+            Double plafon = Sequel.cariIsiAngka("SELECT plafon from setting_obat");
+            
+            String plafonRupiah = String.format("Rp %,.0f", plafon).replace(",", ".");
+            String totalTagihanRupiah = String.format("Rp %,.0f", total_tagihan).replace(",", ".");
+            
+            if(KdPj.getText().equals("BPJ") && !kd_poli.equals("IGDK")){
+                if(status.equals("ralan")){
+                    if (total_tagihan > plafon) {
+                        pesan = "Total Tagihan Obat Resep Melebihi Plafon BPJS ("+plafonRupiah+").\n" +
+                                "Total tagihan saat ini " + totalTagihanRupiah + ".\n" +
+                                "Apakah ingin melanjutkan proses?";
+                    } else {
+                        pesan = "Apakah Data Obat Resep Sudah Benar?";
+                    }
+                }else{
+                    pesan = "Apakah Data Obat Resep Sudah Benar?";
+                }
+            }else{
+                pesan = "Apakah Data Obat Resep Sudah Benar?";
+            }
+            
+            // 3. Tampilkan dialog sekali
+            int reply = JOptionPane.showConfirmDialog(rootPane, pesan, judul, JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 ChkJln.setSelected(false);
                 Sequel.AutoComitFalse();
@@ -1568,10 +1610,39 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         
         String kode_pj = KdPj.getText();
         String set_harga = "h_beli";
+        String kelas_obat = "ralan";
+        String kelas_px = "Rawat Jalan";
         
         if(kode_pj.equals("BPJ")){
             set_harga="dasar";
         }
+        
+        if(status.equals("ranap")){
+            norawatibu=Sequel.cariIsi("select ranap_gabung.no_rawat from ranap_gabung where ranap_gabung.no_rawat2=?",TNoRw.getText());
+            if(!norawatibu.equals("")){
+                kelas_px=Sequel.cariIsi(
+                "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
+                "where kamar_inap.no_rawat=? and kamar_inap.stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',kamar_inap.jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",norawatibu);
+            }else{
+                kelas_px=Sequel.cariIsi(
+                "select kamar.kelas from kamar inner join kamar_inap on kamar.kd_kamar=kamar_inap.kd_kamar "+
+                "where kamar_inap.no_rawat=? and kamar_inap.stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',kamar_inap.jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",TNoRw.getText());
+            }
+        }
+        
+        if(kelas_px.equals("Kelas 1")){
+            kelas_obat = "kelas1";
+        }else if(kelas_px.equals("Kelas 2")){
+            kelas_obat = "kelas2";
+        }else if(kelas_px.equals("Kelas 3")){
+            kelas_obat = "kelas3";
+        }else if(kelas_px.equals("Kelas Utama")){
+            kelas_obat = "utama";
+        }else if(kelas_px.equals("Kelas VIP")){
+            kelas_obat = "vip";
+        }else if(kelas_px.equals("Kelas VVIP")){
+            kelas_obat = "vvip";
+        } 
         
         z=0;
         for(i=0;i<tbResep.getRowCount();i++){
@@ -1672,17 +1743,24 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                     if(STOKKOSONGRESEP.equals("no")){
                         qrystokkosong=" and gudangbarang.stok>0 ";
                     }
+                    
+                    String norwt = TNoRw.getText();
+                    String kdpj = Sequel.cariIsi("select reg_periksa.kd_pj from reg_periksa where reg_periksa.no_rawat=?",norwt);
+                    
+                    String shop =   "    CASE " +
+                                    "        WHEN setpenjualanperbarang.kode_brng IS NOT NULL THEN (databarang."+set_harga+" + (databarang."+set_harga+" * (setpenjualanperbarang."+kelas_obat+"/100))) " +
+                                    "        ELSE (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
+                                    "    END AS harga, ";
+                    if(kdpj.equals("BPJ")){
+                        shop =  "    (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) AS harga, ";
+                    }
+                    
                     psresepasuransi=koneksi.prepareStatement(
                         "SELECT " +
                         "    databarang.kode_brng, " +
                         "    databarang.nama_brng, " +
                         "    jenis.nama, " +
-                        "    databarang.kode_sat, " +
-                        "    CASE " +
-                        "        WHEN setpenjualanperbarang.kode_brng IS NOT NULL " +
-                        "        THEN (databarang."+set_harga+" + (databarang."+set_harga+" * (setpenjualanperbarang.ralan/100))) " +
-                        "        ELSE (databarang."+set_harga+" + (databarang."+set_harga+" * ?)) " +
-                        "    END AS harga, " +
+                        "    databarang.kode_sat, " + shop +
                         "    databarang.letak_barang, " +
                         "    industrifarmasi.nama_industri, " +
                         "    databarang.h_beli, " +
