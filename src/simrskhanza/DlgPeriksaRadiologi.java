@@ -1917,7 +1917,7 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                         tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
 
                     }else{
-                        tarif_mrg =  rs.getDouble(4);
+                        tarif_mrg =  rs.getDouble(3);
                     }
                     
                     tabMode.addRow(new Object[]{false,rs.getString(1),rs.getString(2),tarif_mrg,rs.getDouble(4),rs.getDouble(5),rs.getDouble(6),rs.getDouble(7),rs.getDouble(8),rs.getDouble(9),rs.getDouble(10),"","","","","","","",""});
@@ -2289,7 +2289,7 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                         tarif_mrg = Math.ceil(total_bayar / 1000.0) * 1000;
 
                     }else{
-                        tarif_mrg =  rs.getDouble(4);
+                        tarif_mrg =  rs.getDouble(3);
                     }
                     
                     tabMode.addRow(new Object[]{true,rs.getString(1),rs.getString(2),tarif_mrg,rs.getDouble(4),rs.getDouble(5),rs.getDouble(6),rs.getDouble(7),rs.getDouble(8),rs.getDouble(9),rs.getDouble(10),"","","","","","","",""});
