@@ -2644,10 +2644,10 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             
             for(i=0;i<jml;i++){
                 double tarif_mrg =  0.0;
-                
-                if(kenaikan > 0){
-                    String kd_jns_prw = kode[i];
-                    Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+                String kd_jns_prw = kode[i];
+                double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+
+                if(kenaikan > 0 || kenaikan_per_jns > 0){
 
                     double total_bayar =  total[i];
                     double rate_umum = (total_bayar * (1 + kenaikan));
@@ -2767,10 +2767,10 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 while(rstindakan.next()){      
                     
                     double tarif_mrg =  0.0;
-
-                    if(kenaikan > 0){
-                        String kd_jns_prw = rstindakan.getString(1);
-                        Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+                    String kd_jns_prw = rstindakan.getString(1);
+                    double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+                
+                    if(kenaikan > 0 || kenaikan_per_jns > 0){
 
                         double total_bayar =  rstindakan.getDouble(3);
                         double rate_umum = (total_bayar * (1 + kenaikan));
@@ -2843,7 +2843,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
                 status_lanjut = Sequel.cariIsi("SELECT status_lanjut from reg_periksa where no_rawat = '"+no_rawat+"'");
 
-                        if(status_lanjut.equals("Ranap")){
+                if(status_lanjut.equals("Ranap")){
                     String kelas = Sequel.cariIsi("SELECT kamar.kelas from kamar_inap JOIN kamar ON kamar_inap.kd_kamar = kamar.kd_kamar where kamar_inap.stts_pulang <> 'Pindah kamar' AND kamar_inap.no_rawat = '"+no_rawat+"'");
                     boolean isKhusus = Sequel.cariIsiBoolean(
                         "SELECT count(*)>0 FROM set_harga_lab_ranap WHERE kd_pj='" + kd_pj + "' AND kelas='"+kelas+"'"
@@ -2866,10 +2866,10 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         
                 while(rstindakan.next()){           
                     double tarif_mrg =  0.0;
+                    String kd_jns_prw = rstindakan.getString(1);
+                    double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
                 
-                    if(kenaikan > 0){
-                        String kd_jns_prw = rstindakan.getString(1);
-                        Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_lab_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+                    if(kenaikan > 0 || kenaikan_per_jns > 0){
 
                         double total_bayar = rstindakan.getDouble(3);
                         double rate_umum = (total_bayar * (1 + kenaikan_per_jns));

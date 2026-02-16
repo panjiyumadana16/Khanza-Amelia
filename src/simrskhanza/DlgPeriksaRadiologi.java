@@ -1762,13 +1762,12 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
             for(i=0;i<jml;i++){
                 
                 double tarif_mrg =  0.0;
+                String kd_jns_prw = kode[i];
+                double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_radiologi_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
                     
-                if(kenaikan > 0){
-                    String kd_jns_prw = kode[i];
-                    Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_radiologi_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+                if(kenaikan > 0 || kenaikan_per_jns > 0){
 
                     double total_bayar = total[i];
-
                     double rate_umum = (total_bayar * (1 + kenaikan));
 
                     if(kenaikan_per_jns > 0){
@@ -1891,13 +1890,12 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                 while(rs.next()){
                     
                     double tarif_mrg =  0.0;
-                    
-                    if(kenaikan > 0){
-                        String kd_jns_prw = rs.getString(1);
-                        Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_radiologi_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+                    String kd_jns_prw = rs.getString(1);
+                    double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_radiologi_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+
+                    if(kenaikan > 0 || kenaikan_per_jns > 0){
 
                         double total_bayar = rs.getDouble(3);
-
                         double rate_umum = (total_bayar * (1 + kenaikan));
                          
                         if(kenaikan_per_jns > 0){
@@ -2264,13 +2262,12 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
             
                 while(rs.next()){
                     double tarif_mrg =  0.0;
-                    
-                    if(kenaikan > 0){
-                        String kd_jns_prw =rs.getString(1);
-                        Double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_radiologi_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+                    String kd_jns_prw = rs.getString(1);
+                    double kenaikan_per_jns = Sequel.cariIsiAngka("select (kenaikan/100) from set_tarif_radiologi_per_tindakan where kd_jenis_prw=?",kd_jns_prw);
+
+                    if(kenaikan > 0 || kenaikan_per_jns > 0){
 
                         double total_bayar = rs.getDouble(3);
-
                         double rate_umum = (total_bayar * (1 + kenaikan));
 
                         if(kenaikan_per_jns > 0){
