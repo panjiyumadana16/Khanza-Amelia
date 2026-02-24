@@ -1971,7 +1971,7 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
     private void ppStokOpnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppStokOpnameActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        DlgStokOpname sOpname=new DlgStokOpname(null,false);
+        DlgInputStok sOpname=new DlgInputStok(null,false);
         sOpname.isCek();
         sOpname.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
         sOpname.setLocationRelativeTo(internalFrame1);
