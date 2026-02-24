@@ -11316,7 +11316,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         BtnHapus.setEnabled(akses.getigd());
         BtnEdit.setEnabled(akses.getigd());
         BtnPrint.setEnabled(akses.getigd());
-        MnKamarInap.setEnabled(akses.getkamar_inap());
+        MnKamarInap.setEnabled(akses.getkamar());
         MnRawatJalan.setEnabled(akses.gettindakan_ralan());
         ppRiwayat.setEnabled(akses.getresume_pasien());
         MnHemodialisa.setEnabled(akses.gethemodialisa());

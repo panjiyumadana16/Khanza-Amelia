@@ -10049,8 +10049,8 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if(akses.getpermintaan_radiologi()==true){
             tinggi=tinggi+24;
         }
-        BtnKamar.setVisible(akses.getkamar_inap());   
-        if(akses.getkamar_inap()==true){
+        BtnKamar.setVisible(akses.getkamar());   
+        if(akses.getkamar()==true){
             tinggi=tinggi+24;
         }
         BtnRujukInternal.setVisible(akses.getrujukan_poli_internal());

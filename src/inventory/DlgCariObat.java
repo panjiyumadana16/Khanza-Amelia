@@ -493,6 +493,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
         ppBersihkan = new javax.swing.JMenuItem();
         ppStok = new javax.swing.JMenuItem();
         ppStok1 = new javax.swing.JMenuItem();
+        ppStokOpname = new javax.swing.JMenuItem();
         Kd2 = new widget.TextBox();
         TNoRw = new widget.TextBox();
         Tanggal = new widget.TextBox();
@@ -595,6 +596,21 @@ public final class DlgCariObat extends javax.swing.JDialog {
             }
         });
         Popup.add(ppStok1);
+
+        ppStokOpname.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppStokOpname.setForeground(new java.awt.Color(50, 50, 50));
+        ppStokOpname.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppStokOpname.setText("Buka Stok Opname");
+        ppStokOpname.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppStokOpname.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppStokOpname.setName("ppStokOpname"); // NOI18N
+        ppStokOpname.setPreferredSize(new java.awt.Dimension(200, 25));
+        ppStokOpname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppStokOpnameActionPerformed(evt);
+            }
+        });
+        Popup.add(ppStokOpname);
 
         Kd2.setHighlighter(null);
         Kd2.setName("Kd2"); // NOI18N
@@ -857,7 +873,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
         jLabel8.setBounds(4, 40, 65, 23);
 
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-05-2025" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2026" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -1046,8 +1062,6 @@ public final class DlgCariObat extends javax.swing.JDialog {
         tbObat.setName("tbObat"); // NOI18N
         tbObat.setSelectionBackground(new java.awt.Color(215, 215, 255));
         tbObat.setShowGrid(false);
-        tbObat.setShowHorizontalLines(false);
-        tbObat.setShowVerticalLines(false);
         tbObat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbObatMouseClicked(evt);
@@ -2068,6 +2082,16 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnTelaahKeyPressed
 
+    private void ppStokOpnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppStokOpnameActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgStokOpname sOpname=new DlgStokOpname(null,false);
+        sOpname.isCek();
+        sOpname.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        sOpname.setLocationRelativeTo(internalFrame1);
+        sOpname.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_ppStokOpnameActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2141,6 +2165,7 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
     private javax.swing.JMenuItem ppBersihkan;
     private javax.swing.JMenuItem ppStok;
     private javax.swing.JMenuItem ppStok1;
+    private javax.swing.JMenuItem ppStokOpname;
     private widget.Table tbDetailObatRacikan;
     private widget.Table tbObat;
     private widget.Table tbObatRacikan;
@@ -3538,6 +3563,7 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
         BtnTambah.setEnabled(akses.getobat());
         TCari.requestFocus();
         BtnGudang.setEnabled(akses.getakses_depo_obat());
+        ppStokOpname.setEnabled(akses.getstok_opname_obat()); 
     }
     
     public void setNoRm(String norwt,String norm,String nama,String tanggal, String jam) {        

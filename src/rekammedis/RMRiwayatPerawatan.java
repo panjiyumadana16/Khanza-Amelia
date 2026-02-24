@@ -306,6 +306,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         chkAsuhanMedisRanapKandungan = new widget.CekBox();
         chkAsuhanMedisRanapNeonatus = new widget.CekBox();
         chkAsuhanMedisHemodialisa = new widget.CekBox();
+        chkKlasifikasiRobson = new widget.CekBox();
         chkEdukasiPasienTerintegrasiRawatJalan = new widget.CekBox();
         chkPemeriksaanRalan = new widget.CekBox();
         chkPemeriksaanObstetriRalan = new widget.CekBox();
@@ -630,7 +631,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         ScrollMenu.setBorder(null);
         ScrollMenu.setName("ScrollMenu"); // NOI18N
         ScrollMenu.setOpaque(true);
-        ScrollMenu.setPreferredSize(new java.awt.Dimension(255, 1220));
+        ScrollMenu.setPreferredSize(new java.awt.Dimension(255, 1242));
 
         FormMenu.setBackground(new java.awt.Color(255, 255, 255));
         FormMenu.setBorder(null);
@@ -946,6 +947,14 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         chkAsuhanMedisHemodialisa.setOpaque(false);
         chkAsuhanMedisHemodialisa.setPreferredSize(new java.awt.Dimension(245, 22));
         FormMenu.add(chkAsuhanMedisHemodialisa);
+
+        chkKlasifikasiRobson.setSelected(true);
+        chkKlasifikasiRobson.setText("Klasifikasi Robson");
+        chkKlasifikasiRobson.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        chkKlasifikasiRobson.setName("chkKlasifikasiRobson"); // NOI18N
+        chkKlasifikasiRobson.setOpaque(false);
+        chkKlasifikasiRobson.setPreferredSize(new java.awt.Dimension(245, 22));
+        FormMenu.add(chkKlasifikasiRobson);
 
         chkEdukasiPasienTerintegrasiRawatJalan.setSelected(true);
         chkEdukasiPasienTerintegrasiRawatJalan.setText("Edukasi Pasien & Keluarga Rawat Jalan");
@@ -2385,6 +2394,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private widget.CekBox chkFollowUpDBD;
     private widget.CekBox chkHasilPemeriksaanUSG;
     private widget.CekBox chkHemodialisa;
+    private widget.CekBox chkKlasifikasiRobson;
     private widget.CekBox chkKonselingFarmasi;
     private widget.CekBox chkMonitoringGizi;
     private widget.CekBox chkMonitoringReaksiTranfusi;
@@ -2922,6 +2932,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     menampilkanCatatanObservasi(rs.getString("no_rawat"));
                     //menampilkan pemeriksaan rawat inap
                     menampilkanPemeriksaanRanap(rs.getString("no_rawat"));
+                    //menampilkan klasifikasi robson
+                    menampilkanKlasifikasiRobson(rs.getString("no_rawat"));
                     //menampilkan follow up DBD
                     menampilkanFollowUpDBD(rs.getString("no_rawat"));
                     //menampilkan reaksi tranfusi
@@ -10809,6 +10821,146 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             }
         } catch (Exception e) {
             System.out.println("Notif Asuhan Kebidanan Rawat Inap: "+e);
+        }
+    }
+    
+    private void menampilkanKlasifikasiRobson(String norawat){
+        try{
+            if(chkAsuhanKeperawatanRanapKandungan.isSelected()==true){
+                try {
+                    rs2=koneksi.prepareStatement(
+                            "select klasifikasi_robson.*, petugas.nama from klasifikasi_robson inner join petugas on klasifikasi_robson.nip=petugas.nip "+
+                            "where klasifikasi_robson.no_rawat='"+norawat+"'").executeQuery();
+                    if(rs2.next()){
+                        htmlContent.append(
+                          "<tr class='isi'>"+ 
+                            "<td valign='top' width='2%'></td>"+        
+                            "<td valign='top' width='18%'>Klasifikasi ROBSON</td>"+
+                            "<td valign='top' width='1%' align='center'>:</td>"+
+                            "<td valign='top' width='79%'>"+
+                              "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"
+                        );
+                        rs2.beforeFirst();
+                        while(rs2.next()){
+                            htmlContent.append(
+                                "<tr class='isi'>"+
+                                    "<td valign='top'>"+
+                                        "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                            "<tr>"+
+                                                "<td valign='top' width='14%'>1. Tanggal Periksa</td>"+
+                                                "<td valign='top' width='1%'>:</td>"+
+                                                "<td valign='top' width='85%'>"+rs2.getString("tanggal")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top'>2. HPHT</td>"+
+                                                "<td valign='top'>:</td>"+
+                                                "<td valign='top'>"+rs2.getString("hpht")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top'>3. HPL</td>"+
+                                                "<td valign='top'>:</td>"+
+                                                "<td valign='top'>"+rs2.getString("hpl")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top'>4. Diagnosa</td>"+
+                                                "<td valign='top'>:</td>"+
+                                                "<td valign='top'>"+rs2.getString("diagnosa")+"</td>"+
+                                            "</tr>"+
+                                        "</table>"+
+                                    "</td>"+
+                                "</tr>"+
+                                "<tr class='isi'>"+
+                                    "<td valign='top'>"+
+                                        "<table width='100%' border='1' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                            "<tr align='center'>"+
+                                                "<td valign='top' width='5%' bgcolor='#FFFAF8'>Kelompok</td>"+
+                                                "<td valign='top' width='90%' bgcolor='#FFFAF8'>Populasi Ibu Hamil</td>"+
+                                                "<td valign='top' width='5%' bgcolor='#FFFAF8'>Checklist (✓)</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>1</td>"+
+                                                "<td valign='top'>Wanita Nullipara, janin tunggal, presentasi kepala, usia kehamilan ≥ 37 minggu, dalam persalinan spontan</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("1")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>2</td>"+
+                                                "<td valign='top'>Wanita Nullipara, janin tunggal, presentasi kepala, usia kehamilan ≥ 37 minggu dengan induksi persalinan atau dilakukan SC sebelum dalam persalinan (emergensi)</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("2")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>3</td>"+
+                                                "<td valign='top'>Wanita Multipara, tanpa riwayat operasi uterus sebelumnya, janin tunggal, presentasi kepala, usia kehamilan ≥ 37 minggu, dalam persalinan spontan</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("3")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>4</td>"+
+                                                "<td valign='top'>Wanita Multipara, dengan riwayat operasi uterus sebelumnya, janin tunggal, presentasi kepala, usia kehamilan ≥ 37 minggu dengan induksi persalinan atau dilakukan SC sebelum dalam persalinan (emergensi)</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("4")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>5</td>"+
+                                                "<td valign='top'>Wanita Multipara, dengan riwayat operasi uterus sebelumnya, janin tunggal, presentasi kepala, usia kehamilan ≥ 37 minggu</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("5")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>6</td>"+
+                                                "<td valign='top'>Semua Wanita Nullipara dengan janin tunggal sungsang</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("6")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>7</td>"+
+                                                "<td valign='top'>Semua Wanita Multipara dengan janin tunggal sungsang</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("7")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>8</td>"+
+                                                "<td valign='top'>Semua Wanita hamil dengan janin Multipel</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("8")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>9</td>"+
+                                                "<td valign='top'>Semua Wanita hamil dengan janin tunggal, dengan posisi janin oblik atau melintang</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("9")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                            "<tr>"+
+                                                "<td valign='top' align='center'>10</td>"+
+                                                "<td valign='top'>Semua Wanita hamil dengan janin tunggal, presentasi kepala, usia kehamilan ≤ 36 minggu</td>"+
+                                                "<td valign='top' align='center' style='font-weight:bold;'>"+(rs2.getString("populasi_bumil").equals("10")?"✓":"")+"</td>"+
+                                            "</tr>"+
+                                        "</table>"+
+                                    "</td>"+
+                                "</tr>"+
+                                "<tr class='isi'>"+
+                                    "<td valign='top'>"+
+                                        "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                            "<tr>"+
+                                                "<td valign='top' width='14%'>5. Kesimpulan dari Klasifikasi Robson</td>"+
+                                                "<td valign='top' width='1%'>:</td>"+
+                                                "<td valign='top' width='35%'>"+rs2.getString("kesimpulan")+"</td>"+
+                                                "<td valign='top' width='14%'>Pemeriksa</td>"+
+                                                "<td valign='top' width='1%'>:</td>"+
+                                                "<td valign='top' width='35%'>"+rs2.getString("nip")+" "+rs2.getString("nama")+"</td>"+
+                                            "</tr>"+
+                                        "</table>"+
+                                    "</td>"+
+                                "</tr>"
+                            );
+                        }
+                        htmlContent.append(
+                              "</table>"+
+                            "</td>"+
+                          "</tr>");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : "+e);
+                } finally{
+                    if(rs2!=null){
+                        rs2.close();
+                    }
+                }
+            }
+        } catch (Exception e){
+            System.out.println("Notif Klasifikasi Robson: "+e);
         }
     }
 

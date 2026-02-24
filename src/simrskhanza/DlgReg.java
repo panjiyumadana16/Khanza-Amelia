@@ -15336,8 +15336,8 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         BtnPrint.setEnabled(akses.getregistrasi());
         MnOperasi.setEnabled(akses.getoperasi());
         MnOperasi1.setEnabled(akses.getoperasi());
-        MnKamarInap.setEnabled(akses.getkamar_inap());
-        MnKamarInap1.setEnabled(akses.getkamar_inap());
+        MnKamarInap.setEnabled(akses.getkamar());
+        MnKamarInap1.setEnabled(akses.getkamar());
         MnRawatJalan.setEnabled(akses.gettindakan_ralan());
         MnRawatJalan1.setEnabled(akses.gettindakan_ralan());
         MnPemberianObat.setEnabled(akses.getberi_obat());

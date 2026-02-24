@@ -14536,8 +14536,8 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
             MnKamarInap1.setEnabled(true); 
         }else{
             if(kamar_inap_kasir_ralan.equals("Yes")){
-                MnKamarInap.setEnabled(akses.getkamar_inap());
-                MnKamarInap1.setEnabled(akses.getkamar_inap());
+                MnKamarInap.setEnabled(akses.getkamar());
+                MnKamarInap1.setEnabled(akses.getkamar());
             }else{
                 MnKamarInap.setEnabled(false);
                 MnKamarInap1.setEnabled(false);

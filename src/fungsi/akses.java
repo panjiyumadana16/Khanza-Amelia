@@ -5947,4 +5947,6 @@ public final class akses {
     public static boolean getcatatan_pengkajian_paska_operasi(){return akses.catatan_pengkajian_paska_operasi;}
     public static boolean getskrining_frailty_syndrome(){return akses.skrining_frailty_syndrome;}
     public static boolean getsirkulasi_cssd(){return akses.sirkulasi_cssd;}
+    
+    public static boolean getklasifikasi_robson() {return akses.tindakan_ranap;}
 }   
