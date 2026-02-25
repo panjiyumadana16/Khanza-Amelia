@@ -42,8 +42,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import kepegawaian.DlgCariDokter;
-import kepegawaian.DlgCariPegawai;
-import laporan.DlgCariPenyakit;
 
 
 /**
@@ -55,7 +53,7 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
-    private DlgCariPegawai pegawai = new DlgCariPegawai(null,false);
+    private DlgCariDokter dokter = new DlgCariDokter(null,false);
     private PreparedStatement ps;
     private ResultSet rs;
     private int i=0;
@@ -185,16 +183,16 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
             });
         }
         
-        pegawai.addWindowListener(new WindowListener() {
+        dokter.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {}
             @Override
             public void windowClosing(WindowEvent e) {}
             @Override
             public void windowClosed(WindowEvent e) {
-                if(pegawai.getTable().getSelectedRow()!= -1){                   
-                    KdPemeriksa.setText(pegawai.tbKamar.getValueAt(pegawai.tbKamar.getSelectedRow(),0).toString());
-                    TNmPemeriksa.setText(pegawai.tbKamar.getValueAt(pegawai.tbKamar.getSelectedRow(),1).toString());
+                if(dokter.getTable().getSelectedRow()!= -1){                   
+                    KdPemeriksa.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),0).toString());
+                    TNmPemeriksa.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),1).toString());
                 }   
             }
             @Override
@@ -1056,11 +1054,12 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
     }//GEN-LAST:event_KdPemeriksaKeyPressed
 
     private void BtnCariPemeriksaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariPemeriksaActionPerformed
-        pegawai.emptTeks();
-        pegawai.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
-        pegawai.setLocationRelativeTo(internalFrame1);
-        pegawai.setAlwaysOnTop(false);
-        pegawai.setVisible(true);
+        dokter.emptTeks();
+        dokter.isCek();
+        dokter.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        dokter.setLocationRelativeTo(internalFrame1);
+        dokter.setAlwaysOnTop(false);
+        dokter.setVisible(true);
     }//GEN-LAST:event_BtnCariPemeriksaActionPerformed
 
     private void TKesimpulanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKesimpulanKeyPressed
@@ -1142,24 +1141,24 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
         try{
             if(TCari.getText().toString().trim().equals("")){
                 ps=koneksi.prepareStatement(
-                    "select pasien.no_rkm_medis,pasien.nm_pasien, klasifikasi_robson.*, petugas.nama "+
+                    "select pasien.no_rkm_medis,pasien.nm_pasien, klasifikasi_robson.*, dokter.nm_dokter "+
                     "from klasifikasi_robson inner join reg_periksa on klasifikasi_robson.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
-                    "inner join petugas on klasifikasi_robson.nip=petugas.nip where "+
+                    "inner join dokter on klasifikasi_robson.nip=dokter.kd_dokter where "+
                     "klasifikasi_robson.tanggal between ? and ? order by klasifikasi_robson.tanggal");
             }else{
                 ps=koneksi.prepareStatement(
-                    "select pasien.no_rkm_medis,pasien.nm_pasien, klasifikasi_robson.*, petugas.nama "+
+                    "select pasien.no_rkm_medis,pasien.nm_pasien, klasifikasi_robson.*, dokter.nm_dokter "+
                     "from klasifikasi_robson inner join reg_periksa on klasifikasi_robson.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
-                    "inner join petugas on klasifikasi_robson.nip=petugas.nip where "+
+                    "inner join dokter on klasifikasi_robson.nip=dokter.kd_dokter where "+
                     "klasifikasi_robson.tanggal between ? and ? and reg_periksa.no_rawat like ? or "+
                     "klasifikasi_robson.tanggal between ? and ? and pasien.no_rkm_medis like ? or "+
                     "klasifikasi_robson.tanggal between ? and ? and pasien.nm_pasien like ? or "+
                     "klasifikasi_robson.tanggal between ? and ? and klasifikasi_robson.diagnosa like ? or "+
                     "klasifikasi_robson.tanggal between ? and ? and klasifikasi_robson.populasi_bumil like ? or "+
                     "klasifikasi_robson.tanggal between ? and ? and klasifikasi_robson.kesimpulan like ? or "+
-                    "klasifikasi_robson.tanggal between ? and ? and petugas.nama like ? "+
+                    "klasifikasi_robson.tanggal between ? and ? and dokter.nm_dokter like ? "+
                     "order by klasifikasi_robson.tanggal ");
             }
                 
@@ -1196,7 +1195,7 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
                     tabMode.addRow(new String[]{
                         rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien"),rs.getString("tanggal"),
                         rs.getString("hpht"),rs.getString("hpl"),rs.getString("diagnosa"),rs.getString("populasi_bumil"),
-                        rs.getString("kesimpulan"),rs.getString("nip"),rs.getString("nama")
+                        rs.getString("kesimpulan"),rs.getString("nip"),rs.getString("nm_dokter")
                     });
                 }
             } catch (Exception e) {
@@ -1283,6 +1282,13 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
         BtnHapus.setEnabled(akses.getklasifikasi_robson());
         BtnEdit.setEnabled(akses.getklasifikasi_robson());
         BtnPrint.setEnabled(akses.getklasifikasi_robson()); 
+        if(Sequel.cariIsiBoolean("select kd_dokter from dokter where kd_dokter='"+akses.getkode()+"' ")){
+            KdPemeriksa.setText(akses.getkode());
+            Sequel.cariIsi("select nm_dokter from dokter where kd_dokter='"+akses.getkode()+"' ", TNmPemeriksa);
+            BtnCariPemeriksa.setVisible(false);
+        } else {
+            BtnCariPemeriksa.setVisible(true);
+        }
     }
     
 }
