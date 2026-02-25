@@ -10829,7 +10829,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             if(chkAsuhanKeperawatanRanapKandungan.isSelected()==true){
                 try {
                     rs2=koneksi.prepareStatement(
-                            "select klasifikasi_robson.*, dokter.nm_dokter from klasifikasi_robson inner join petugas on klasifikasi_robson.nip=dokter.kd_dokter "+
+                            "select klasifikasi_robson.*, dokter.nm_dokter from klasifikasi_robson inner join dokter on klasifikasi_robson.nip=dokter.kd_dokter "+
                             "where klasifikasi_robson.no_rawat='"+norawat+"'").executeQuery();
                     if(rs2.next()){
                         htmlContent.append(
@@ -10939,7 +10939,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                 "<td valign='top' width='35%'>"+rs2.getString("kesimpulan")+"</td>"+
                                                 "<td valign='top' width='14%'>Pemeriksa</td>"+
                                                 "<td valign='top' width='1%'>:</td>"+
-                                                "<td valign='top' width='35%'>"+rs2.getString("nip")+" "+rs2.getString("nm_dokte")+"</td>"+
+                                                "<td valign='top' width='35%'>"+rs2.getString("nip")+" "+rs2.getString("nm_dokter")+"</td>"+
                                             "</tr>"+
                                         "</table>"+
                                     "</td>"+

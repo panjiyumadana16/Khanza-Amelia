@@ -1242,6 +1242,8 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
             TKesimpulan.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 8).toString());
             KdPemeriksa.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 9).toString());
             TNmPemeriksa.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 10).toString());
+            ChkInput.setSelected(true);
+            isForm();
         }
     }
 
@@ -1266,7 +1268,7 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
     private void isForm(){
         if(ChkInput.isSelected()==true){
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH,550));
+            PanelInput.setPreferredSize(new Dimension(WIDTH,500));
             FormInput.setVisible(true);      
             ChkInput.setVisible(true);
         }else if(ChkInput.isSelected()==false){           
