@@ -6065,7 +6065,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         }
 
                         norawat.requestFocus();   
-                        isjml();    
+                        isjml();
+                        BtnSimpan.setEnabled(akses.getkamar_inap());
                         WindowInputKamar.setLocationRelativeTo(internalFrame1);
                         WindowInputKamar.setVisible(true);
                     }
@@ -6102,7 +6103,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     }
 
                     norawat.requestFocus();   
-                    isjml();    
+                    isjml();
+                    BtnSimpan.setEnabled(akses.getkamar_inap());
                     WindowInputKamar.setLocationRelativeTo(internalFrame1);
                     WindowInputKamar.setVisible(true);
                 }
