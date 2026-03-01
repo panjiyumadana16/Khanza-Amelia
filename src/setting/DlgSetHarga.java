@@ -38,7 +38,7 @@ import javax.swing.table.TableColumn;
  * @author perpustakaan
  */
 public class DlgSetHarga extends javax.swing.JDialog {
-    private final DefaultTableModel tabMode,tabModePengaturanUmum,tabModePengaturanHargaUmum,tabModePengaturanHargaPerBarang;
+    private final DefaultTableModel tabMode,tabModePengaturanUmum,tabModePengaturanHargaUmum,tabModePengaturanHargaPerBarang,tabModeHargaBebas;
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
     private validasi Valid=new validasi();
@@ -132,7 +132,6 @@ public class DlgSetHarga extends javax.swing.JDialog {
         tbPengaturanHargaPerBarang.setModel(tabModePengaturanHargaPerBarang);
         tbPengaturanHargaPerBarang.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbPengaturanHargaPerBarang.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
         for (int i = 0; i < 12; i++) {
             TableColumn column = tbPengaturanHargaPerBarang.getColumnModel().getColumn(i);
             if(i==0){
@@ -178,6 +177,24 @@ public class DlgSetHarga extends javax.swing.JDialog {
         ranapvvipperbarang.setDocument(new batasInput((byte)10).getKata(ranapvvipperbarang));
         beliluarperbarang.setDocument(new batasInput((byte)10).getKata(beliluarperbarang));
         jualbebasperbarang.setDocument(new batasInput((byte)10).getKata(jualbebasperbarang));        
+        
+        tabModeHargaBebas=new DefaultTableModel(null,new Object[]{
+              "Margin Jual bebas(%)"
+            }){
+              @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
+        };
+
+        tbPengaturanHargaBebas.setModel(tabModeHargaBebas);
+        tbPengaturanHargaBebas.setPreferredScrollableViewportSize(new Dimension(500,500));
+        tbPengaturanHargaBebas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
+        for (int i = 0; i < 1; i++) {
+            TableColumn column = tbPengaturanHargaBebas.getColumnModel().getColumn(i);
+            if(i==0){
+                column.setPreferredWidth(200);
+            }
+        }
+
         
         jenis.addWindowListener(new WindowListener() {
             @Override
@@ -368,6 +385,12 @@ public class DlgSetHarga extends javax.swing.JDialog {
         BtnAll1 = new widget.Button();
         label12 = new widget.Label();
         LCount1 = new widget.Label();
+        internalFrame6 = new widget.InternalFrame();
+        panelisi7 = new widget.panelisi();
+        label69 = new widget.Label();
+        bebas = new widget.TextBox();
+        Scroll4 = new widget.ScrollPane();
+        tbPengaturanHargaBebas = new widget.Table();
 
         Popup.setName("Popup"); // NOI18N
 
@@ -1715,6 +1738,69 @@ public class DlgSetHarga extends javax.swing.JDialog {
 
         TabSetting.addTab("Pegaturan Harga Per Barang", internalFrame5);
 
+        internalFrame6.setBackground(new java.awt.Color(255, 255, 255));
+        internalFrame6.setBorder(null);
+        internalFrame6.setName("internalFrame6"); // NOI18N
+        internalFrame6.setLayout(new java.awt.BorderLayout(1, 1));
+
+        panelisi7.setName("panelisi7"); // NOI18N
+        panelisi7.setPreferredSize(new java.awt.Dimension(100, 50));
+        panelisi7.setLayout(null);
+
+        label69.setText("Keuntungan di Rawat Jalan(%) :");
+        label69.setName("label69"); // NOI18N
+        label69.setPreferredSize(new java.awt.Dimension(82, 23));
+        panelisi7.add(label69);
+        label69.setBounds(0, 10, 229, 23);
+        label69.getAccessibleContext().setAccessibleName("Keuntungan di Penjualan Bebas (%) :");
+
+        bebas.setHighlighter(null);
+        bebas.setName("bebas"); // NOI18N
+        bebas.setPreferredSize(new java.awt.Dimension(50, 23));
+        bebas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                bebasMouseMoved(evt);
+            }
+        });
+        bebas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                bebasMouseExited(evt);
+            }
+        });
+        bebas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bebasKeyPressed(evt);
+            }
+        });
+        panelisi7.add(bebas);
+        bebas.setBounds(233, 10, 50, 23);
+
+        internalFrame6.add(panelisi7, java.awt.BorderLayout.PAGE_START);
+
+        Scroll4.setComponentPopupMenu(Popup1);
+        Scroll4.setDoubleBuffered(true);
+        Scroll4.setName("Scroll4"); // NOI18N
+        Scroll4.setOpaque(true);
+
+        tbPengaturanHargaBebas.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
+        tbPengaturanHargaBebas.setComponentPopupMenu(Popup1);
+        tbPengaturanHargaBebas.setName("tbPengaturanHargaBebas"); // NOI18N
+        tbPengaturanHargaBebas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbPengaturanHargaBebasMouseClicked(evt);
+            }
+        });
+        tbPengaturanHargaBebas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbPengaturanHargaBebasKeyPressed(evt);
+            }
+        });
+        Scroll4.setViewportView(tbPengaturanHargaBebas);
+
+        internalFrame6.add(Scroll4, java.awt.BorderLayout.CENTER);
+
+        TabSetting.addTab("Pengaturan Margin Jual Bebas", internalFrame6);
+
         internalFrame1.add(TabSetting, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
@@ -1838,6 +1924,14 @@ public class DlgSetHarga extends javax.swing.JDialog {
                         ranapvipperbarang.getText()+"','"+ranapvvipperbarang.getText()+"','"+beliluarperbarang.getText()+"','"+
                         jualbebasperbarang.getText()+"','"+karyawanperbarang.getText()+"','"+kdbarang.getText()+"'","Set Harga");
                 tampilpengaturanhargaperbarang();
+                emptTeks();
+            }
+        }else if(TabSetting.getSelectedIndex()==4){
+            if(bebas.getText().trim().equals("")){
+                Valid.textKosong(bebas,"Keuntungan Penjualan Bebas");
+            }else{
+                Sequel.queryu("update setting_obat set persen_jual_bebas = "+bebas.getText()+"");
+                tampilpengaturanbebas();
                 emptTeks();
             }
         }            
@@ -2102,6 +2196,14 @@ public class DlgSetHarga extends javax.swing.JDialog {
                 tampilpengaturanhargaperbarang();
                 emptTeks();
             }
+        }else if(TabSetting.getSelectedIndex()==4){
+            if(bebas.getText().trim().equals("")){
+                Valid.textKosong(bebas,"Keuntungan Penjualan Bebas");
+            }else{
+                Sequel.queryu("update setting_obat set persen_jual_bebas = "+bebas.getText()+"");
+                tampilpengaturanbebas();
+                emptTeks();
+            }
         }              
     }//GEN-LAST:event_BtnEditActionPerformed
 
@@ -2274,6 +2376,8 @@ public class DlgSetHarga extends javax.swing.JDialog {
             tampil();
         }else if(TabSetting.getSelectedIndex()==3){
             tampilpengaturanhargaperbarang();
+        }else if(TabSetting.getSelectedIndex()==4){
+            tampilpengaturanbebas();
         }
     }//GEN-LAST:event_TabSettingMouseClicked
 
@@ -2814,6 +2918,38 @@ public class DlgSetHarga extends javax.swing.JDialog {
         Valid.pindah(evt,cmbHargaDasar,BtnSimpan);
     }//GEN-LAST:event_cmbPPNKeyPressed
 
+    private void bebasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bebasMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bebasMouseMoved
+
+    private void bebasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bebasMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bebasMouseExited
+
+    private void bebasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bebasKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bebasKeyPressed
+
+    private void tbPengaturanHargaBebasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPengaturanHargaBebasMouseClicked
+        if(tabModeHargaBebas.getRowCount()!=0){
+            try {
+                getDataPengaturanHargaBebas();
+            } catch (java.lang.NullPointerException e) {
+            }
+        }
+    }//GEN-LAST:event_tbPengaturanHargaBebasMouseClicked
+
+    private void tbPengaturanHargaBebasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbPengaturanHargaBebasKeyPressed
+        if(tabModeHargaBebas.getRowCount()!=0){
+            if((evt.getKeyCode()==KeyEvent.VK_ENTER)||(evt.getKeyCode()==KeyEvent.VK_UP)||(evt.getKeyCode()==KeyEvent.VK_DOWN)){
+                try {
+                    getDataPengaturanHargaBebas();
+                } catch (java.lang.NullPointerException e) {
+                }
+            }
+        }
+    }//GEN-LAST:event_tbPengaturanHargaBebasKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -2851,9 +2987,11 @@ public class DlgSetHarga extends javax.swing.JDialog {
     private widget.ScrollPane Scroll1;
     private widget.ScrollPane Scroll2;
     private widget.ScrollPane Scroll3;
+    private widget.ScrollPane Scroll4;
     private widget.TextBox TCari;
     private widget.TextBox TCari1;
     private javax.swing.JTabbedPane TabSetting;
+    private widget.TextBox bebas;
     private widget.TextBox beliluar;
     private widget.TextBox beliluarperbarang;
     private widget.TextBox beliluarumum;
@@ -2865,6 +3003,7 @@ public class DlgSetHarga extends javax.swing.JDialog {
     private widget.InternalFrame internalFrame3;
     private widget.InternalFrame internalFrame4;
     private widget.InternalFrame internalFrame5;
+    private widget.InternalFrame internalFrame6;
     private widget.Label jLabel5;
     private widget.Label jLabel6;
     private widget.Label jLabel7;
@@ -2911,6 +3050,7 @@ public class DlgSetHarga extends javax.swing.JDialog {
     private widget.Label label61;
     private widget.Label label62;
     private widget.Label label63;
+    private widget.Label label69;
     private widget.Label label9;
     private widget.TextBox nmbarang;
     private widget.TextBox nmjns;
@@ -2921,6 +3061,7 @@ public class DlgSetHarga extends javax.swing.JDialog {
     private widget.panelisi panelisi4;
     private widget.panelisi panelisi5;
     private widget.panelisi panelisi6;
+    private widget.panelisi panelisi7;
     private javax.swing.JMenuItem ppUPdate;
     private javax.swing.JMenuItem ppUPdate1;
     private javax.swing.JMenuItem ppUPdate2;
@@ -2946,6 +3087,7 @@ public class DlgSetHarga extends javax.swing.JDialog {
     private widget.TextBox ranapvvipperbarang;
     private widget.TextBox ranapvvipumum;
     private widget.Table tbAdmin;
+    private widget.Table tbPengaturanHargaBebas;
     private widget.Table tbPengaturanHargaPerBarang;
     private widget.Table tbPengaturanHargaUmum;
     private widget.Table tbPengaturanUmum;
@@ -2996,6 +3138,33 @@ public class DlgSetHarga extends javax.swing.JDialog {
                 while(rs.next()){
                     tabModePengaturanUmum.addRow(new Object[]{
                         rs.getString(1),rs.getString(2),rs.getString(3)
+                    });
+                }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Notifikasi : "+e);
+        }
+    }
+    
+    private void tampilpengaturanbebas() {
+        Valid.tabelKosong(tabModeHargaBebas);
+        try{
+            ps=koneksi.prepareStatement(
+                   "select persen_jual_bebas from setting_obat");
+            try {
+                rs=ps.executeQuery();
+                while(rs.next()){
+                    tabModeHargaBebas.addRow(new Object[]{
+                        rs.getString(1)
                     });
                 }
             } catch (Exception e) {
@@ -3135,6 +3304,13 @@ public class DlgSetHarga extends javax.swing.JDialog {
             karyawanperbarang.setText(tabModePengaturanHargaPerBarang.getValueAt(row,9).toString());
             kdbarang.setText(tabModePengaturanHargaPerBarang.getValueAt(row,10).toString());
             nmbarang.setText(tabModePengaturanHargaPerBarang.getValueAt(row,11).toString());
+        }
+    }
+    
+    private void getDataPengaturanHargaBebas() {
+        int row=tbPengaturanHargaBebas.getSelectedRow();
+        if(row!= -1){
+            bebas.setText(tabModeHargaBebas.getValueAt(row,0).toString());
         }
     }
     
