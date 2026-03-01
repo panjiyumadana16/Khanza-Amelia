@@ -97,6 +97,7 @@ import rekammedis.RMDataResumePasienRanap;
 import rekammedis.RMDataSkriningGiziLanjut;
 import rekammedis.RMHasilPemeriksaanUSG;
 import rekammedis.RMHasilTindakanESWL;
+import rekammedis.RMKlasifikasiRobson;
 import rekammedis.RMKonselingFarmasi;
 import rekammedis.RMPemantauanMEOWS;
 import rekammedis.RMPemantauanPEWS;
@@ -869,6 +870,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnPenilaianPsikolog = new javax.swing.JMenuItem();
         MnHemodialisa = new javax.swing.JMenuItem();
         MnPengkajianRestrain = new javax.swing.JMenuItem();
+        MnKlasifikasiRobson = new javax.swing.JMenuItem();
         MnPemantauanPEWS = new javax.swing.JMenu();
         MnPemantauanPEWSAnak = new javax.swing.JMenuItem();
         MnPemantauanPEWSDewasa = new javax.swing.JMenuItem();
@@ -2265,6 +2267,22 @@ public class DlgKamarInap extends javax.swing.JDialog {
             }
         });
         MnPenilaianLain.add(MnPengkajianRestrain);
+
+        MnKlasifikasiRobson.setBackground(new java.awt.Color(255, 255, 254));
+        MnKlasifikasiRobson.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnKlasifikasiRobson.setForeground(new java.awt.Color(50, 50, 50));
+        MnKlasifikasiRobson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnKlasifikasiRobson.setText("Klasifikasi Robson");
+        MnKlasifikasiRobson.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnKlasifikasiRobson.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnKlasifikasiRobson.setName("MnKlasifikasiRobson"); // NOI18N
+        MnKlasifikasiRobson.setPreferredSize(new java.awt.Dimension(200, 26));
+        MnKlasifikasiRobson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnKlasifikasiRobsonActionPerformed(evt);
+            }
+        });
+        MnPenilaianLain.add(MnKlasifikasiRobson);
 
         MnDataRM.add(MnPenilaianLain);
 
@@ -6047,7 +6065,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         }
 
                         norawat.requestFocus();   
-                        isjml();    
+                        isjml();
+                        BtnSimpan.setEnabled(akses.getkamar_inap());
                         WindowInputKamar.setLocationRelativeTo(internalFrame1);
                         WindowInputKamar.setVisible(true);
                     }
@@ -6084,7 +6103,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     }
 
                     norawat.requestFocus();   
-                    isjml();    
+                    isjml();
+                    BtnSimpan.setEnabled(akses.getkamar_inap());
                     WindowInputKamar.setLocationRelativeTo(internalFrame1);
                     WindowInputKamar.setVisible(true);
                 }
@@ -16018,6 +16038,28 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         tbKamInMouseClicked(evt);
     }//GEN-LAST:event_tbKamInMouseReleased
 
+    private void MnKlasifikasiRobsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnKlasifikasiRobsonActionPerformed
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            TCari.requestFocus();
+        }else if(TPasien.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbKamIn.requestFocus();
+        }else{
+            if(tbKamIn.getSelectedRow()!= -1){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                RMKlasifikasiRobson robson=new RMKlasifikasiRobson(null,false);
+                robson.emptTeks();
+                robson.setNoRm(TNoRwCari.getText(), new Date());
+                robson.isCek();
+                robson.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                robson.setLocationRelativeTo(internalFrame1);
+                robson.setVisible(true);
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }
+    }//GEN-LAST:event_MnKlasifikasiRobsonActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -16138,6 +16180,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JMenuItem MnHemodialisa;
     private javax.swing.JMenuItem MnInputResep;
     private javax.swing.JMenuItem MnJadwalOperasi;
+    private javax.swing.JMenuItem MnKlasifikasiRobson;
     private javax.swing.JMenuItem MnKonselingFarmasi;
     private javax.swing.JMenuItem MnLabelTracker;
     private javax.swing.JMenuItem MnLabelTracker1;
@@ -16861,8 +16904,8 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             BangsalCari.setEditable(true);
         }
         
-        BtnSimpan.setEnabled(akses.getkamar_inap());
-        BtnSimpanpindah.setEnabled(akses.getkamar_inap());
+        BtnSimpan.setEnabled(akses.getkamar());
+        BtnSimpanpindah.setEnabled(akses.getkamar());
         BtnPrint.setEnabled(akses.getkamar_inap());
         MnRawatInap.setEnabled(akses.gettindakan_ranap());
         MnRawatJalan.setEnabled(akses.gettindakan_ralan());
@@ -17001,6 +17044,9 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         MnPengkajianRestrain.setEnabled(akses.getpengkajian_restrain());
         MnPenilaianAwalKeperawatanNeonatus.setEnabled(akses.getpenilaian_awal_keperawatan_ranap_neonatus());
         MnPenilaianAwalMedisNeonatus.setEnabled(akses.getpenilaian_awal_medis_ranap_neonatus());
+        MnKlasifikasiRobson.setEnabled(akses.getklasifikasi_robson());
+        BtnIn.setEnabled(akses.getkamar());
+        btnPindah.setEnabled(akses.getkamar());
         
         if(akses.getkode().equals("Admin Utama")){
             MnHapusDataSalah.setEnabled(true);

@@ -929,6 +929,7 @@ import rekammedis.RMSkriningNutrisiLansia;
 import rekammedis.RMTimeOutSebelumInsisi;
 import rekammedis.RMTransferPasienAntarRuang;
 import rekammedis.RMUjiFungsiKFR;
+import rekammedis.RMKlasifikasiRobson;
 import setting.DlgJamDietPasien;
 import setting.DlgPasswordBPJS;
 import setting.DlgRuangOperasi;
@@ -1633,6 +1634,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnGrafikLimbahDomestikPerTanggal = new widget.ButtonBig();
         btnLaboratoriumPA = new widget.ButtonBig();
         btnLaboratoriumMB = new widget.ButtonBig();
+        btnKlasifikasiRobson = new widget.ButtonBig();
         internalFrame1 = new widget.InternalFrame();
         BtnMenu = new widget.ButtonBig();
         jSeparator4 = new javax.swing.JSeparator();
@@ -1929,7 +1931,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23/08/2023" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26/01/2026" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -6974,12 +6976,25 @@ public class frmUtama extends javax.swing.JFrame {
 
         btnLaboratoriumMB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/5728202_coronavirus_medical_microbiology_research_science_icon.png"))); // NOI18N
         btnLaboratoriumMB.setText("Periksa Lab MB");
+        btnLaboratoriumMB.setDisabledIcon(null);
+        btnLaboratoriumMB.setDisabledSelectedIcon(null);
         btnLaboratoriumMB.setIconTextGap(0);
         btnLaboratoriumMB.setName("btnLaboratoriumMB"); // NOI18N
         btnLaboratoriumMB.setPreferredSize(new java.awt.Dimension(200, 90));
         btnLaboratoriumMB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLaboratoriumMBActionPerformed(evt);
+            }
+        });
+
+        btnKlasifikasiRobson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/375264_baby_fetus_pregnancy_icon.png"))); // NOI18N
+        btnKlasifikasiRobson.setText("Klasifikasi Robson");
+        btnKlasifikasiRobson.setIconTextGap(0);
+        btnKlasifikasiRobson.setName("btnKlasifikasiRobson"); // NOI18N
+        btnKlasifikasiRobson.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnKlasifikasiRobson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKlasifikasiRobsonActionPerformed(evt);
             }
         });
 
@@ -14500,6 +14515,19 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_MnInfoMobileJKNActionPerformed
 
+    private void btnKlasifikasiRobsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKlasifikasiRobsonActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMKlasifikasiRobson form=new RMKlasifikasiRobson(this,false);
+        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnKlasifikasiRobsonActionPerformed
+
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -21359,6 +21387,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnKeuntungan;
     private widget.ButtonBig btnKeuntunganObat2;
     private widget.ButtonBig btnKeuntunganObatRanap;
+    private widget.ButtonBig btnKlasifikasiRobson;
     private widget.ButtonBig btnKonversi;
     private widget.ButtonBig btnKunjunganLabRalan;
     private widget.ButtonBig btnKunjunganLabRanap;
@@ -25618,6 +25647,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getedukasi_pasien_keluarga_rj()==true){
                 Panelmenu.add(btnEdukasiPasienKeluargaRJ);
+                jmlmenu++;
+            }
+            
+            if(akses.getklasifikasi_robson()==true){
+                Panelmenu.add(btnKlasifikasiRobson);
                 jmlmenu++;
             }
         }else if(cmbMenu.getSelectedIndex()==13){  
@@ -31846,6 +31880,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         
         if(akses.getruang_ok()==true){
             Panelmenu.add(btnRuangOperasi);
+            jmlmenu++;
+        }
+        
+        if(akses.getklasifikasi_robson()==true){
+            Panelmenu.add(btnKlasifikasiRobson);
             jmlmenu++;
         }
     }
@@ -38872,6 +38911,13 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
                 Panelmenu.add(btnRuangOperasi);
                 jmlmenu++;
             }                
+        }
+        
+        if(akses.getklasifikasi_robson()==true){
+            if(btnKlasifikasiRobson.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnKlasifikasiRobson);
+                jmlmenu++;
+            }
         }
     }
 

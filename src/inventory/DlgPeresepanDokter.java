@@ -408,6 +408,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         Popup = new javax.swing.JPopupMenu();
         ppBersihkan = new javax.swing.JMenuItem();
         ppStok1 = new javax.swing.JMenuItem();
+        ppStokOpname = new javax.swing.JMenuItem();
         KdPj = new widget.TextBox();
         LPpn = new widget.Label();
         jLabel6 = new widget.Label();
@@ -487,6 +488,21 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
             }
         });
         Popup.add(ppStok1);
+
+        ppStokOpname.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppStokOpname.setForeground(new java.awt.Color(50, 50, 50));
+        ppStokOpname.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppStokOpname.setText("Buka Stok Opname");
+        ppStokOpname.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppStokOpname.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppStokOpname.setName("ppStokOpname"); // NOI18N
+        ppStokOpname.setPreferredSize(new java.awt.Dimension(200, 25));
+        ppStokOpname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppStokOpnameActionPerformed(evt);
+            }
+        });
+        Popup.add(ppStokOpname);
 
         KdPj.setHighlighter(null);
         KdPj.setName("KdPj"); // NOI18N
@@ -751,7 +767,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         jLabel8.setBounds(0, 42, 72, 23);
 
         DTPBeri.setForeground(new java.awt.Color(50, 70, 50));
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-05-2025" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-02-2026" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
         DTPBeri.setOpaque(false);
@@ -1538,6 +1554,16 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             
     }//GEN-LAST:event_DTPBeriItemStateChanged
 
+    private void ppStokOpnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppStokOpnameActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgInputStok sOpname=new DlgInputStok(null,false);
+        sOpname.isCek();
+        sOpname.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        sOpname.setLocationRelativeTo(internalFrame1);
+        sOpname.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_ppStokOpnameActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1601,6 +1627,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.panelisi panelisi3;
     private javax.swing.JMenuItem ppBersihkan;
     private javax.swing.JMenuItem ppStok1;
+    private javax.swing.JMenuItem ppStokOpname;
     private widget.Table tbDetailResepObatRacikan;
     private widget.Table tbObatResepRacikan;
     private widget.Table tbResep;
@@ -1958,6 +1985,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     public void isCek(){   
         BtnTambah.setEnabled(akses.getresep_dokter());
+        ppStokOpname.setEnabled(akses.getstok_opname_obat()); 
         TCari.requestFocus();
         if(!DEPOAKTIFOBAT.equals("")){
             bangsal=DEPOAKTIFOBAT;
@@ -2807,7 +2835,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                             rs2.getString("kode_sat"),Valid.roundUp(rs2.getDouble("harga"),100),
                                             rs2.getDouble("h_beli"),rs2.getString("nama"),rs2.getDouble("stok"),
                                             rs2.getDouble("kapasitas"),rs2.getDouble("p1"),"/",rs2.getDouble("p2"),
-                                            rs2.getString("kandungan"),rs2.getDouble("stok"),rs2.getString("nama_industri"),rs2.getString("letak_barang")
+                                            rs2.getString("kandungan"),rs2.getDouble("jml"),rs2.getString("nama_industri"),rs2.getString("letak_barang")
                                         });  
                                     }        
                                 } 
@@ -2818,7 +2846,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                         rs2.getString("kode_sat"),Valid.roundUp(rs2.getDouble("harga"),100),
                                         rs2.getDouble("h_beli"),rs2.getString("nama"),rs2.getDouble("stok"),
                                         rs2.getDouble("kapasitas"),rs2.getDouble("p1"),"/",rs2.getDouble("p2"),
-                                        rs2.getString("kandungan"),rs2.getDouble("stok"),rs2.getString("nama_industri"),rs2.getString("letak_barang")
+                                        rs2.getString("kandungan"),rs2.getDouble("jml"),rs2.getString("nama_industri"),rs2.getString("letak_barang")
                                     });  
                                 } 
                             }

@@ -219,7 +219,7 @@ public class UpdateDownload extends JFrame{
                 is.close();
             }
          }
-
+         zipfile.close(); //biar bisa cleanup()
     }
     private void downloadFile(String link) throws MalformedURLException, IOException
     {
