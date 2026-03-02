@@ -2538,6 +2538,8 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private void tampil1() {
         Double jualbebas = Sequel.cariIsiAngka("SELECT persen_jual_bebas FROM setting_obat");
         jualbebas = jualbebas/100;
+        Double karyawan = Sequel.cariIsiAngka("SELECT persen_karyawan FROM setting_obat");
+        karyawan = karyawan/100;
         row=tabMode.getRowCount();
         jml=0;
         for(i=0;i<row;i++){
@@ -2604,7 +2606,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         try{
             ps=koneksi.prepareStatement(
                 "select databarang.kode_brng, databarang.nama_brng,jenis.nama,gudangbarang.stok, "+
-                " databarang.kode_sat, (databarang.h_beli*"+jualbebas+")+databarang.h_beli as jualbebas, databarang.karyawan,"+
+                " databarang.kode_sat, (databarang.h_beli*"+jualbebas+")+databarang.h_beli as jualbebas, (databarang.h_beli*"+karyawan+")+databarang.h_beli as karyawan,"+
                 " databarang.ralan,databarang.beliluar,databarang.kelas1,databarang.kelas2,"+
                 " databarang.kelas3,databarang.utama,databarang.vip,databarang.vvip,databarang."+hppfarmasi+" as dasar  "+
                 " from databarang inner join jenis on databarang.kdjns=jenis.kdjns "+
@@ -2895,6 +2897,10 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     
     private void tampil3() {
         try{
+            Double jualbebas = Sequel.cariIsiAngka("SELECT persen_jual_bebas FROM setting_obat");
+            jualbebas = jualbebas/100;
+            Double karyawan = Sequel.cariIsiAngka("SELECT persen_karyawan FROM setting_obat");
+            karyawan = karyawan/100;
             row=tabModeDetailRacikan.getRowCount();
             jml=0;
             for(i=0;i<row;i++){
@@ -2971,7 +2977,7 @@ private void BtnGudangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             
             ps=koneksi.prepareStatement(
                 "select databarang.kode_brng, databarang.nama_brng,jenis.nama,gudangbarang.stok, "+
-                " databarang.kode_sat, databarang.jualbebas, databarang.karyawan,"+
+                " databarang.kode_sat, (databarang.h_beli*"+jualbebas+")+databarang.h_beli as jualbebas, (databarang.h_beli*"+karyawan+")+databarang.h_beli as karyawan,"+
                 " databarang.ralan,databarang.beliluar,databarang.kapasitas,databarang.kelas1,databarang.kelas2,"+
                 " databarang.kelas3,databarang.utama,databarang.vip,databarang.vvip,databarang."+hppfarmasi+" as dasar "+
                 " from databarang inner join jenis on databarang.kdjns=jenis.kdjns "+
