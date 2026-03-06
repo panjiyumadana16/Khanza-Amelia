@@ -29,6 +29,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -783,8 +786,6 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
             Valid.textKosong(TNoRw,"pasien");
         }else if(!Tanggal.isValid()){
             Valid.textKosong(Tanggal, "Tanggal Periksa");
-        }else if(!TglHPHT.isValid()){
-            Valid.textKosong(TglHPHT, "Tanggal HPHT");
         }else if(!TglHPL.isValid()){
             Valid.textKosong(TglHPL, "Tanggal HPL");
         }else if(TDiagnosa.getText().trim().equals("")){
@@ -796,7 +797,11 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
         }else if(checkrobson > 1){
             JOptionPane.showMessageDialog(null,"Kelompok Populasi Ibu hamil silahkan pilih salah satu saja...!!!");
         }else{
-            if(Sequel.menyimpantf("klasifikasi_robson", "'"+TNoRw.getText()+"','"+Valid.SetTgl(Tanggal.getSelectedItem()+"")+"','"+Valid.SetTgl(TglHPHT.getSelectedItem()+"")+"','"+
+            String tglhpht = TglHPHT.getSelectedItem()+"";
+            if(isTanggalValid(tglhpht)){
+                tglhpht = Valid.SetTgl(tglhpht);
+            }
+            if(Sequel.menyimpantf("klasifikasi_robson", "'"+TNoRw.getText()+"','"+Valid.SetTgl(Tanggal.getSelectedItem()+"")+"','"+tglhpht+"','"+
                 Valid.SetTgl(TglHPL.getSelectedItem()+"")+"','"+TDiagnosa.getText()+"','"+tbKlasifikasi.getValueAt(posisiRobson, 0).toString()+"','"+TKesimpulan.getText()+"','"+
                 KdPemeriksa.getText()+"'", "Data / No Rawat")==true){
                 tampil();
@@ -860,8 +865,6 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
             Valid.textKosong(TNoRw,"pasien");
         }else if(!Tanggal.isValid()){
             Valid.textKosong(Tanggal, "Tanggal Periksa");
-        }else if(!TglHPHT.isValid()){
-            Valid.textKosong(TglHPHT, "Tanggal HPHT");
         }else if(!TglHPL.isValid()){
             Valid.textKosong(TglHPL, "Tanggal HPL");
         }else if(TDiagnosa.getText().trim().equals("")){
@@ -873,8 +876,13 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
         }else if(checkrobson > 1){
             JOptionPane.showMessageDialog(null,"Kelompok Populasi Ibu hamil silahkan pilih salah satu saja...!!!");
         }else{
+            String tglhpht = TglHPHT.getSelectedItem()+"";
+            if(isTanggalValid(tglhpht)){
+                tglhpht = Valid.SetTgl(tglhpht);
+            }
+            
             Valid.editTable(tabMode, "klasifikasi_robson", "no_rawat", TNoRw, "tanggal='"+Valid.SetTgl(Tanggal.getSelectedItem()+"")
-                    +"', hpht='"+Valid.SetTgl(TglHPHT.getSelectedItem()+"")
+                    +"', hpht='"+tglhpht
                     +"', hpl='"+Valid.SetTgl(TglHPL.getSelectedItem()+"")
                     +"', diagnosa='"+TDiagnosa.getText()
                     +"', populasi_bumil='"+tbKlasifikasi.getValueAt(posisiRobson, 0).toString()
@@ -1235,7 +1243,12 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
             TNoRM.setText(tbObat.getValueAt(tbObat.getSelectedRow(),1).toString());
             TPasien.setText(tbObat.getValueAt(tbObat.getSelectedRow(),2).toString());
             Valid.SetTgl(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),3).toString());
-            Valid.SetTgl(TglHPHT,tbObat.getValueAt(tbObat.getSelectedRow(),4).toString());
+            String tglhpht = tbObat.getValueAt(tbObat.getSelectedRow(),4).toString();
+            if(isTanggalValidYMD(tglhpht)){
+                Valid.SetTgl(TglHPHT,tglhpht);
+            } else {
+                TglHPHT.setSelectedItem(tglhpht);
+            }
             Valid.SetTgl(TglHPL,tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
             TDiagnosa.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 6).toString());
             tbKlasifikasi.setValueAt(true, Integer.parseInt(tbObat.getValueAt(tbObat.getSelectedRow(), 7).toString())-1, 2);
@@ -1293,4 +1306,25 @@ public final class RMKlasifikasiRobson extends javax.swing.JDialog {
         }
     }
     
+    public boolean isTanggalValid(String tanggal) {
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+    try {
+        LocalDate.parse(tanggal, format);
+        return true;
+    } catch (DateTimeParseException e) {
+        return false;
+    }
+    }
+    
+    public boolean isTanggalValidYMD(String tanggal) {
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    try {
+        LocalDate.parse(tanggal, format);
+        return true;
+    } catch (DateTimeParseException e) {
+        return false;
+    }
+    }
 }
