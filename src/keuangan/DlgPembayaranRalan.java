@@ -243,6 +243,8 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
         
         ChkInput.setSelected(false);
         isForm();
+        Tgl1.setSelectedItem(Tgl1.getSelectedItem().toString().split(" ")[0]+" 00:00:00");
+        Tgl2.setSelectedItem(Tgl2.getSelectedItem().toString().split(" ")[0]+" 23:59:59");
     }    
     
      
@@ -424,7 +426,6 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
         panelGlass5.add(JnsCari);
 
         Tgl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-02-2026 00:00:00" }));
-        Tgl1.setDate(new java.util.Date(1772163648000L));
         Tgl1.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         Tgl1.setName("Tgl1"); // NOI18N
         Tgl1.setPreferredSize(new java.awt.Dimension(130, 23));
@@ -675,22 +676,23 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
                             htmlContent.append(                             
                                 "<tr class='isi'>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Tanggal</td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Jam</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='6%'>No.Nota</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>No.RM</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='12%'>Nama Pasien</td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Nama Pasien</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='8%'>Poli/Unit</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='8%'>Perujuk</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Registrasi</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Obat+Emb+Tsl</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Paket Tindakan</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Operasi</td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Operasi</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Laborat</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Radiologi</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Tambahan</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Potongan</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='6%'>Total</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Dokter</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Keterangan</td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Keterangan</td>"+
                                 "</tr>"
                             ); 
                             for(i=0;i<tabMode.getRowCount();i++){  
@@ -702,7 +704,7 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
                                         "<td valign='top'>"+tabMode.getValueAt(i,3)+"</td>"+
                                         "<td valign='top'>"+tabMode.getValueAt(i,4)+"</td>"+
                                         "<td valign='top'>"+tabMode.getValueAt(i,5)+"</td>"+
-                                        "<td valign='top' align='right'>"+tabMode.getValueAt(i,6)+"</td>"+
+                                        "<td valign='top'>"+tabMode.getValueAt(i,6)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,7)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,8)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,9)+"</td>"+
@@ -711,8 +713,9 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,12)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,13)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,14)+"</td>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,15)+"</td>"+
+                                        "<td valign='top' align='right'>"+tabMode.getValueAt(i,15)+"</td>"+
                                         "<td valign='top'>"+tabMode.getValueAt(i,16)+"</td>"+
+                                        "<td valign='top'>"+tabMode.getValueAt(i,17)+"</td>"+
                                     "</tr>"
                                 ); 
                             }            
@@ -747,22 +750,23 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
                             htmlContent.append(                             
                                 "<tr class='isi'>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Tanggal</td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Jam</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='6%'>No.Nota</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>No.RM</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='12%'>Nama Pasien</td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Nama Pasien</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='8%'>Poli/Unit</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='8%'>Perujuk</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Registrasi</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Obat+Emb+Tsl</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Paket Tindakan</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Operasi</td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Operasi</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Laborat</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Radiologi</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Tambahan</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Potongan</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='6%'>Total</td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Dokter</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Keterangan</td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='4%'>Keterangan</td>"+
                                 "</tr>"
                             ); 
                             for(i=0;i<tabMode.getRowCount();i++){  
@@ -774,7 +778,7 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
                                         "<td valign='top'>"+tabMode.getValueAt(i,3)+"</td>"+
                                         "<td valign='top'>"+tabMode.getValueAt(i,4)+"</td>"+
                                         "<td valign='top'>"+tabMode.getValueAt(i,5)+"</td>"+
-                                        "<td valign='top' align='right'>"+tabMode.getValueAt(i,6)+"</td>"+
+                                        "<td valign='top'>"+tabMode.getValueAt(i,6)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,7)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,8)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,9)+"</td>"+
@@ -783,8 +787,9 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,12)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,13)+"</td>"+
                                         "<td valign='top' align='right'>"+tabMode.getValueAt(i,14)+"</td>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,15)+"</td>"+
+                                        "<td valign='top' align='right'>"+tabMode.getValueAt(i,15)+"</td>"+
                                         "<td valign='top'>"+tabMode.getValueAt(i,16)+"</td>"+
+                                        "<td valign='top'>"+tabMode.getValueAt(i,17)+"</td>"+
                                     "</tr>"
                                 ); 
                             }            
@@ -817,11 +822,11 @@ public final class DlgPembayaranRalan extends javax.swing.JDialog {
                     case "Laporan 3 (CSV)":
                             htmlContent = new StringBuilder();
                             htmlContent.append(                             
-                                "\"Tanggal\";\"No.Nota\";\"No.RM\";\"Nama Pasien\";\"Poli/Unit\";\"Perujuk\";\"Registrasi\";\"Obat+Emb+Tsl\";\"Paket Tindakan\";\"Operasi\";\"Laborat\";\"Radiologi\";\"Tambahan\";\"Potongan\";\"Total\";\"Dokter\";\"Keterangan\"\n"
+                                "\"Tanggal\";\"Jam\";\"No.Nota\";\"No.RM\";\"Nama Pasien\";\"Poli/Unit\";\"Perujuk\";\"Registrasi\";\"Obat+Emb+Tsl\";\"Paket Tindakan\";\"Operasi\";\"Laborat\";\"Radiologi\";\"Tambahan\";\"Potongan\";\"Total\";\"Dokter\";\"Keterangan\"\n"
                             ); 
                             for(i=0;i<tabMode.getRowCount();i++){  
                                 htmlContent.append(                             
-                                    "\""+tabMode.getValueAt(i,0)+"\";\""+tabMode.getValueAt(i,1)+"\";\""+tabMode.getValueAt(i,2)+"\";\""+tabMode.getValueAt(i,3)+"\";\""+tabMode.getValueAt(i,4)+"\";\""+tabMode.getValueAt(i,5)+"\";\""+tabMode.getValueAt(i,6)+"\";\""+tabMode.getValueAt(i,7)+"\";\""+tabMode.getValueAt(i,8)+"\";\""+tabMode.getValueAt(i,9)+"\";\""+tabMode.getValueAt(i,10)+"\";\""+tabMode.getValueAt(i,11)+"\";\""+tabMode.getValueAt(i,12)+"\";\""+tabMode.getValueAt(i,13)+"\";\""+tabMode.getValueAt(i,14)+"\";\""+tabMode.getValueAt(i,15)+"\";\""+tabMode.getValueAt(i,16)+"\"\n"
+                                    "\""+tabMode.getValueAt(i,0)+"\";\""+tabMode.getValueAt(i,1)+"\";\""+tabMode.getValueAt(i,2)+"\";\""+tabMode.getValueAt(i,3)+"\";\""+tabMode.getValueAt(i,4)+"\";\""+tabMode.getValueAt(i,5)+"\";\""+tabMode.getValueAt(i,6)+"\";\""+tabMode.getValueAt(i,7)+"\";\""+tabMode.getValueAt(i,8)+"\";\""+tabMode.getValueAt(i,9)+"\";\""+tabMode.getValueAt(i,10)+"\";\""+tabMode.getValueAt(i,11)+"\";\""+tabMode.getValueAt(i,12)+"\";\""+tabMode.getValueAt(i,13)+"\";\""+tabMode.getValueAt(i,14)+"\";\""+tabMode.getValueAt(i,15)+"\";\""+tabMode.getValueAt(i,16)+"\";\""+tabMode.getValueAt(i,17)+"\"\n"
                                 ); 
                             }            
 

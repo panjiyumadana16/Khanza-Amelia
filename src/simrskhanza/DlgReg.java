@@ -7176,8 +7176,8 @@ public final class DlgReg extends javax.swing.JDialog {
                 isRegistrasi();
             }else{
                 if(aktifjadwal.equals("aktif")){
-                    if(Sequel.cariInteger("select count(reg_periksa.no_rawat) from reg_periksa where reg_periksa.kd_dokter='"+KdDokter.getText()+"' and reg_periksa.tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ")>=kuota){
-                        JOptionPane.showMessageDialog(null,"Eiiits, Kuota registrasi penuh..!!!");
+                    if(Sequel.cariInteger("select count(reg_periksa.no_rawat) from reg_periksa where reg_periksa.kd_dokter='"+KdDokter.getText()+"' and reg_periksa.tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' and reg_periksa.kd_pj='BPJ' ")>=kuota){
+                        JOptionPane.showMessageDialog(null,"Eiiits, Kuota registrasi untuk BPJS sudah penuh..!!!");
                         TCari.requestFocus();
                     }else{
                         isRegistrasi();

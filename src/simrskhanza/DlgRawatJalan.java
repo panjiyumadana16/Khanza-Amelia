@@ -1295,6 +1295,14 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         isMenu(); 
         jam();
         
+        //sementara dinonaktifkan
+        ChkAccor1.setSelected(false);
+        isBHPDr();
+        ChkAccor2.setSelected(false);
+        isBHPPr();
+        ChkAccor3.setSelected(false);
+        isBHPDrPr();
+        
         try {
             prop.loadFromXML(new FileInputStream("setting/database.xml"));
             aktifkanparsial=prop.getProperty("AKTIFKANBILLINGPARSIAL");
@@ -9330,7 +9338,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void tbTindakanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTindakanMouseClicked
         // TODO add your handling code here:
         try {
-            ChkAccor1.setSelected(true);
+            //ChkAccor1.setSelected(true); //sementara dinonaktifkan
             isBHPDr();
             getBHPDr();
         } catch (java.lang.NullPointerException e) {
@@ -9347,7 +9355,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void tbTindakan2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTindakan2MouseClicked
         // TODO add your handling code here:
         try {
-            ChkAccor2.setSelected(true);
+            //ChkAccor2.setSelected(true); //sementara dinonaktifkan
             isBHPPr();
             getBHPPr();
         } catch (java.lang.NullPointerException e) {
@@ -9364,7 +9372,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void tbTindakan3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTindakan3MouseClicked
         // TODO add your handling code here:
         try {
-            ChkAccor3.setSelected(true);
+            //ChkAccor3.setSelected(true); //sementara dinonaktifkan
             isBHPDrPr();
             getBHPDrPr();
         } catch (java.lang.NullPointerException e) {
