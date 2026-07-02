@@ -58,7 +58,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         setSize(628,674);
 
         tabMode=new DefaultTableModel(null,new Object[]{
-            "No.Rawat","No.R.M.","Nama Pasien","Umur","JK","Tgl.Lahir","Tgl.Obser","Jam Obser","GDS",
+            "No.Rawat","No.R.M.","Nama Pasien","Umur","JK","Tgl.Lahir","Tgl.Obser","Jam Obser","GDS","GDP","2JPP",
             "Insulin","Obat Gula","NIP","Nama Petugas"
         }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
@@ -69,7 +69,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         tbObat.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbObat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 13; i++) {
+        for (i = 0; i < 15; i++) {
             TableColumn column = tbObat.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(105);
@@ -90,12 +90,16 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             }else if(i==8){
                 column.setPreferredWidth(55);
             }else if(i==9){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(55);
             }else if(i==10){
-                column.setPreferredWidth(100);
+                column.setPreferredWidth(55);
             }else if(i==11){
-                column.setPreferredWidth(90);
+                column.setPreferredWidth(100);
             }else if(i==12){
+                column.setPreferredWidth(100);
+            }else if(i==13){
+                column.setPreferredWidth(90);
+            }else if(i==14){
                 column.setPreferredWidth(160);
             }
         }
@@ -104,12 +108,14 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         TNoRw.setDocument(new batasInput((byte)17).getKata(TNoRw));
         NIP.setDocument(new batasInput((byte)20).getKata(NIP));
         GDS.setDocument(new batasInput((byte)5).getKata(GDS));
+        GDP.setDocument(new batasInput((byte)5).getKata(GDP));
+        DUAJPP.setDocument(new batasInput((byte)5).getKata(DUAJPP));
         Insulin.setDocument(new batasInput((byte)30).getKata(Insulin));
         ObatGula.setDocument(new batasInput((byte)30).getKata(ObatGula));
-        GDP.setVisible(false);
-        DUAJPP.setVisible(false);
-        jLabel13.setVisible(false);
-        jLabel14.setVisible(false);
+//        GDP.setVisible(false);
+//        DUAJPP.setVisible(false);
+//        jLabel13.setVisible(false);
+//        jLabel14.setVisible(false);
         
         if(koneksiDB.CARICEPAT().equals("aktif")){
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
@@ -412,7 +418,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-01-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-06-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -426,7 +432,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-01-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-06-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -519,10 +525,10 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             }
         });
         FormInput.add(TPasien);
-        TPasien.setBounds(326, 10, 295, 23);
+        TPasien.setBounds(326, 10, 430, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-01-2025" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-06-2026" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -593,7 +599,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         jLabel18.setText("Petugas :");
         jLabel18.setName("jLabel18"); // NOI18N
         FormInput.add(jLabel18);
-        jLabel18.setBounds(400, 40, 70, 23);
+        jLabel18.setBounds(400, 40, 60, 23);
 
         NIP.setEditable(false);
         NIP.setHighlighter(null);
@@ -604,12 +610,12 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             }
         });
         FormInput.add(NIP);
-        NIP.setBounds(474, 40, 94, 23);
+        NIP.setBounds(464, 40, 165, 23);
 
         NamaPetugas.setEditable(false);
         NamaPetugas.setName("NamaPetugas"); // NOI18N
         FormInput.add(NamaPetugas);
-        NamaPetugas.setBounds(570, 40, 187, 23);
+        NamaPetugas.setBounds(630, 40, 260, 23);
 
         btnPetugas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         btnPetugas.setMnemonic('2');
@@ -626,17 +632,17 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             }
         });
         FormInput.add(btnPetugas);
-        btnPetugas.setBounds(761, 40, 28, 23);
+        btnPetugas.setBounds(900, 40, 28, 23);
 
         jLabel8.setText("Tgl.Lahir :");
         jLabel8.setName("jLabel8"); // NOI18N
         FormInput.add(jLabel8);
-        jLabel8.setBounds(625, 10, 60, 23);
+        jLabel8.setBounds(760, 10, 60, 23);
 
         TglLahir.setHighlighter(null);
         TglLahir.setName("TglLahir"); // NOI18N
         FormInput.add(TglLahir);
-        TglLahir.setBounds(689, 10, 100, 23);
+        TglLahir.setBounds(830, 10, 100, 23);
 
         jLabel12.setText("GDS :");
         jLabel12.setName("jLabel12"); // NOI18N
@@ -666,12 +672,12 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         jLabel20.setText("Obat Gula :");
         jLabel20.setName("jLabel20"); // NOI18N
         FormInput.add(jLabel20);
-        jLabel20.setBounds(640, 70, 60, 23);
+        jLabel20.setBounds(645, 70, 60, 23);
 
         jLabel23.setText("Insulin :");
         jLabel23.setName("jLabel23"); // NOI18N
         FormInput.add(jLabel23);
-        jLabel23.setBounds(390, 70, 40, 23);
+        jLabel23.setBounds(395, 70, 40, 23);
 
         Insulin.setFocusTraversalPolicyProvider(true);
         Insulin.setName("Insulin"); // NOI18N
@@ -696,7 +702,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             }
         });
         FormInput.add(GDP);
-        GDP.setBounds(200, 70, 50, 23);
+        GDP.setBounds(195, 70, 50, 23);
 
         jLabel13.setText("GDP :");
         jLabel13.setName("jLabel13"); // NOI18N
@@ -711,7 +717,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             }
         });
         FormInput.add(DUAJPP);
-        DUAJPP.setBounds(320, 70, 50, 23);
+        DUAJPP.setBounds(315, 70, 50, 23);
 
         jLabel14.setText("2JPP :");
         jLabel14.setName("jLabel14"); // NOI18N
@@ -767,9 +773,9 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         }else if(NIP.getText().trim().equals("")||NamaPetugas.getText().trim().equals("")){
             Valid.textKosong(NIP,"Petugas");
         }else{
-            if(Sequel.menyimpantf("catatan_cek_gds","?,?,?,?,?,?,?","Data",7,new String[]{
+            if(Sequel.menyimpantf("catatan_cek_gds","?,?,?,?,?,?,?,?,?","Data",7,new String[]{
                 TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+""),Jam.getSelectedItem()+":"+Menit.getSelectedItem()+":"+Detik.getSelectedItem(),
-                GDS.getText(),Insulin.getText(),ObatGula.getText(),NIP.getText()
+                GDS.getText(),GDP.getText(),DUAJPP.getText(),Insulin.getText(),ObatGula.getText(),NIP.getText()
             })==true){
                 tampil();
                 emptTeks();
@@ -880,7 +886,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             if(TCari.getText().trim().equals("")){
                 Valid.MyReportqry("rptDataCatatanCekGDS.jasper","report","::[ Data Catatan Cek GDS ]::",
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,"+
-                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gdp,"+
+                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gds,catatan_cek_gds.gdp,catatan_cek_gds.duajpp,"+
                     "catatan_cek_gds.insulin,catatan_cek_gds.obat_gula,catatan_cek_gds.nip,petugas.nama "+
                     "from catatan_cek_gds inner join reg_periksa on catatan_cek_gds.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
@@ -889,7 +895,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             }else{
                 Valid.MyReportqry("rptDataCatatanCekGDS.jasper","report","::[ Data Catatan Cek GDS ]::",
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,"+
-                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gdp,"+
+                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gds,catatan_cek_gds.gdp,catatan_cek_gds.duajpp,"+
                     "catatan_cek_gds.insulin,catatan_cek_gds.obat_gula,catatan_cek_gds.nip,petugas.nama "+
                     "from catatan_cek_gds inner join reg_periksa on catatan_cek_gds.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
@@ -1027,7 +1033,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
             Valid.MyReportqry("rptFormulirCatatanCekGDS.jasper","report","::[ Formulir Catatan Cek GDS ]::",
                     "select reg_periksa.no_rawat,reg_periksa.tgl_registrasi,reg_periksa.jam_reg,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,"+
-                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gdp,"+
+                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gds,catatan_cek_gds.gdp,catatan_cek_gds.duajpp,"+
                     "catatan_cek_gds.insulin,catatan_cek_gds.obat_gula,catatan_cek_gds.nip,petugas.nama "+
                     "from catatan_cek_gds inner join reg_periksa on catatan_cek_gds.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
@@ -1137,7 +1143,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             if(TCari.getText().toString().trim().equals("")){
                 ps=koneksi.prepareStatement(
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,"+
-                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gdp,"+
+                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gds,catatan_cek_gds.gdp,catatan_cek_gds.duajpp,"+
                     "catatan_cek_gds.insulin,catatan_cek_gds.obat_gula,catatan_cek_gds.nip,petugas.nama "+
                     "from catatan_cek_gds inner join reg_periksa on catatan_cek_gds.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
@@ -1146,7 +1152,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             }else{
                 ps=koneksi.prepareStatement(
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,"+
-                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gdp,"+
+                    "pasien.jk,pasien.tgl_lahir,catatan_cek_gds.tgl_perawatan,catatan_cek_gds.jam_rawat,catatan_cek_gds.gds,catatan_cek_gds.gdp,catatan_cek_gds.duajpp,"+
                     "catatan_cek_gds.insulin,catatan_cek_gds.obat_gula,catatan_cek_gds.nip,petugas.nama "+
                     "from catatan_cek_gds inner join reg_periksa on catatan_cek_gds.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
@@ -1175,7 +1181,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
                     tabMode.addRow(new String[]{
                         rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien"),
                         rs.getString("umurdaftar")+" "+rs.getString("sttsumur"),rs.getString("jk"),rs.getString("tgl_lahir"),
-                        rs.getString("tgl_perawatan"),rs.getString("jam_rawat"),rs.getString("gdp"),rs.getString("insulin"),
+                        rs.getString("tgl_perawatan"),rs.getString("jam_rawat"),rs.getString("gds"),rs.getString("gdp"),rs.getString("duajpp"),rs.getString("insulin"),
                         rs.getString("obat_gula"),rs.getString("nip"),rs.getString("nama")
                     });
                 }
@@ -1215,8 +1221,10 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             Menit.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString().substring(3,5));
             Detik.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString().substring(6,8));
             GDS.setText(tbObat.getValueAt(tbObat.getSelectedRow(),8).toString());
-            Insulin.setText(tbObat.getValueAt(tbObat.getSelectedRow(),9).toString());
-            ObatGula.setText(tbObat.getValueAt(tbObat.getSelectedRow(),10).toString());
+            GDP.setText(tbObat.getValueAt(tbObat.getSelectedRow(),9).toString());
+            DUAJPP.setText(tbObat.getValueAt(tbObat.getSelectedRow(),10).toString());
+            Insulin.setText(tbObat.getValueAt(tbObat.getSelectedRow(),11).toString());
+            ObatGula.setText(tbObat.getValueAt(tbObat.getSelectedRow(),12).toString());
             Valid.SetTgl(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),6).toString());  
         }
     }
@@ -1325,9 +1333,9 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
     }
 
     private void ganti() {
-        Sequel.mengedit("catatan_cek_gds","tgl_perawatan=? and jam_rawat=? and no_rawat=?","no_rawat=?,tgl_perawatan=?,jam_rawat=?,gdp=?,insulin=?,obat_gula=?,nip=?",10,new String[]{
+        Sequel.mengedit("catatan_cek_gds","tgl_perawatan=? and jam_rawat=? and no_rawat=?","no_rawat=?,tgl_perawatan=?,jam_rawat=?,gds=?,gdp=?,duajpp=?,insulin=?,obat_gula=?,nip=?",12,new String[]{
             TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+""),Jam.getSelectedItem()+":"+Menit.getSelectedItem()+":"+Detik.getSelectedItem(),
-            GDS.getText(),Insulin.getText(),ObatGula.getText(),NIP.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),6).toString(),
+            GDS.getText(),GDP.getText(),DUAJPP.getText(),Insulin.getText(),ObatGula.getText(),NIP.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),6).toString(),
             tbObat.getValueAt(tbObat.getSelectedRow(),7).toString(),tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()
         });
         if(tabMode.getRowCount()!=0){tampil();}

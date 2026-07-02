@@ -15,11 +15,14 @@ import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
 import fungsi.validasi;
+import fungsi.akses;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
@@ -29,57 +32,80 @@ import javax.swing.table.TableColumn;
  *
  * @author dosen
  */
-public final class RMCariHasilLaborat extends javax.swing.JDialog {
-    private final DefaultTableModel tabMode;
+public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
+    private final DefaultTableModel tabMode ,tabModeAspek;
     private validasi Valid=new validasi();
     private Connection koneksi=koneksiDB.condb();
-    private PreparedStatement ps ,psgds;
+    private PreparedStatement ps;
     private ResultSet rs;
-    private String norawat="";
-    private int z=0;
     /** Creates new form DlgPenyakit
      * @param parent
      * @param modal */
-    public RMCariHasilLaborat(java.awt.Frame parent, boolean modal) {
+    public MasterCariBerkasClinicalPathway(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocation(10,2);
         setSize(656,250);
 
-        Object[] row={"P","Tanggal","Jam","Hasil Pemeriksaan"};
+        Object[] row={"No.Berkas","Diagnosa","Judul","No.Revisi","Tgl Berlaku","Catatan Khusus"};
         tabMode=new DefaultTableModel(null,row){
-              @Override public boolean isCellEditable(int rowIndex, int colIndex){
-                   boolean a = false;
-                if (colIndex==0) {
-                    a=true;
-                }
-                return a;
-              }
-              Class[] types = new Class[] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-             };
-             @Override
-             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-             }
+              @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
+        
         tbKamar.setModel(tabMode);
         //tbPenyakit.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbPenyakit.getBackground()));
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        for (z= 0; z < 4; z++) {
-            TableColumn column = tbKamar.getColumnModel().getColumn(z);
-            if(z==0){
-                column.setPreferredWidth(20);
-            }else if(z==1){
-                column.setPreferredWidth(65);
-            }else if(z==2){
-                column.setPreferredWidth(50);
-            }else if(z==3){
-                column.setPreferredWidth(730);
+
+        for (int i = 0; i < 6; i++) {
+            TableColumn column = tbKamar.getColumnModel().getColumn(i);
+            if(i==0){
+                column.setPreferredWidth(70);
+            }else if(i==1){
+                column.setPreferredWidth(120);
+            }else if(i==2){
+                column.setPreferredWidth(160);
+            }else if(i==3){
+                column.setPreferredWidth(80);
+            }else if(i==4){
+                column.setPreferredWidth(80);
+            }else if(i==5){
+                column.setPreferredWidth(500);
             }
         }
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
+        
+        Object[] rowAspek={"No","Lvl.List","No.List","","Isi Aspek","Kosongi?"};
+        tabModeAspek=new DefaultTableModel(null,rowAspek){
+              @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
+        };
+        
+        tbAspek.setModel(tabModeAspek);
+        tbAspek.setPreferredScrollableViewportSize(new Dimension(500,500));
+        tbAspek.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
+         for (int i = 0; i < 6; i++) {
+            TableColumn columnAspek = tbAspek.getColumnModel().getColumn(i);
+            if(i==0){
+                columnAspek.setMinWidth(0);
+                columnAspek.setMaxWidth(0);
+                columnAspek.setPreferredWidth(0);
+            }else if(i==1){
+                columnAspek.setMinWidth(0);
+                columnAspek.setMaxWidth(0);
+                columnAspek.setPreferredWidth(0);
+            }else if(i==2){
+                columnAspek.setPreferredWidth(50);
+            }else if(i==3){
+                columnAspek.setPreferredWidth(50);
+            }else if(i==4){
+                columnAspek.setPreferredWidth(750);
+            }else if(i==5){
+                columnAspek.setPreferredWidth(50);
+            }
+        }
+        tbAspek.setDefaultRenderer(Object.class, new WarnaTable());
+        
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
         if(koneksiDB.CARICEPAT().equals("aktif")){
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
@@ -102,9 +128,9 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
                     }
                 }
             });
-        }
-    }
-    
+        } 
+        
+    }   
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -123,9 +149,12 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
         TCari = new widget.TextBox();
         BtnCari = new widget.Button();
         BtnAll = new widget.Button();
+        BtnTambah = new widget.Button();
         label10 = new widget.Label();
         LCount = new widget.Label();
         BtnKeluar = new widget.Button();
+        scrollPane2 = new widget.ScrollPane();
+        tbAspek = new widget.Table();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -134,17 +163,15 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Riwayat Pemeriksaan Laboratorium ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Master Berkas Clinical Pathway ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
+        Scroll.setPreferredSize(new java.awt.Dimension(310, 402));
 
         tbKamar.setAutoCreateRowSorter(true);
         tbKamar.setName("tbKamar"); // NOI18N
@@ -160,7 +187,7 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
         });
         Scroll.setViewportView(tbKamar);
 
-        internalFrame1.add(Scroll, java.awt.BorderLayout.CENTER);
+        internalFrame1.add(Scroll, java.awt.BorderLayout.WEST);
 
         panelisi3.setName("panelisi3"); // NOI18N
         panelisi3.setPreferredSize(new java.awt.Dimension(100, 43));
@@ -172,7 +199,7 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
         panelisi3.add(label9);
 
         TCari.setName("TCari"); // NOI18N
-        TCari.setPreferredSize(new java.awt.Dimension(300, 23));
+        TCari.setPreferredSize(new java.awt.Dimension(312, 23));
         TCari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TCariKeyPressed(evt);
@@ -214,6 +241,18 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
         });
         panelisi3.add(BtnAll);
 
+        BtnTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/plus_16.png"))); // NOI18N
+        BtnTambah.setMnemonic('3');
+        BtnTambah.setToolTipText("Alt+3");
+        BtnTambah.setName("BtnTambah"); // NOI18N
+        BtnTambah.setPreferredSize(new java.awt.Dimension(28, 23));
+        BtnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTambahActionPerformed(evt);
+            }
+        });
+        panelisi3.add(BtnTambah);
+
         label10.setText("Record :");
         label10.setName("label10"); // NOI18N
         label10.setPreferredSize(new java.awt.Dimension(60, 23));
@@ -238,6 +277,25 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
         panelisi3.add(BtnKeluar);
 
         internalFrame1.add(panelisi3, java.awt.BorderLayout.PAGE_END);
+
+        scrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)), "Template Aspek Klinis :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        scrollPane2.setName("scrollPane2"); // NOI18N
+
+        tbAspek.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbAspek.setName("tbAspek"); // NOI18N
+        scrollPane2.setViewportView(tbAspek);
+
+        internalFrame1.add(scrollPane2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
 
@@ -282,13 +340,26 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
         }
 }//GEN-LAST:event_BtnAllKeyPressed
 
-    private void tbKamarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKamarMouseClicked
-        if(tabMode.getRowCount()!=0){
-            if(evt.getClickCount()==2){
-                dispose();
-            }
-        }
-}//GEN-LAST:event_tbKamarMouseClicked
+    private void BtnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKeluarActionPerformed
+        dispose();
+    }//GEN-LAST:event_BtnKeluarActionPerformed
+
+    private void BtnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTambahActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));        
+        //jabatan.setModal(true);
+        MasterBerkasClinicalPathway form=new MasterBerkasClinicalPathway(null,false);
+        form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        form.setLocationRelativeTo(internalFrame1);
+        form.setAlwaysOnTop(false);
+        form.emptTeks();
+        form.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());   
+        
+    }//GEN-LAST:event_BtnTambahActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        emptTeks();
+    }//GEN-LAST:event_formWindowActivated
 
     private void tbKamarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbKamarKeyPressed
         if(tabMode.getRowCount()!=0){
@@ -299,26 +370,52 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
                 TCari.requestFocus();
             }
         }
-}//GEN-LAST:event_tbKamarKeyPressed
+    }//GEN-LAST:event_tbKamarKeyPressed
 
-    private void BtnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKeluarActionPerformed
-        dispose();
-    }//GEN-LAST:event_BtnKeluarActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        emptTeks();
-    }//GEN-LAST:event_formWindowActivated
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        tampil();
-    }//GEN-LAST:event_formWindowOpened
+    private void tbKamarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKamarMouseClicked
+        if(tabMode.getRowCount()!=0){
+            try {
+                if(tbKamar.getSelectedRow()!= -1){
+                    Valid.tabelKosong(tabModeAspek);
+                    try{
+                        ps=koneksi.prepareStatement(
+                                "select * from aspek_berkas_cp where no_berkas=? order by no_urut");
+                        try {
+                            ps.setString(1,""+tbKamar.getValueAt(tbKamar.getSelectedRow(), 0).toString()+"");
+                            rs=ps.executeQuery();
+                            while(rs.next()){
+                                tabModeAspek.addRow(new Object[]{
+                                    rs.getString("no_urut"),rs.getInt("lvl_list"),
+                                    rs.getInt("lvl_list")==0?rs.getString("no_list"):"",
+                                    rs.getInt("lvl_list")!=0?rs.getString("no_list"):"",
+                                    rs.getString("isi_aspek"),rs.getInt("kosongi")==1?"Ya":"Tidak"
+                                });
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        } finally{
+                            if(rs!=null){
+                                rs.close();
+                            }
+                            if(ps!=null){
+                                ps.close();
+                            }
+                        }
+                    }catch(Exception e){
+                        System.out.println("Notifikasi : "+e);
+                    }
+                }
+            } catch (java.lang.NullPointerException e) {
+            }
+        }
+    }//GEN-LAST:event_tbKamarMouseClicked
 
     /**
     * @param args the command line arguments
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            RMCariHasilLaborat dialog = new RMCariHasilLaborat(new javax.swing.JFrame(), true);
+            MasterCariBerkasClinicalPathway dialog = new MasterCariBerkasClinicalPathway(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -333,6 +430,7 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
     private widget.Button BtnAll;
     private widget.Button BtnCari;
     private widget.Button BtnKeluar;
+    private widget.Button BtnTambah;
     private widget.Label LCount;
     private widget.ScrollPane Scroll;
     private widget.TextBox TCari;
@@ -340,30 +438,37 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
     private widget.Label label10;
     private widget.Label label9;
     private widget.panelisi panelisi3;
+    private widget.ScrollPane scrollPane2;
+    private widget.Table tbAspek;
     private widget.Table tbKamar;
     // End of variables declaration//GEN-END:variables
 
-    public void tampil() {
+    private void tampil() {
         Valid.tabelKosong(tabMode);
         try{
             ps=koneksi.prepareStatement(
-                    "select detail_periksa_lab.tgl_periksa,detail_periksa_lab.jam,template_laboratorium.Pemeriksaan, detail_periksa_lab.nilai ,template_laboratorium.satuan "+
-                    "from detail_periksa_lab inner join template_laboratorium on detail_periksa_lab.id_template=template_laboratorium.id_template where "+
-                    "detail_periksa_lab.no_rawat=? and (detail_periksa_lab.tgl_periksa like ? or template_laboratorium.Pemeriksaan like ?) "+
-                    "order by detail_periksa_lab.tgl_periksa, detail_periksa_lab.jam");
-            try{
-                ps.setString(1,norawat);
-                ps.setString(2,"%"+TCari.getText().trim()+"%");
-                ps.setString(3,"%"+TCari.getText().trim()+"%");
+                    "select * from master_berkas_cp "+
+                    (TCari.getText().equals("")?"":"where no_berkas like ? or no_revisi like ? or tgl_berlaku like ? or diagnosa_cp like ? or judul_cp like ? or catatan_khusus like ? ")+
+                    "order by no_berkas");
+            try {
+                if(!TCari.getText().trim().equals("")){
+                    ps.setString(1,"%"+TCari.getText().trim()+"%");
+                    ps.setString(2,"%"+TCari.getText().trim()+"%");
+                    ps.setString(3,"%"+TCari.getText().trim()+"%");
+                    ps.setString(4,"%"+TCari.getText().trim()+"%");
+                    ps.setString(5,"%"+TCari.getText().trim()+"%");
+                    ps.setString(6,"%"+TCari.getText().trim()+"%");
+                }
                 rs=ps.executeQuery();
                 while(rs.next()){
                     tabMode.addRow(new Object[]{
-                        false,rs.getString(1),rs.getString(2),rs.getString(3)+" : "+rs.getString(4)+" "+rs.getString(5)
+                        rs.getString("no_berkas"),rs.getString("diagnosa_cp"),rs.getString("judul_cp"),
+                        rs.getString("no_revisi"),rs.getString("tgl_berlaku"),rs.getString("catatan_khusus")
                     });
                 }
-            }catch(Exception ex){
-                System.out.println(ex);
-            }finally{
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally{
                 if(rs!=null){
                     rs.close();
                 }
@@ -371,51 +476,22 @@ public final class RMCariHasilLaborat extends javax.swing.JDialog {
                     ps.close();
                 }
             }
-            
-            psgds=koneksi.prepareStatement(
-                    "select catatan_cek_gds.* from catatan_cek_gds where "+
-                    "catatan_cek_gds.no_rawat=? and (catatan_cek_gds.tgl_perawatan like ? or catatan_cek_gds.gdp like ? or catatan_cek_gds.insulin like ? or catatan_cek_gds.obat_gula like ?) "+
-                    "order by catatan_cek_gds.tgl_perawatan, catatan_cek_gds.jam_rawat");
-            try{
-                psgds.setString(1,norawat);
-                psgds.setString(2,"%"+TCari.getText().trim()+"%");
-                psgds.setString(3,"%"+TCari.getText().trim()+"%");
-                psgds.setString(4,"%"+TCari.getText().trim()+"%");
-                psgds.setString(5,"%"+TCari.getText().trim()+"%");
-                rs=psgds.executeQuery();
-                while(rs.next()){
-                    tabMode.addRow(new Object[]{
-                        false,rs.getString("tgl_perawatan"),rs.getString("jam_rawat"),
-                        rs.getString("tgl_perawatan") + " " + rs.getString("jam_rawat")+
-                        " | GDS : "+rs.getString("gds")+" | GDP : "+rs.getString("gdp")+" | 2JPP : "+rs.getString("duajpp")
-                    });
-                }
-            }catch(Exception ex){
-                System.out.println(ex);
-            }finally{
-                if(rs!=null){
-                    rs.close();
-                }
-                if(psgds!=null){
-                    psgds.close();
-                }
-            }
         }catch(Exception e){
             System.out.println("Notifikasi : "+e);
         }
         LCount.setText(""+tabMode.getRowCount());
     }
-
-    public void emptTeks() {   
+    
+    public void emptTeks() {
         TCari.requestFocus();
     }
-    
-    public void setNoRawat(String norawat){
-        this.norawat=norawat;
-    }
+
 
     public JTable getTable(){
         return tbKamar;
     }
     
+    public void isCek(){
+        BtnTambah.setEnabled(akses.getmasterberkas_cp());
+    }
 }

@@ -60,6 +60,7 @@ import rekammedis.RMChecklistKriteriaMasukHCU;
 import rekammedis.RMChecklistKriteriaMasukICU;
 import rekammedis.RMChecklistPostOperasi;
 import rekammedis.RMChecklistPreOperasi;
+import rekammedis.RMClinicalPathway;
 import rekammedis.RMDataAsuhanGizi;
 import rekammedis.RMDataCatatanCekGDS;
 import rekammedis.RMDataCatatanKeperawatanRanap;
@@ -1370,6 +1371,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         BtnPenilaianTambahanBunuhDiri = new widget.Button();
         BtnPenilaianTambahanPerilakuKekerasan = new widget.Button();
         BtnPenilaianTambahanMelarikanDiri = new widget.Button();
+        BtnClinicalPathway = new widget.Button();
 
         BagianRS.setEditable(false);
         BagianRS.setText("0");
@@ -4698,6 +4700,23 @@ public final class DlgRawatInap extends javax.swing.JDialog {
             }
         });
         FormMenu.add(BtnPenilaianTambahanMelarikanDiri);
+
+        BtnClinicalPathway.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); // NOI18N
+        BtnClinicalPathway.setText("Clinical Pathway");
+        BtnClinicalPathway.setFocusPainted(false);
+        BtnClinicalPathway.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        BtnClinicalPathway.setGlassColor(new java.awt.Color(255, 255, 255));
+        BtnClinicalPathway.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnClinicalPathway.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        BtnClinicalPathway.setName("BtnClinicalPathway"); // NOI18N
+        BtnClinicalPathway.setPreferredSize(new java.awt.Dimension(190, 23));
+        BtnClinicalPathway.setRoundRect(false);
+        BtnClinicalPathway.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClinicalPathwayActionPerformed(evt);
+            }
+        });
+        FormMenu.add(BtnClinicalPathway);
 
         ScrollMenu.setViewportView(FormMenu);
 
@@ -8600,6 +8619,23 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
     }//GEN-LAST:event_BtnKlasifikasiRobsonActionPerformed
 
+    private void BtnClinicalPathwayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClinicalPathwayActionPerformed
+        if(TPasien.getText().trim().equals("")||TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        }else{
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMClinicalPathway form=new RMClinicalPathway(null,false);
+            form.isCek();
+            form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            form.emptTeks();
+            form.setNoRm(TNoRw.getText(),DTPCari1.getDate());
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnClinicalPathwayActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -8646,6 +8682,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnChecklistKriteriaMasukICU;
     private widget.Button BtnChecklistPostOperasi;
     private widget.Button BtnChecklistPreOperasi;
+    private widget.Button BtnClinicalPathway;
     private widget.Button BtnCopyResep;
     private widget.Button BtnDiagnosa;
     private widget.Button BtnDokumentasiESWL;
@@ -9601,6 +9638,10 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
         BtnKlasifikasiRobson.setVisible(akses.getklasifikasi_robson());
         if(akses.getklasifikasi_robson()==true){
+            tinggi=tinggi+24;
+        }
+        BtnClinicalPathway.setVisible(akses.getclinicalpathway());
+        if(akses.getclinicalpathway()==true){
             tinggi=tinggi+24;
         }
         FormMenu.setPreferredSize(new Dimension(195,(tinggi+58)));

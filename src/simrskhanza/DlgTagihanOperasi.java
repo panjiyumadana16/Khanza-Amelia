@@ -2549,10 +2549,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             Valid.textKosong(kdpjanak,"dr Pj Anak");
         }else if(kddrumum.getText().trim().equals("")||nmdrumum.getText().trim().equals("")){
             Valid.textKosong(kddrumum,"dr Umum");
-//        }else if(tabMode.getRowCount()==0){
-//            JOptionPane.showMessageDialog(null,"Maaf, pilihan operasi kosong...!!!!");
-//        }else if(jml==0){
-//            JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih operasi...!!!!");
+        }else if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, pilihan operasi kosong...!!!!");
+        }else if(jml==0){
+            JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih operasi...!!!!");
         }else{            
             if(Sequel.cariRegistrasi(TNoRw.getText())>0){
                 JOptionPane.showMessageDialog(rootPane,"Data billing sudah terverifikasi, data tidak boleh dihapus.\nSilahkan hubungi bagian kasir/keuangan ..!!");
@@ -2704,7 +2704,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                            ps.setString(6, Valid.SetTgl(tgl2.getSelectedItem() + "") + " " + tgl2.getSelectedItem().toString().substring(11, 19));
                            ps.setString(7, DikirimPA.getSelectedItem().toString());
                            ps.setString(8, Laporan.getText());
-
+                           
                            ps.executeUpdate();
                            ps.close();
 

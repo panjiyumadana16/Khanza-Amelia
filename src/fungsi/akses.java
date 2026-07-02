@@ -5949,4 +5949,7 @@ public final class akses {
     public static boolean getsirkulasi_cssd(){return akses.sirkulasi_cssd;}
     
     public static boolean getklasifikasi_robson() {return akses.tindakan_ranap;}
+    public static boolean getclinicalpathway() {return akses.tindakan_ranap;}
+    public static boolean getmasterberkas_cp() {return akses.master_rencana_keperawatan;}
+    
 }   

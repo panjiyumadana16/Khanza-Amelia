@@ -930,6 +930,8 @@ import rekammedis.RMTimeOutSebelumInsisi;
 import rekammedis.RMTransferPasienAntarRuang;
 import rekammedis.RMUjiFungsiKFR;
 import rekammedis.RMKlasifikasiRobson;
+import rekammedis.MasterBerkasClinicalPathway;
+import rekammedis.RMClinicalPathway;
 import setting.DlgJamDietPasien;
 import setting.DlgPasswordBPJS;
 import setting.DlgRuangOperasi;
@@ -1635,6 +1637,8 @@ public class frmUtama extends javax.swing.JFrame {
         btnLaboratoriumPA = new widget.ButtonBig();
         btnLaboratoriumMB = new widget.ButtonBig();
         btnKlasifikasiRobson = new widget.ButtonBig();
+        btnMasterBerkasCP = new widget.ButtonBig();
+        btnClinicalPathway = new widget.ButtonBig();
         internalFrame1 = new widget.InternalFrame();
         BtnMenu = new widget.ButtonBig();
         jSeparator4 = new javax.swing.JSeparator();
@@ -1931,7 +1935,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "26/01/2026" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20/04/2026" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -6995,6 +6999,28 @@ public class frmUtama extends javax.swing.JFrame {
         btnKlasifikasiRobson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnKlasifikasiRobsonActionPerformed(evt);
+            }
+        });
+
+        btnMasterBerkasCP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/1290990_doctor_drug_healthcare_medical_medicine_icon.png"))); // NOI18N
+        btnMasterBerkasCP.setText("Master Berkas Clinical Pathway");
+        btnMasterBerkasCP.setIconTextGap(0);
+        btnMasterBerkasCP.setName("btnMasterBerkasCP"); // NOI18N
+        btnMasterBerkasCP.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnMasterBerkasCP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasterBerkasCPActionPerformed(evt);
+            }
+        });
+
+        btnClinicalPathway.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/iconfinder_stethoscope-doctor-health-medical-healthcare_5859129.png"))); // NOI18N
+        btnClinicalPathway.setText("Clinical Pathway");
+        btnClinicalPathway.setIconTextGap(0);
+        btnClinicalPathway.setName("btnClinicalPathway"); // NOI18N
+        btnClinicalPathway.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnClinicalPathway.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClinicalPathwayActionPerformed(evt);
             }
         });
 
@@ -14528,6 +14554,32 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnKlasifikasiRobsonActionPerformed
 
+    private void btnMasterBerkasCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasterBerkasCPActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        MasterBerkasClinicalPathway form=new MasterBerkasClinicalPathway(this,false);
+        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnMasterBerkasCPActionPerformed
+
+    private void btnClinicalPathwayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClinicalPathwayActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMClinicalPathway form=new RMClinicalPathway(this,false);
+        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnClinicalPathwayActionPerformed
+
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -21267,6 +21319,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnCekSisruteAlasanRujuk;
     private widget.ButtonBig btnCekSisruteDiagnosa;
     private widget.ButtonBig btnCekSisruteFaskes;
+    private widget.ButtonBig btnClinicalPathway;
     private widget.ButtonBig btnClosingKasir;
     private widget.ButtonBig btnDaftarPermintaanResep;
     private widget.ButtonBig btnDaruratStok;
@@ -21408,6 +21461,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnLimbahB3Medis;
     private widget.ButtonBig btnLimbahDomestik;
     private widget.ButtonBig btnMapingPoliBPJS;
+    private widget.ButtonBig btnMasterBerkasCP;
     private widget.ButtonBig btnMasterBerkasPegawai;
     private widget.ButtonBig btnMerkInventaris;
     private widget.ButtonBig btnMetodeRacik;
@@ -25652,6 +25706,16 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getklasifikasi_robson()==true){
                 Panelmenu.add(btnKlasifikasiRobson);
+                jmlmenu++;
+            }
+            
+            if(akses.getmasterberkas_cp()==true){
+                Panelmenu.add(btnMasterBerkasCP);
+                jmlmenu++;
+            }
+            
+            if(akses.getclinicalpathway()==true){
+                Panelmenu.add(btnClinicalPathway);
                 jmlmenu++;
             }
         }else if(cmbMenu.getSelectedIndex()==13){  
@@ -31885,6 +31949,15 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         
         if(akses.getklasifikasi_robson()==true){
             Panelmenu.add(btnKlasifikasiRobson);
+            jmlmenu++;
+        }
+
+        if(akses.getmasterberkas_cp()==true){
+            Panelmenu.add(btnMasterBerkasCP);
+            jmlmenu++;
+        }
+        if(akses.getclinicalpathway()==true){
+            Panelmenu.add(btnClinicalPathway);
             jmlmenu++;
         }
     }
@@ -38919,6 +38992,21 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
                 jmlmenu++;
             }
         }
+        
+        if(akses.getmasterberkas_cp()==true){
+            if(btnMasterBerkasCP.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnMasterBerkasCP);
+                jmlmenu++;
+            }
+        }
+        
+        if(akses.getclinicalpathway()==true){
+            if(btnClinicalPathway.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnClinicalPathway);
+                jmlmenu++;
+            }
+        }
+        
     }
 
     private void initKhanza() {

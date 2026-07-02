@@ -2662,7 +2662,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         total_bayar = rate_umum;
                     }else{
                         if(kenaikan_per_jns > 0){
-                            total_bayar = (rate_umum * (1 + kenaikan));;
+                            total_bayar = (rate_umum * (1 + kenaikan));
                         }else{
                             total_bayar = rate_umum;
                         }
