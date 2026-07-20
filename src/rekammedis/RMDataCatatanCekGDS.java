@@ -112,10 +112,6 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         DUAJPP.setDocument(new batasInput((byte)5).getKata(DUAJPP));
         Insulin.setDocument(new batasInput((byte)30).getKata(Insulin));
         ObatGula.setDocument(new batasInput((byte)30).getKata(ObatGula));
-//        GDP.setVisible(false);
-//        DUAJPP.setVisible(false);
-//        jLabel13.setVisible(false);
-//        jLabel14.setVisible(false);
         
         if(koneksiDB.CARICEPAT().equals("aktif")){
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
@@ -773,7 +769,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
         }else if(NIP.getText().trim().equals("")||NamaPetugas.getText().trim().equals("")){
             Valid.textKosong(NIP,"Petugas");
         }else{
-            if(Sequel.menyimpantf("catatan_cek_gds","?,?,?,?,?,?,?,?,?","Data",7,new String[]{
+            if(Sequel.menyimpantf("catatan_cek_gds","?,?,?,?,?,?,?,?,?","Data",9,new String[]{
                 TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+""),Jam.getSelectedItem()+":"+Menit.getSelectedItem()+":"+Detik.getSelectedItem(),
                 GDS.getText(),GDP.getText(),DUAJPP.getText(),Insulin.getText(),ObatGula.getText(),NIP.getText()
             })==true){
@@ -1217,6 +1213,7 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             TNoRM.setText(tbObat.getValueAt(tbObat.getSelectedRow(),1).toString());
             TPasien.setText(tbObat.getValueAt(tbObat.getSelectedRow(),2).toString());
             TglLahir.setText(tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
+            Valid.SetTgl(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),6).toString());  
             Jam.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString().substring(0,2));
             Menit.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString().substring(3,5));
             Detik.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString().substring(6,8));
@@ -1225,7 +1222,8 @@ public final class RMDataCatatanCekGDS extends javax.swing.JDialog {
             DUAJPP.setText(tbObat.getValueAt(tbObat.getSelectedRow(),10).toString());
             Insulin.setText(tbObat.getValueAt(tbObat.getSelectedRow(),11).toString());
             ObatGula.setText(tbObat.getValueAt(tbObat.getSelectedRow(),12).toString());
-            Valid.SetTgl(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),6).toString());  
+            NIP.setText(tbObat.getValueAt(tbObat.getSelectedRow(),13).toString());
+            NamaPetugas.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
         }
     }
     private void isRawat() {

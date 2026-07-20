@@ -5073,8 +5073,8 @@ public final class DlgRawatInap extends javax.swing.JDialog {
                                 if(Sequel.menyimpantf("pemeriksaan_ranap","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","Data",20,new String[]{
                                         TNoRw.getText(),Valid.SetTgl(DTPTgl.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),                      
                                         TSuhu.getText(),TTensi.getText(),TNadi.getText(),TRespirasi.getText(),TTinggi.getText(),TBerat.getText(),SpO2.getText(),TGCS.getText(),
-                                        cmbKesadaran.getSelectedItem().toString(),TKeluhan.getText(),TPemeriksaan.getText(),TAlergi.getText(),
-                                        TPenilaian.getText(),TindakLanjut.getText(),TInstruksi.getText(),TEvaluasi.getText(),KdPeg.getText()
+                                        cmbKesadaran.getSelectedItem().toString(),(TKeluhan.getText().isBlank()?"-":TKeluhan.getText()),(TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText()),(TAlergi.getText().isBlank()?"-":TAlergi.getText()),
+                                        (TPenilaian.getText().isBlank()?"-":TPenilaian.getText()),(TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText()),(TInstruksi.getText().isBlank()?"-":TInstruksi.getText()),(TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText()),KdPeg.getText()
                                     })==true){
                                     tabModePemeriksaan.addRow(new Object[]{
                                         false,TNoRw.getText(),TNoRM.getText(),TPasien.getText(),Valid.SetTgl(DTPTgl.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
@@ -5087,11 +5087,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
                                 }
                             }else{
                                 if(akses.getkode().equals(KdPeg.getText())){
-                                    if (TKeluhan.getText().trim().equals("")){
-                                        Valid.textKosong(TKeluhan,"Subjek");
-                                    }else if(TPemeriksaan.getText().trim().equals("")){
-                                        Valid.textKosong(TPemeriksaan,"Objek");
-                                    }else if(TSuhu.getText().trim().equals("")){
+                                    if(TSuhu.getText().trim().equals("")){
                                         Valid.textKosong(TSuhu,"Suhu");
                                     }else if(TTinggi.getText().trim().equals("")){
                                         Valid.textKosong(TTinggi,"Tinggi");
@@ -5107,23 +5103,11 @@ public final class DlgRawatInap extends javax.swing.JDialog {
                                         Valid.textKosong(SpO2,"SpO2");
                                     }else if(TGCS.getText().trim().equals("")){
                                         Valid.textKosong(TGCS,"GCS");
-                                    }else if(TAlergi.getText().trim().equals("")){
-                                        Valid.textKosong(TAlergi,"Alergi");
-                                    }else if(TAlergi.getText().trim().equals("")){
-                                        Valid.textKosong(TAlergi,"Alergi");
-                                    }else if(TPenilaian.getText().trim().equals("")){
-                                        Valid.textKosong(TPenilaian,"Asesmen");
-                                    }else if(TindakLanjut.getText().trim().equals("")){
-                                        Valid.textKosong(TindakLanjut,"Plan");
-                                    }else if(TInstruksi.getText().trim().equals("")){
-                                        Valid.textKosong(TInstruksi,"Instruksi");
-                                    }else if(TEvaluasi.getText().trim().equals("")){
-                                        Valid.textKosong(TEvaluasi,"Evaluasi");
                                     }else if(Sequel.menyimpantf("pemeriksaan_ranap","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","Data",20,new String[]{
                                         TNoRw.getText(),Valid.SetTgl(DTPTgl.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),                      
                                         TSuhu.getText(),TTensi.getText(),TNadi.getText(),TRespirasi.getText(),TTinggi.getText(),TBerat.getText(),SpO2.getText(),TGCS.getText(),
-                                        cmbKesadaran.getSelectedItem().toString(),TKeluhan.getText(),TPemeriksaan.getText(),TAlergi.getText(),
-                                        TPenilaian.getText(),TindakLanjut.getText(),TInstruksi.getText(),TEvaluasi.getText(),KdPeg.getText()
+                                        cmbKesadaran.getSelectedItem().toString(),(TKeluhan.getText().isBlank()?"-":TKeluhan.getText()),(TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText()),(TAlergi.getText().isBlank()?"-":TAlergi.getText()),
+                                        (TPenilaian.getText().isBlank()?"-":TPenilaian.getText()),(TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText()),(TInstruksi.getText().isBlank()?"-":TInstruksi.getText()),(TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText()),KdPeg.getText()
                                     })==true){
                                         tabModePemeriksaan.addRow(new Object[]{
                                             false,TNoRw.getText(),TNoRM.getText(),TPasien.getText(),Valid.SetTgl(DTPTgl.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
@@ -6350,11 +6334,11 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                     "' and tgl_perawatan='"+tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),4)+
                                     "' and jam_rawat='"+tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),5)+"'",
                                     "no_rawat='"+TNoRw.getText()+"',suhu_tubuh='"+TSuhu.getText()+"',tensi='"+TTensi.getText()+"',"+
-                                    "keluhan='"+TKeluhan.getText()+"',pemeriksaan='"+TPemeriksaan.getText()+"',spo2='"+SpO2.getText()+"',"+
+                                    "keluhan='"+(TKeluhan.getText().isBlank()?"-":TKeluhan.getText())+"',pemeriksaan='"+(TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText())+"',spo2='"+SpO2.getText()+"',"+
                                     "nadi='"+TNadi.getText()+"',respirasi='"+TRespirasi.getText()+"',tinggi='"+TTinggi.getText()+"',berat='"+TBerat.getText()+"',"+
-                                    "gcs='"+TGCS.getText()+"',kesadaran='"+cmbKesadaran.getSelectedItem()+"',alergi='"+TAlergi.getText()+"',tgl_perawatan='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
+                                    "gcs='"+TGCS.getText()+"',kesadaran='"+cmbKesadaran.getSelectedItem()+"',alergi='"+(TAlergi.getText().isBlank()?"-":TAlergi.getText())+"',tgl_perawatan='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
                                     "jam_rawat='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',"+
-                                    "rtl='"+TindakLanjut.getText()+"',penilaian='"+TPenilaian.getText()+"',instruksi='"+TInstruksi.getText()+"',evaluasi='"+TEvaluasi.getText()+"',nip='"+KdPeg.getText()+"'")==true){
+                                    "rtl='"+(TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText())+"',penilaian='"+(TPenilaian.getText().isBlank()?"-":TPenilaian.getText())+"',instruksi='"+(TInstruksi.getText().isBlank()?"-":TInstruksi.getText())+"',evaluasi='"+(TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText())+"',nip='"+KdPeg.getText()+"'")==true){
                                     tbPemeriksaan.setValueAt(TNoRw.getText(),tbPemeriksaan.getSelectedRow(), 1);
                                     tbPemeriksaan.setValueAt(TNoRM.getText(),tbPemeriksaan.getSelectedRow(), 2);
                                     tbPemeriksaan.setValueAt(TPasien.getText(),tbPemeriksaan.getSelectedRow(), 3);
@@ -6387,11 +6371,11 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                         "' and tgl_perawatan='"+tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),4)+
                                         "' and jam_rawat='"+tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),5)+"'",
                                         "no_rawat='"+TNoRw.getText()+"',suhu_tubuh='"+TSuhu.getText()+"',tensi='"+TTensi.getText()+"',"+
-                                        "keluhan='"+TKeluhan.getText()+"',pemeriksaan='"+TPemeriksaan.getText()+"',spo2='"+SpO2.getText()+"',"+
+                                        "keluhan='"+(TKeluhan.getText().isBlank()?"-":TKeluhan.getText())+"',pemeriksaan='"+(TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText())+"',spo2='"+SpO2.getText()+"',"+
                                         "nadi='"+TNadi.getText()+"',respirasi='"+TRespirasi.getText()+"',tinggi='"+TTinggi.getText()+"',berat='"+TBerat.getText()+"',"+
-                                        "gcs='"+TGCS.getText()+"',kesadaran='"+cmbKesadaran.getSelectedItem()+"',alergi='"+TAlergi.getText()+"',tgl_perawatan='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
+                                        "gcs='"+TGCS.getText()+"',kesadaran='"+cmbKesadaran.getSelectedItem()+"',alergi='"+(TAlergi.getText().isBlank()?"-":TAlergi.getText())+"',tgl_perawatan='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
                                         "jam_rawat='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',"+
-                                        "rtl='"+TindakLanjut.getText()+"',penilaian='"+TPenilaian.getText()+"',instruksi='"+TInstruksi.getText()+"',evaluasi='"+TEvaluasi.getText()+"'")==true){
+                                        "rtl='"+(TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText())+"',penilaian='"+(TPenilaian.getText().isBlank()?"-":TPenilaian.getText())+"',instruksi='"+(TInstruksi.getText().isBlank()?"-":TInstruksi.getText())+"',evaluasi='"+(TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText())+"'")==true){
                                         tbPemeriksaan.setValueAt(TNoRw.getText(),tbPemeriksaan.getSelectedRow(), 1);
                                         tbPemeriksaan.setValueAt(TNoRM.getText(),tbPemeriksaan.getSelectedRow(), 2);
                                         tbPemeriksaan.setValueAt(TPasien.getText(),tbPemeriksaan.getSelectedRow(), 3);
@@ -6556,7 +6540,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void tbPemeriksaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPemeriksaanMouseClicked
         if(tabModePemeriksaan.getRowCount()!=0){
             try {
-                getDataPemeriksaan();
+                if(tbPemeriksaan.columnAtPoint(evt.getPoint()) > 0){
+                    getDataPemeriksaan();
+                }
             } catch (java.lang.NullPointerException e) {
             }           
             
@@ -7096,7 +7082,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if(tabModePemeriksaan.getRowCount()!=0){
             if((evt.getKeyCode()==KeyEvent.VK_ENTER)||(evt.getKeyCode()==KeyEvent.VK_UP)||(evt.getKeyCode()==KeyEvent.VK_DOWN)){
                 try {
-                    getDataPemeriksaan();
+                    if(tbPemeriksaan.getSelectedColumn() > 0){
+                        getDataPemeriksaan();
+                    }
                 } catch (java.lang.NullPointerException e) {
                 }
             }

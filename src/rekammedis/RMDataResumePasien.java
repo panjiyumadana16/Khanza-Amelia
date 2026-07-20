@@ -2376,6 +2376,7 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
         ProsedurUtama.setText("");
         ProsedurSekunder1.setText("");
         ProsedurSekunder2.setText("");
+        ProsedurSekunder3.setText("");
         kontrol.setText("");
         KodeDiagnosaUtama.setText("");
         KodeDiagnosaSekunder1.setText("");
@@ -2416,7 +2417,8 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
             KodeProsedurSekunder1.setText(tbObat.getValueAt(tbObat.getSelectedRow(),24).toString()); 
             ProsedurSekunder2.setText(tbObat.getValueAt(tbObat.getSelectedRow(),25).toString());  
             KodeProsedurSekunder2.setText(tbObat.getValueAt(tbObat.getSelectedRow(),26).toString()); 
-            KodeProsedurSekunder3.setText(tbObat.getValueAt(tbObat.getSelectedRow(),27).toString());
+            ProsedurSekunder3.setText(tbObat.getValueAt(tbObat.getSelectedRow(),27).toString());  
+            KodeProsedurSekunder3.setText(tbObat.getValueAt(tbObat.getSelectedRow(),28).toString());
             Obat2an.setText(tbObat.getValueAt(tbObat.getSelectedRow(),29).toString());   
             edukasi.setText(tbObat.getValueAt(tbObat.getSelectedRow(),30).toString());    
             kontrol.setText(tbObat.getValueAt(tbObat.getSelectedRow(),31).toString());    
@@ -2515,7 +2517,7 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
                     
                     if(rs.getInt("prioritas")==4){
                         KodeProsedurSekunder3.setText(rs.getString("kode"));
-                        kontrol.setText(rs.getString("deskripsi_panjang"));
+                        ProsedurSekunder3.setText(rs.getString("deskripsi_panjang"));
                     }
                 }
             } catch (Exception e) {

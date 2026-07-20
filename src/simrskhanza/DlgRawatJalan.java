@@ -5635,12 +5635,13 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
                                 if(Sequel.menyimpantf("pemeriksaan_ralan","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","Data",21,new String[]{
                                     TNoRw.getText(),Valid.SetTgl(DTPTgl.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
                                     TSuhu.getText(),TTensi.getText(),TNadi.getText(),TRespirasi.getText(),TTinggi.getText(),TBerat.getText(),
-                                    SpO2.getText(),TGCS.getText(),cmbKesadaran.getSelectedItem().toString(),TKeluhan.getText(),TPemeriksaan.getText(),TAlergi.getText(),
-                                    LingkarPerut.getText(),TindakLanjut.getText(),TPenilaian.getText(),TInstruksi.getText(),TEvaluasi.getText(),KdPeg.getText()})==true){
+                                    SpO2.getText(),TGCS.getText(),cmbKesadaran.getSelectedItem().toString(),TKeluhan.getText().isBlank()?"-":TKeluhan.getText(),TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText(),TAlergi.getText().isBlank()?"-":TAlergi.getText(),
+                                    LingkarPerut.getText(),TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText(),TPenilaian.getText().isBlank()?"-":TPenilaian.getText(),TInstruksi.getText().isBlank()?"-":TInstruksi.getText(),TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText(),KdPeg.getText()})==true){
                                         tabModePemeriksaan.addRow(new Object[]{
                                             false,TNoRw.getText(),TNoRM.getText(),TPasien.getText(),Valid.SetTgl(DTPTgl.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
                                             TSuhu.getText(),TTensi.getText(),TNadi.getText(),TRespirasi.getText(),TTinggi.getText(),TBerat.getText(),SpO2.getText(),TGCS.getText(),cmbKesadaran.getSelectedItem().toString(),
-                                            TKeluhan.getText(),TPemeriksaan.getText(),TAlergi.getText(),LingkarPerut.getText(),TindakLanjut.getText(),TPenilaian.getText(),TInstruksi.getText(),TEvaluasi.getText(),
+                                            TKeluhan.getText().isBlank()?"-":TKeluhan.getText(),TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText(),TAlergi.getText().isBlank()?"-":TAlergi.getText(),LingkarPerut.getText(),
+                                            TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText(),TPenilaian.getText().isBlank()?"-":TPenilaian.getText(),TInstruksi.getText().isBlank()?"-":TInstruksi.getText(),TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText(),
                                             KdPeg.getText(),TPegawai.getText(),Jabatan.getText()
                                         });
                                         TSuhu.setText("");TTensi.setText("");TNadi.setText("");TRespirasi.setText("");
@@ -5655,12 +5656,13 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
                                     if(Sequel.menyimpantf("pemeriksaan_ralan","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","Data",21,new String[]{
                                         TNoRw.getText(),Valid.SetTgl(DTPTgl.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
                                         TSuhu.getText(),TTensi.getText(),TNadi.getText(),TRespirasi.getText(),TTinggi.getText(),TBerat.getText(),
-                                        SpO2.getText(),TGCS.getText(),cmbKesadaran.getSelectedItem().toString(),TKeluhan.getText(),TPemeriksaan.getText(),TAlergi.getText(),
-                                        LingkarPerut.getText(),TindakLanjut.getText(),TPenilaian.getText(),TInstruksi.getText(),TEvaluasi.getText(),KdPeg.getText()})==true){
+                                        SpO2.getText(),TGCS.getText(),cmbKesadaran.getSelectedItem().toString(),TKeluhan.getText().isBlank()?"-":TKeluhan.getText(),TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText(),TAlergi.getText().isBlank()?"-":TAlergi.getText(),
+                                        LingkarPerut.getText(),TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText(),TPenilaian.getText().isBlank()?"-":TPenilaian.getText(),TInstruksi.getText().isBlank()?"-":TInstruksi.getText(),TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText(),KdPeg.getText()})==true){
                                             tabModePemeriksaan.addRow(new Object[]{
                                                 false,TNoRw.getText(),TNoRM.getText(),TPasien.getText(),Valid.SetTgl(DTPTgl.getSelectedItem()+""),cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
                                                 TSuhu.getText(),TTensi.getText(),TNadi.getText(),TRespirasi.getText(),TTinggi.getText(),TBerat.getText(),SpO2.getText(),TGCS.getText(),cmbKesadaran.getSelectedItem().toString(),
-                                                TKeluhan.getText(),TPemeriksaan.getText(),TAlergi.getText(),LingkarPerut.getText(),TindakLanjut.getText(),TPenilaian.getText(),TInstruksi.getText(),TEvaluasi.getText(),
+                                                TKeluhan.getText().isBlank()?"-":TKeluhan.getText(),TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText(),TAlergi.getText().isBlank()?"-":TAlergi.getText(),LingkarPerut.getText(),
+                                                TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText(),TPenilaian.getText().isBlank()?"-":TPenilaian.getText(),TInstruksi.getText().isBlank()?"-":TInstruksi.getText(),TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText(),
                                                 KdPeg.getText(),TPegawai.getText(),Jabatan.getText()
                                             });
                                             TSuhu.setText("");TTensi.setText("");TNadi.setText("");TRespirasi.setText("");
@@ -6712,15 +6714,15 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                     "' and tgl_perawatan='"+tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),4)+
                                     "' and jam_rawat='"+tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),5)+"'",
                                     "no_rawat='"+TNoRw.getText()+"',suhu_tubuh='"+TSuhu.getText()+"',tensi='"+TTensi.getText()+"',"+
-                                    "keluhan='"+TKeluhan.getText()+"',pemeriksaan='"+TPemeriksaan.getText()+"',"+
+                                    "keluhan='"+(TKeluhan.getText().isBlank()?"-":TKeluhan.getText())+"',pemeriksaan='"+(TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText())+"',"+
                                     "nadi='"+TNadi.getText()+"',respirasi='"+TRespirasi.getText()+"',"+
                                     "tinggi='"+TTinggi.getText()+"',berat='"+TBerat.getText()+"',spo2='"+SpO2.getText()+"',"+
                                     "gcs='"+TGCS.getText()+"',kesadaran='"+cmbKesadaran.getSelectedItem()+"',"+
                                     "alergi='"+TAlergi.getText()+"',lingkar_perut='"+LingkarPerut.getText()+"',"+
                                     "tgl_perawatan='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
                                     "jam_rawat='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',"+
-                                    "rtl='"+TindakLanjut.getText()+"',penilaian='"+TPenilaian.getText()+"',"+
-                                    "instruksi='"+TInstruksi.getText()+"',evaluasi='"+TEvaluasi.getText()+"',nip='"+KdPeg.getText()+"'")==true){
+                                    "rtl='"+(TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText())+"',penilaian='"+(TPenilaian.getText().isBlank()?"-":TPenilaian.getText())+"',"+
+                                    "instruksi='"+(TInstruksi.getText().isBlank()?"-":TInstruksi.getText())+"',evaluasi='"+(TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText())+"',nip='"+KdPeg.getText()+"'")==true){
                                         tbPemeriksaan.setValueAt(TNoRw.getText(),tbPemeriksaan.getSelectedRow(), 1);
                                         tbPemeriksaan.setValueAt(TNoRM.getText(),tbPemeriksaan.getSelectedRow(), 2);
                                         tbPemeriksaan.setValueAt(TPasien.getText(),tbPemeriksaan.getSelectedRow(), 3);
@@ -6758,15 +6760,15 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                         "' and tgl_perawatan='"+tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),4)+
                                         "' and jam_rawat='"+tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),5)+"'",
                                         "no_rawat='"+TNoRw.getText()+"',suhu_tubuh='"+TSuhu.getText()+"',tensi='"+TTensi.getText()+"',"+
-                                        "keluhan='"+TKeluhan.getText()+"',pemeriksaan='"+TPemeriksaan.getText()+"',"+
+                                        "keluhan='"+(TKeluhan.getText().isBlank()?"-":TKeluhan.getText())+"',pemeriksaan='"+(TPemeriksaan.getText().isBlank()?"-":TPemeriksaan.getText())+"',"+
                                         "nadi='"+TNadi.getText()+"',respirasi='"+TRespirasi.getText()+"',"+
                                         "tinggi='"+TTinggi.getText()+"',berat='"+TBerat.getText()+"',spo2='"+SpO2.getText()+"',"+
                                         "gcs='"+TGCS.getText()+"',kesadaran='"+cmbKesadaran.getSelectedItem()+"',"+
                                         "alergi='"+TAlergi.getText()+"',lingkar_perut='"+LingkarPerut.getText()+"',"+
                                         "tgl_perawatan='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
                                         "jam_rawat='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',"+
-                                        "rtl='"+TindakLanjut.getText()+"',penilaian='"+TPenilaian.getText()+"',"+
-                                        "instruksi='"+TInstruksi.getText()+"',evaluasi='"+TEvaluasi.getText()+"'")==true){
+                                        "rtl='"+(TindakLanjut.getText().isBlank()?"-":TindakLanjut.getText())+"',penilaian='"+(TPenilaian.getText().isBlank()?"-":TPenilaian.getText())+"',"+
+                                        "instruksi='"+(TInstruksi.getText().isBlank()?"-":TInstruksi.getText())+"',evaluasi='"+(TEvaluasi.getText().isBlank()?"-":TEvaluasi.getText())+"'")==true){
                                             tbPemeriksaan.setValueAt(TNoRw.getText(),tbPemeriksaan.getSelectedRow(), 1);
                                             tbPemeriksaan.setValueAt(TNoRM.getText(),tbPemeriksaan.getSelectedRow(), 2);
                                             tbPemeriksaan.setValueAt(TPasien.getText(),tbPemeriksaan.getSelectedRow(), 3);
@@ -7007,7 +7009,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void tbPemeriksaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPemeriksaanMouseClicked
         if(tabModePemeriksaan.getRowCount()!=0){
             try {
-                getDataPemeriksaan();
+                if(tbPemeriksaan.columnAtPoint(evt.getPoint()) > 0){
+                    getDataPemeriksaan();
+                }
             } catch (java.lang.NullPointerException e) {
             }
 
@@ -7272,7 +7276,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         if(tabModePemeriksaan.getRowCount()!=0){
             if((evt.getKeyCode()==KeyEvent.VK_ENTER)||(evt.getKeyCode()==KeyEvent.VK_UP)||(evt.getKeyCode()==KeyEvent.VK_DOWN)){
                 try {
-                    getDataPemeriksaan();
+                    if(tbPemeriksaan.getSelectedColumn() > 0){
+                        getDataPemeriksaan();
+                    }
                 } catch (java.lang.NullPointerException e) {
                 }
             }
@@ -10575,6 +10581,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             cmbMnt.setSelectedItem(tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),5).toString().substring(3,5));
             cmbDtk.setSelectedItem(tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),5).toString().substring(6,8));
             Valid.SetTgl(DTPTgl,tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),4).toString());
+            
             if(koneksiDB.TTVOTOMATIS().equals("yes")){
                 reply = JOptionPane.showConfirmDialog(rootPane, "Gunakan TTV Terakhir?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
             }
