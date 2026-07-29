@@ -1556,7 +1556,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 while(rstampil.next()){
                     tabMode.addRow(new Object[]{true,"   "+rstampil.getString("Pemeriksaan"),rstampil.getString("nilai"),
                          rstampil.getString("satuan"),
-                         rstampil.getString("nilai_rujukan"),"",
+                         rstampil.getString("nilai_rujukan"),rstampil.getString("keterangan"),
                          rstampil.getString("id_template"),
                          rstampil.getDouble("biaya_item"),
                          rstampil.getDouble("bagian_rs"),

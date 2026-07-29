@@ -125,7 +125,7 @@ public final class DlgJnsPerawatanOperasi extends javax.swing.JDialog {
         
 
         TKd.setDocument(new batasInput((byte)15).getKata(TKd));
-        TNm.setDocument(new batasInput((byte)80).getKata(TNm));
+        TNm.setDocument(new batasInput(255).getKata(TNm));
         TOperator1.setDocument(new batasInput((byte)13).getOnlyAngka(TOperator1));
         TOperator2.setDocument(new batasInput((byte)13).getOnlyAngka(TOperator2));
         TOperator3.setDocument(new batasInput((byte)13).getOnlyAngka(TOperator3));

@@ -134,6 +134,7 @@ public final class DlgHitungBOR extends javax.swing.JDialog {
             @Override
             public void windowClosed(WindowEvent e) {
                 if(ruang.getTable().getSelectedRow()!= -1){   
+                    TKd.setText(ruang.getTable().getValueAt(ruang.getTable().getSelectedRow(),0).toString());
                     Kamar.setText(ruang.getTable().getValueAt(ruang.getTable().getSelectedRow(),1).toString());  
                     Kamar.requestFocus();
                 }                      
@@ -547,6 +548,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     }//GEN-LAST:event_BtnSeek6ActionPerformed
 
     private void BtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAllActionPerformed
+        TKd.setText("");
         Kamar.setText("");
         if(TabRawat.getSelectedIndex()==0){
             tampil();
@@ -636,7 +638,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     i++;
                 }
                 if(hari>0){
-                    kamar=Sequel.cariInteger("select count(*) from kamar where statusdata='1'");
+                    kamar=Sequel.cariInteger("select count(*) from kamar where statusdata='1' and kelas!='Kelas Utama' "+(Kamar.getText().equals("")?"":"and kd_bangsal='"+TKd.getText().trim()+"'")+" ");
                     jumlahhari=Sequel.cariInteger("select (to_days('"+Valid.SetTgl(Tgl2.getSelectedItem()+"")+"')-to_days('"+Valid.SetTgl(Tgl1.getSelectedItem()+"")+"'))")+1;
                     tabMode.addRow(new Object[]{"","","","Jumlah Hari Perawatan",":","","",hari,""});
                     tabMode.addRow(new Object[]{"","","","Jumlah Kamar",":","","",kamar,""});
@@ -691,7 +693,7 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     i++;
                 }
                 if(hari>0){
-                    kamar=Sequel.cariInteger("select count(*) from kamar  where statusdata='1'");
+                    kamar=Sequel.cariInteger("select count(*) from kamar where statusdata='1' and kelas!='Kelas Utama' "+(Kamar.getText().equals("")?"":"and kd_bangsal='"+TKd.getText().trim()+"'")+" ");
                     jumlahhari=Sequel.cariInteger("select (to_days('"+Valid.SetTgl(Tgl2.getSelectedItem()+"")+"')-to_days('"+Valid.SetTgl(Tgl1.getSelectedItem()+"")+"'))")+1;
                     tabMode2.addRow(new Object[]{"","","","Jumlah Hari Perawatan",":","","",hari,""});
                     tabMode2.addRow(new Object[]{"","","","Jumlah Kamar",":","","",kamar,""});
