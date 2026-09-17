@@ -16089,8 +16089,8 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMClinicalPathway cp=new RMClinicalPathway(null,false);
                 cp.emptTeks();
-                cp.setNoRm(TNoRwCari.getText(), new Date());
                 cp.isCek();
+                cp.setNoRm(TNoRwCari.getText(), Valid.SetTgl2(TNoRwCari.getText().replaceAll("/", "-").substring(0, 10)));
                 cp.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
                 cp.setLocationRelativeTo(internalFrame1);
                 cp.setVisible(true);

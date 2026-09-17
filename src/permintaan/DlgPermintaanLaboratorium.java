@@ -2240,6 +2240,9 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     "select kamar.kelas from kamar inner join kamar_inap "+
                     "on kamar.kd_kamar=kamar_inap.kd_kamar where no_rawat=? "+
                     "and stts_pulang='-' order by STR_TO_DATE(concat(kamar_inap.tgl_masuk,' ',jam_masuk),'%Y-%m-%d %H:%i:%s') desc limit 1",TNoRw.getText());
+                if(Sequel.cariIsi("select kamar.kd_bangsal from kamar_inap inner join kamar on kamar_inap.kd_kamar=kamar.kd_kamar where kamar_inap.no_rawat = '"+TNoRw.getText()+"' ORDER BY kamar_inap.tgl_masuk DESC, kamar_inap.jam_masuk DESC").equals("NEO")){
+                    kelas="Kelas 1";
+                }
             } 
             namakamar=kamar+", "+Sequel.cariIsi("select bangsal.nm_bangsal from bangsal inner join kamar on bangsal.kd_bangsal=kamar.kd_bangsal "+
                     " where kamar.kd_kamar=? ",kamar);            
@@ -2524,8 +2527,10 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     pstindakan.setString(2,kelas.trim());
                     pstindakan.setString(3,"%"+Pemeriksaan.getText().trim()+"%");
                     pstindakan.setString(4,Penjab.getText().trim());
-                    if(Sequel.cariIsi("select kamar.kd_bangsal from kamar_inap inner join kamar on kamar_inap.kd_kamar=kamar.kd_kamar where kamar_inap.no_rawat = '"+TNoRw.getText()+"'").equals("ASTER")){
+                    if(Sequel.cariIsi("select kamar.kd_bangsal from kamar_inap inner join kamar on kamar_inap.kd_kamar=kamar.kd_kamar where kamar_inap.no_rawat = '"+TNoRw.getText()+"' ORDER BY kamar_inap.tgl_masuk DESC, kamar_inap.jam_masuk DESC").equals("ASTER")){
                         pstindakan.setString(5,"Kelas VIP");
+                    }else if(Sequel.cariIsi("select kamar.kd_bangsal from kamar_inap inner join kamar on kamar_inap.kd_kamar=kamar.kd_kamar where kamar_inap.no_rawat = '"+TNoRw.getText()+"' ORDER BY kamar_inap.tgl_masuk DESC, kamar_inap.jam_masuk DESC").equals("NEO")){
+                        pstindakan.setString(5,"Kelas 1");
                     }else{
                         pstindakan.setString(5,kelas.trim());
                     }

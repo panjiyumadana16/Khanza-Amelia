@@ -37,7 +37,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-        Object[] row={"No.Berkas","No.Revisi","Tgl Berlaku","Diagnosa CP","Judul CP","Catatan Khusus"};
+        Object[] row={"No.Berkas","No.Revisi","Tgl Berlaku","Diagnosa CP","Judul CP","Catatan Khusus","Max.Hari Dirawat"};
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -46,7 +46,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
         tbBerkas.setPreferredScrollableViewportSize(new Dimension(800,800));
         tbBerkas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < 7; i++) {
             TableColumn column = tbBerkas.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(80);
@@ -60,11 +60,13 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
                 column.setPreferredWidth(160);
             }else if(i==5){
                 column.setPreferredWidth(500);
+            }else if(i==6){
+                column.setPreferredWidth(80);
             }
         }
         tbBerkas.setDefaultRenderer(Object.class, new WarnaTable());
         
-        Object[] rowAspek={"","No","Lvl.List","No.List","Isi Aspek","Kosongi?"};
+        Object[] rowAspek={"","No","Lvl.List","No.List","Isi Aspek","Kosongi?","Wajib Isi"};
         tabModeAspek=new DefaultTableModel(null,rowAspek){
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -116,7 +118,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
         tbAspek.setPreferredScrollableViewportSize(new Dimension(800,800));
         tbAspek.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < 7; i++) {
             TableColumn columnAspek = tbAspek.getColumnModel().getColumn(i);
             if(i==0){
                 columnAspek.setPreferredWidth(30);
@@ -129,9 +131,11 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
             }else if(i==3){
                 columnAspek.setPreferredWidth(50);
             }else if(i==4){
-                columnAspek.setPreferredWidth(480);
+                columnAspek.setPreferredWidth(400);
             }else if(i==5){
                 columnAspek.setPreferredWidth(50);
+            }else if(i==6){
+                columnAspek.setPreferredWidth(80);
             }
         }
         tbAspek.setDefaultRenderer(Number.class, new WarnaTableAspek());
@@ -179,6 +183,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
         TNoBerkas.setDocument(new batasInput(8).getKata(TNoBerkas));
         TDiagnosa.setDocument(new batasInput(64).getKata(TDiagnosa));
         TJudulBerkas.setDocument(new batasInput(128).getKata(TJudulBerkas));
+        TMaxHariRawat.setDocument(new batasInput(1).getKata(TMaxHariRawat));
         TCari.setDocument(new batasInput(100).getKata(TCari));    
         if(koneksiDB.CARICEPAT().equals("aktif")){
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
@@ -242,6 +247,8 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
         BtnDelAspek = new widget.Button();
         BtnApplyAspek = new widget.Button();
         BtnClearAspek = new widget.Button();
+        label24 = new widget.Label();
+        TMaxHariRawat = new widget.TextBox();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbBerkas = new widget.Table();
@@ -336,7 +343,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
             }
         });
         FormInput.add(TDiagnosa);
-        TDiagnosa.setBounds(95, 40, 590, 23);
+        TDiagnosa.setBounds(95, 40, 400, 23);
 
         label21.setText("Tanggal Berlaku :");
         label21.setName("label21"); // NOI18N
@@ -355,7 +362,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
         TNoRevisi.setBounds(275, 10, 220, 23);
 
         TglBerlaku.setForeground(new java.awt.Color(50, 70, 50));
-        TglBerlaku.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2026" }));
+        TglBerlaku.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-09-2026" }));
         TglBerlaku.setDisplayFormat("dd-MM-yyyy");
         TglBerlaku.setName("TglBerlaku"); // NOI18N
         TglBerlaku.setOpaque(false);
@@ -418,7 +425,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
 
             }
         ));
-        tbAspek.setToolTipText("Klik dahulu kemudian gunakan arah panah (Atas / Bawah) pada keyboard untuk memindah urutan");
+        tbAspek.setToolTipText("Klik dahulu kemudian gunakan arah panah (Atas / Bawah) pada keyboard untuk memindah urutan, kolom wajib isi gunakan \"-\" untuk semua kolom, angka pisahkan dengan koma untuk wajib isi kolom tertentu");
         tbAspek.setName("tbAspek"); // NOI18N
         scrollPane2.setViewportView(tbAspek);
 
@@ -517,6 +524,29 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
 
         FormInput.add(panelBiasa1);
         panelBiasa1.setBounds(200, 190, 485, 50);
+
+        label24.setText("Max. Hari Dirawat :");
+        label24.setName("label24"); // NOI18N
+        label24.setPreferredSize(new java.awt.Dimension(75, 23));
+        FormInput.add(label24);
+        label24.setBounds(500, 40, 110, 23);
+
+        TMaxHariRawat.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TMaxHariRawat.setText("1");
+        TMaxHariRawat.setName("TMaxHariRawat"); // NOI18N
+        TMaxHariRawat.setPreferredSize(new java.awt.Dimension(207, 23));
+        TMaxHariRawat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TMaxHariRawatActionPerformed(evt);
+            }
+        });
+        TMaxHariRawat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TMaxHariRawatKeyPressed(evt);
+            }
+        });
+        FormInput.add(TMaxHariRawat);
+        TMaxHariRawat.setBounds(615, 40, 70, 23);
 
         scrollInput.setViewportView(FormInput);
 
@@ -833,13 +863,15 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null,"Maaf, Template aspek masih ada "+aspekValid+" yang kosong...!!!");
         }else if(tabModeAspek.getRowCount() < 15){
             JOptionPane.showMessageDialog(null,"Maaf, Template aspek belum diisi...!!!");
+        }else if(TMaxHariRawat.getText().equals("") || TMaxHariRawat.getText().equals("0")){
+            Valid.textKosong(TMaxHariRawat,"Minimal Hari Dirawat");
         }else{
-            if(Sequel.mengedittf("master_berkas_cp","no_berkas=?","no_berkas=?,no_revisi=?,tgl_berlaku=?,diagnosa_cp=?,judul_cp=?,catatan_khusus=?",7,new String[]{
-                TNoBerkas.getText(),TNoRevisi.getText(),Valid.SetTgl(TglBerlaku.getSelectedItem()+""),TDiagnosa.getText(),TJudulBerkas.getText(),TACatatan.getText(),tabMode.getValueAt(tbBerkas.getSelectedRow(), 0).toString().trim()
+            if(Sequel.mengedittf("master_berkas_cp","no_berkas=?","no_berkas=?,no_revisi=?,tgl_berlaku=?,diagnosa_cp=?,judul_cp=?,catatan_khusus=?,max_hari_dirawat=?",8,new String[]{
+                TNoBerkas.getText(),TNoRevisi.getText(),Valid.SetTgl(TglBerlaku.getSelectedItem()+""),TDiagnosa.getText(),TJudulBerkas.getText(),TACatatan.getText(),TMaxHariRawat.getText(),tabMode.getValueAt(tbBerkas.getSelectedRow(), 0).toString().trim()
             })==true){
                 Sequel.meghapustf("aspek_berkas_cp","no_berkas",tabMode.getValueAt(tbBerkas.getSelectedRow(), 0).toString().trim());
                 for(int rw = 0; rw < tabModeAspek.getRowCount();rw++){
-                    Sequel.menyimpantf("aspek_berkas_cp","'"+TNoBerkas.getText().trim()+"',"+tabModeAspek.getValueAt(rw, 1)+",'"+tabModeAspek.getValueAt(rw, 2)+"','"+tabModeAspek.getValueAt(rw, 3).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 4).toString().trim()+"',"+tabModeAspek.getValueAt(rw, 5)+"","Urutan Aspek");
+                    Sequel.menyimpantf("aspek_berkas_cp","'"+TNoBerkas.getText().trim()+"',"+tabModeAspek.getValueAt(rw, 1)+",'"+tabModeAspek.getValueAt(rw, 2)+"','"+tabModeAspek.getValueAt(rw, 3).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 4).toString().trim()+"',"+tabModeAspek.getValueAt(rw, 5)+",'"+tabModeAspek.getValueAt(rw, 6)+"'","Urutan Aspek");
                 }
                 JOptionPane.showMessageDialog(null,"Berhasil edit Berkas Clinical Pathway...!!!");
                 tampil();
@@ -902,10 +934,12 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null,"Maaf, Template aspek masih ada "+aspekValid+" yang kosong...!!!");
         }else if(tabModeAspek.getRowCount() < 15){
             JOptionPane.showMessageDialog(null,"Maaf, Template aspek belum diisi...!!!");
+        }else if(TMaxHariRawat.getText().equals("") || TMaxHariRawat.getText().equals("0")){
+            Valid.textKosong(TMaxHariRawat,"Max Hari Dirawat");
         }else{
-            if(Sequel.menyimpantf("master_berkas_cp","'"+TNoBerkas.getText().trim()+"','"+TNoRevisi.getText()+"','"+Valid.SetTgl(TglBerlaku.getSelectedItem()+"")+"','"+TDiagnosa.getText().trim()+"','"+TJudulBerkas.getText().trim()+"','"+TACatatan.getText()+"'","Nomor Berkas")==true){
+            if(Sequel.menyimpantf("master_berkas_cp","'"+TNoBerkas.getText().trim()+"','"+TNoRevisi.getText()+"','"+Valid.SetTgl(TglBerlaku.getSelectedItem()+"")+"','"+TDiagnosa.getText().trim()+"','"+TJudulBerkas.getText().trim()+"','"+TACatatan.getText()+"','"+TMaxHariRawat.getText()+"'","Nomor Berkas")==true){
                 for(int rw = 0; rw < tabModeAspek.getRowCount();rw++){
-                    Sequel.menyimpantf("aspek_berkas_cp","'"+TNoBerkas.getText().trim()+"',"+tabModeAspek.getValueAt(rw, 1)+",'"+tabModeAspek.getValueAt(rw, 2)+"','"+tabModeAspek.getValueAt(rw, 3).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 4).toString().trim()+"',"+tabModeAspek.getValueAt(rw, 5)+"","Urutan Aspek");
+                    Sequel.menyimpantf("aspek_berkas_cp","'"+TNoBerkas.getText().trim()+"',"+tabModeAspek.getValueAt(rw, 1)+",'"+tabModeAspek.getValueAt(rw, 2)+"','"+tabModeAspek.getValueAt(rw, 3).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 4).toString().trim()+"',"+tabModeAspek.getValueAt(rw, 5)+",'"+tabModeAspek.getValueAt(rw, 6)+"'","Urutan Aspek");
                 }
                 JOptionPane.showMessageDialog(null,"Berhasil menyimpan Berkas Clinical Pathway...!!!");
                 tampil();
@@ -973,7 +1007,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                 String nolist = tabModeAspek.getValueAt(row, 3).toString();
                 int lvl = Integer.parseInt(tabModeAspek.getValueAt(row, 2).toString());
                 if (nolist != null && nolist.equals(String.valueOf(noAspek)) && lvl == 0) {
-                    tabModeAspek.insertRow(row, new Object[]{false,null,1,"","",false});
+                    tabModeAspek.insertRow(row, new Object[]{false,null,1,"","",false,null});
 
                     break;
                 }
@@ -1001,6 +1035,14 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
         }
         setNoUrut();
     }//GEN-LAST:event_BtnDelAspekActionPerformed
+
+    private void TMaxHariRawatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TMaxHariRawatKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TMaxHariRawatKeyPressed
+
+    private void TMaxHariRawatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TMaxHariRawatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TMaxHariRawatActionPerformed
 
     /**
     * @param args the command line arguments
@@ -1037,6 +1079,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     private widget.TextBox TCari;
     private widget.TextBox TDiagnosa;
     private widget.TextBox TJudulBerkas;
+    private widget.TextBox TMaxHariRawat;
     private widget.TextBox TNoBerkas;
     private widget.TextBox TNoRevisi;
     private javax.swing.JTabbedPane TabRawat;
@@ -1055,6 +1098,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     private widget.Label label21;
     private widget.Label label22;
     private widget.Label label23;
+    private widget.Label label24;
     private widget.Label label9;
     private widget.PanelBiasa panelBiasa1;
     private widget.panelisi panelGlass8;
@@ -1085,7 +1129,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                 while(rs.next()){
                     tabMode.addRow(new Object[]{
                         rs.getString("no_berkas"),rs.getString("no_revisi"),rs.getDate("tgl_berlaku"),
-                        rs.getString("diagnosa_cp"),rs.getString("judul_cp"),rs.getString("catatan_khusus")
+                        rs.getString("diagnosa_cp"),rs.getString("judul_cp"),rs.getString("catatan_khusus"),rs.getInt("max_hari_dirawat")
                     });
                 }
             } catch (Exception e) {
@@ -1110,6 +1154,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
         TDiagnosa.setText("");
         TJudulBerkas.setText("");
         TACatatan.setText("");
+        TMaxHariRawat.setText("1");
         clearAspek();
     }
 
@@ -1121,6 +1166,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
             TDiagnosa.setText(tbBerkas.getValueAt(tbBerkas.getSelectedRow(),3).toString());
             TJudulBerkas.setText(tbBerkas.getValueAt(tbBerkas.getSelectedRow(),4).toString());
             TACatatan.setText(tbBerkas.getValueAt(tbBerkas.getSelectedRow(),5).toString());
+            TMaxHariRawat.setText(tbBerkas.getValueAt(tbBerkas.getSelectedRow(),6).toString());
             Valid.tabelKosong(tabModeAspek);
             try{
                 ps=koneksi.prepareStatement("select * from aspek_berkas_cp where no_berkas = ? order by no_urut");
@@ -1129,7 +1175,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                     rs=ps.executeQuery();
                     while(rs.next()){
                         tabModeAspek.addRow(new Object[]{
-                            false,rs.getInt("no_urut"),rs.getString("lvl_list"),rs.getString("no_list"),rs.getString("isi_aspek"),rs.getBoolean("kosongi")
+                            false,rs.getInt("no_urut"),rs.getString("lvl_list"),rs.getString("no_list"),rs.getString("isi_aspek"),rs.getBoolean("kosongi"),rs.getString("wajib_isi")
                         });
                     }
                     setNoUrut();
@@ -1153,20 +1199,20 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
         isInitializing = true;
         Valid.tabelKosong(tabModeAspek);
         
-        tabModeAspek.addRow(new Object[]{false,null,0,"1","Penilaian dan Pemantauan Medis",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"2","Penilaian dan Pemantauan Keperawatan",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"3","Penilaian dan Pemantauan Gizi",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"4","Penilaian dan Pemantauan Farmasi",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"5","Pemeriksaan Penunjang Medis (lab, radiologi, dsb)",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"6","Tindakan Medis",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"7","Tindakan Keperawatan",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"8","Medikasi (Obat-obatan, cairan IV, transfusi, dsb)",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"9","Nutrisi (pembatasan konsumsi natrium, diet kaya sayuran, buah buahan,produk susu rendah lemak/bebas lemak, dsb)",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"10","Kegiatan Pasien",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"11","Konsultasi dan komunikasi Tim",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"12","Konseling Psikososial",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"13","Pendidikan dan komunikasi dengan pasien/keluarga (obat, diet, penggunaan alat, rehabilitasi, dsb)",true});
-        tabModeAspek.addRow(new Object[]{false,null,0,"14","Outcome Pasien (penilaian outcome pasien yang harus dicapai sebelum pemulangan)",true});
+        tabModeAspek.addRow(new Object[]{false,null,0,"1","Penilaian dan Pemantauan Medis",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"2","Penilaian dan Pemantauan Keperawatan",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"3","Penilaian dan Pemantauan Gizi",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"4","Penilaian dan Pemantauan Farmasi",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"5","Pemeriksaan Penunjang Medis (lab, radiologi, dsb)",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"6","Tindakan Medis",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"7","Tindakan Keperawatan",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"8","Medikasi (Obat-obatan, cairan IV, transfusi, dsb)",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"9","Nutrisi (pembatasan konsumsi natrium, diet kaya sayuran, buah buahan,produk susu rendah lemak/bebas lemak, dsb)",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"10","Kegiatan Pasien",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"11","Konsultasi dan komunikasi Tim",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"12","Konseling Psikososial",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"13","Pendidikan dan komunikasi dengan pasien/keluarga (obat, diet, penggunaan alat, rehabilitasi, dsb)",true,null});
+        tabModeAspek.addRow(new Object[]{false,null,0,"14","Outcome Pasien (penilaian outcome pasien yang harus dicapai sebelum pemulangan)",true,null});
         
         setNoUrut();
         isInitializing = false;

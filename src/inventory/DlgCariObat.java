@@ -50,6 +50,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import simrskhanza.DlgCariBangsal;
+import simrskhanza.DlgCariPeriksaLab;
 import widget.Button;
 
 /**
@@ -494,6 +495,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
         ppStok = new javax.swing.JMenuItem();
         ppStok1 = new javax.swing.JMenuItem();
         ppStokOpname = new javax.swing.JMenuItem();
+        ppCekLDLLab = new javax.swing.JMenuItem();
         Kd2 = new widget.TextBox();
         TNoRw = new widget.TextBox();
         Tanggal = new widget.TextBox();
@@ -611,6 +613,22 @@ public final class DlgCariObat extends javax.swing.JDialog {
             }
         });
         Popup.add(ppStokOpname);
+
+        ppCekLDLLab.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppCekLDLLab.setForeground(new java.awt.Color(50, 50, 50));
+        ppCekLDLLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppCekLDLLab.setText("Cek Riwayat LDL Lab");
+        ppCekLDLLab.setToolTipText("");
+        ppCekLDLLab.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppCekLDLLab.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppCekLDLLab.setName("ppCekLDLLab"); // NOI18N
+        ppCekLDLLab.setPreferredSize(new java.awt.Dimension(200, 25));
+        ppCekLDLLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppCekLDLLabActionPerformed(evt);
+            }
+        });
+        Popup.add(ppCekLDLLab);
 
         Kd2.setHighlighter(null);
         Kd2.setName("Kd2"); // NOI18N
@@ -873,7 +891,7 @@ public final class DlgCariObat extends javax.swing.JDialog {
         jLabel8.setBounds(4, 40, 65, 23);
 
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-02-2026" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-02-2026" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -2092,6 +2110,17 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_ppStokOpnameActionPerformed
 
+    private void ppCekLDLLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppCekLDLLabActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgCariPeriksaLab sRiwayatLab=new DlgCariPeriksaLab(null,false);
+        sRiwayatLab.isCek();
+        sRiwayatLab.SetNoRwLDL(TNoRw.getText());
+        sRiwayatLab.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        sRiwayatLab.setLocationRelativeTo(internalFrame1);
+        sRiwayatLab.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_ppCekLDLLabActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2163,6 +2192,7 @@ private void JeniskelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:even
     private widget.TextBox nmgudang;
     private widget.panelisi panelisi3;
     private javax.swing.JMenuItem ppBersihkan;
+    private javax.swing.JMenuItem ppCekLDLLab;
     private javax.swing.JMenuItem ppStok;
     private javax.swing.JMenuItem ppStok1;
     private javax.swing.JMenuItem ppStokOpname;

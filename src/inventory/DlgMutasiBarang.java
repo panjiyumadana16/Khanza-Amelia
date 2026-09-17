@@ -1153,15 +1153,34 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                     }
                 }
             }else{
+//                if(TCari.getText().trim().equals("")){
+//                    ps=koneksi.prepareStatement("select databarang.kode_brng, databarang.nama_brng,databarang.kode_sat,databarang."+hppfarmasi+" as dasar,gudangbarang.stok,ifnull(databarang.expire,'0000-00-00') as expire "+
+//                        " from databarang inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
+//                        " where gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.stok>0 and databarang.status='1' and gudangbarang.kd_bangsal=? order by databarang.nama_brng");
+//                }else{
+//                    ps=koneksi.prepareStatement("select databarang.kode_brng, databarang.nama_brng,databarang.kode_sat,databarang."+hppfarmasi+" as dasar,gudangbarang.stok,ifnull(databarang.expire,'0000-00-00') as expire "+
+//                        " from databarang inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
+//                        " where gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.stok>0 and databarang.status='1' and gudangbarang.kd_bangsal=? and databarang.kode_brng like ? or "+
+//                        " gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.stok>0 and databarang.status='1' and gudangbarang.kd_bangsal=? and databarang.nama_brng like ? order by databarang.nama_brng");
+//                }
+
                 if(TCari.getText().trim().equals("")){
-                    ps=koneksi.prepareStatement("select databarang.kode_brng, databarang.nama_brng,databarang.kode_sat,databarang."+hppfarmasi+" as dasar,gudangbarang.stok,ifnull(databarang.expire,'0000-00-00') as expire "+
-                        " from databarang inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
-                        " where gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.stok>0 and databarang.status='1' and gudangbarang.kd_bangsal=? order by databarang.nama_brng");
+                    ps=koneksi.prepareStatement("SELECT databarang.kode_brng, databarang.nama_brng,databarang.kode_sat,databarang."+hppfarmasi+",gudangbarang.stok,data_batch.no_batch,data_batch.no_faktur, "+
+                            "IFNULL( data_batch.tgl_kadaluarsa, '0000-00-00' ) AS expire FROM databarang INNER JOIN gudangbarang ON databarang.kode_brng = gudangbarang.kode_brng "+
+                            "LEFT JOIN data_batch ON data_batch.kode_brng = databarang.kode_brng "+
+                            "AND data_batch.tgl_kadaluarsa = (SELECT MIN(data_batch2.tgl_kadaluarsa) FROM data_batch AS data_batch2 "+
+                            "WHERE data_batch2.kode_brng = databarang.kode_brng AND data_batch2.tgl_kadaluarsa >= CURDATE()) "+
+                            "WHERE gudangbarang.no_batch = '' AND gudangbarang.no_faktur = '' AND gudangbarang.stok > 0 AND databarang.STATUS = '1' AND gudangbarang.kd_bangsal = ? "+
+                            "GROUP BY databarang.kode_brng ORDER BY databarang.nama_brng ASC");
                 }else{
-                    ps=koneksi.prepareStatement("select databarang.kode_brng, databarang.nama_brng,databarang.kode_sat,databarang."+hppfarmasi+" as dasar,gudangbarang.stok,ifnull(databarang.expire,'0000-00-00') as expire "+
-                        " from databarang inner join gudangbarang on databarang.kode_brng=gudangbarang.kode_brng "+
-                        " where gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.stok>0 and databarang.status='1' and gudangbarang.kd_bangsal=? and databarang.kode_brng like ? or "+
-                        " gudangbarang.no_batch='' and gudangbarang.no_faktur='' and gudangbarang.stok>0 and databarang.status='1' and gudangbarang.kd_bangsal=? and databarang.nama_brng like ? order by databarang.nama_brng");
+                    ps=koneksi.prepareStatement("SELECT databarang.kode_brng, databarang.nama_brng,databarang.kode_sat,databarang."+hppfarmasi+",gudangbarang.stok,data_batch.no_batch,data_batch.no_faktur, "+
+                            "IFNULL( data_batch.tgl_kadaluarsa, '0000-00-00' ) AS expire FROM databarang INNER JOIN gudangbarang ON databarang.kode_brng = gudangbarang.kode_brng "+
+                            "LEFT JOIN data_batch ON data_batch.kode_brng = databarang.kode_brng "+
+                            "AND data_batch.tgl_kadaluarsa = (SELECT MIN(data_batch2.tgl_kadaluarsa) FROM data_batch AS data_batch2 "+
+                            "WHERE data_batch2.kode_brng = databarang.kode_brng AND data_batch2.tgl_kadaluarsa >= CURDATE()) "+
+                            "WHERE gudangbarang.no_batch = '' AND gudangbarang.no_faktur = '' AND gudangbarang.stok > 0 AND databarang.STATUS = '1' AND gudangbarang.kd_bangsal = ? "+
+                            "AND ( databarang.kode_brng LIKE ? OR databarang.nama_brng LIKE ? ) " +
+                            "GROUP BY databarang.kode_brng ORDER BY databarang.nama_brng ASC");
                 }
 
                 try {
@@ -1170,12 +1189,11 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                     }else{
                         ps.setString(1,kddari.getText());
                         ps.setString(2,"%"+TCari.getText().trim()+"%");
-                        ps.setString(3,kddari.getText());
-                        ps.setString(4,"%"+TCari.getText().trim()+"%");
+                        ps.setString(3,"%"+TCari.getText().trim()+"%");
                     }
                     rs=ps.executeQuery();
                     while(rs.next()){                
-                        tabMode.addRow(new Object[]{"",rs.getDouble("dasar"),0,rs.getString("kode_brng"),rs.getString("nama_brng"),rs.getString("kode_sat"),rs.getDouble("stok"),0,"","",rs.getString("expire")});
+                        tabMode.addRow(new Object[]{"",rs.getDouble("dasar"),0,rs.getString("kode_brng"),rs.getString("nama_brng"),rs.getString("kode_sat"),rs.getDouble("stok"),0,rs.getString("no_batch"),rs.getString("no_faktur"),rs.getString("expire")});
                     } 
                 } catch (Exception e) {
                     System.out.println("Note : "+e);

@@ -932,6 +932,7 @@ import rekammedis.RMUjiFungsiKFR;
 import rekammedis.RMKlasifikasiRobson;
 import rekammedis.MasterBerkasClinicalPathway;
 import rekammedis.RMClinicalPathway;
+import rekammedis.RMSkriningResikoJatuhRajal;
 import setting.DlgJamDietPasien;
 import setting.DlgPasswordBPJS;
 import setting.DlgRuangOperasi;
@@ -1639,6 +1640,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnKlasifikasiRobson = new widget.ButtonBig();
         btnMasterBerkasCP = new widget.ButtonBig();
         btnClinicalPathway = new widget.ButtonBig();
+        btnSkriningResikoJatuhRajal = new widget.ButtonBig();
         internalFrame1 = new widget.InternalFrame();
         BtnMenu = new widget.ButtonBig();
         jSeparator4 = new javax.swing.JSeparator();
@@ -1935,7 +1937,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20/04/2026" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12/05/2026" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -7021,6 +7023,17 @@ public class frmUtama extends javax.swing.JFrame {
         btnClinicalPathway.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClinicalPathwayActionPerformed(evt);
+            }
+        });
+
+        btnSkriningResikoJatuhRajal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/1481002123_wheelchair.png"))); // NOI18N
+        btnSkriningResikoJatuhRajal.setText("Skrining Resiko Jatuh Rawat Jalan");
+        btnSkriningResikoJatuhRajal.setIconTextGap(0);
+        btnSkriningResikoJatuhRajal.setName("btnSkriningResikoJatuhRajal"); // NOI18N
+        btnSkriningResikoJatuhRajal.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnSkriningResikoJatuhRajal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSkriningResikoJatuhRajalActionPerformed(evt);
             }
         });
 
@@ -14580,6 +14593,19 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnClinicalPathwayActionPerformed
 
+    private void btnSkriningResikoJatuhRajalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkriningResikoJatuhRajalActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMSkriningResikoJatuhRajal form=new RMSkriningResikoJatuhRajal(null,false);
+        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnSkriningResikoJatuhRajalActionPerformed
+
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -21665,6 +21691,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnSirkulasiInventaris;
     private widget.ButtonBig btnSirkulasiNonMedis;
     private widget.ButtonBig btnSisaStok;
+    private widget.ButtonBig btnSkriningResikoJatuhRajal;
     private widget.ButtonBig btnStokKeluarIPSRSPerTanggal;
     private widget.ButtonBig btnStokKeluarMedis;
     private widget.ButtonBig btnStokObatPasien;
@@ -25716,6 +25743,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getclinicalpathway()==true){
                 Panelmenu.add(btnClinicalPathway);
+                jmlmenu++;
+            }
+            
+            if(akses.getskrining_resiko_jatuh_rajal()==true){
+                Panelmenu.add(btnSkriningResikoJatuhRajal);
                 jmlmenu++;
             }
         }else if(cmbMenu.getSelectedIndex()==13){  
@@ -31958,6 +31990,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         }
         if(akses.getclinicalpathway()==true){
             Panelmenu.add(btnClinicalPathway);
+            jmlmenu++;
+        }
+        
+        if(akses.getskrining_resiko_jatuh_rajal()==true){
+            Panelmenu.add(btnSkriningResikoJatuhRajal);
             jmlmenu++;
         }
     }
@@ -39003,6 +39040,13 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         if(akses.getclinicalpathway()==true){
             if(btnClinicalPathway.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
                 Panelmenu.add(btnClinicalPathway);
+                jmlmenu++;
+            }
+        }
+        
+        if(akses.getskrining_resiko_jatuh_rajal()==true){
+            if(btnSkriningResikoJatuhRajal.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnSkriningResikoJatuhRajal);
                 jmlmenu++;
             }
         }

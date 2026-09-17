@@ -170,6 +170,7 @@ import rekammedis.RMSignOutSebelumMenutupLuka;
 import rekammedis.RMSkriningNutrisiAnak;
 import rekammedis.RMSkriningNutrisiDewasa;
 import rekammedis.RMSkriningNutrisiLansia;
+import rekammedis.RMSkriningResikoJatuhRajal;
 import rekammedis.RMTimeOutSebelumInsisi;
 import rekammedis.RMTransferPasienAntarRuang;
 import rekammedis.RMUjiFungsiKFR;
@@ -969,6 +970,7 @@ public final class DlgReg extends javax.swing.JDialog {
         MnCheckListKriteriaMasukICU = new javax.swing.JMenuItem();
         MnUjiFungsiKFR = new javax.swing.JMenuItem();
         MnRMRisikoJatuh = new javax.swing.JMenu();
+        MnSkriningResikoJatuhRajal = new javax.swing.JMenuItem();
         MnPenilaianRisikoJatuhDewasa = new javax.swing.JMenuItem();
         MnPenilaianRisikoJatuhAnak = new javax.swing.JMenuItem();
         MnPenilaianRisikoJatuhLansia = new javax.swing.JMenuItem();
@@ -2192,6 +2194,22 @@ public final class DlgReg extends javax.swing.JDialog {
         MnRMRisikoJatuh.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnRMRisikoJatuh.setName("MnRMRisikoJatuh"); // NOI18N
         MnRMRisikoJatuh.setPreferredSize(new java.awt.Dimension(220, 26));
+
+        MnSkriningResikoJatuhRajal.setBackground(new java.awt.Color(255, 255, 254));
+        MnSkriningResikoJatuhRajal.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnSkriningResikoJatuhRajal.setForeground(new java.awt.Color(50, 50, 50));
+        MnSkriningResikoJatuhRajal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnSkriningResikoJatuhRajal.setText("Skrining Resiko Jatuh Rajal");
+        MnSkriningResikoJatuhRajal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnSkriningResikoJatuhRajal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnSkriningResikoJatuhRajal.setName("MnSkriningResikoJatuhRajal"); // NOI18N
+        MnSkriningResikoJatuhRajal.setPreferredSize(new java.awt.Dimension(250, 26));
+        MnSkriningResikoJatuhRajal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnSkriningResikoJatuhRajalActionPerformed(evt);
+            }
+        });
+        MnRMRisikoJatuh.add(MnSkriningResikoJatuhRajal);
 
         MnPenilaianRisikoJatuhDewasa.setBackground(new java.awt.Color(255, 255, 254));
         MnPenilaianRisikoJatuhDewasa.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -14526,6 +14544,29 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         tbPetugasMouseClicked(evt);
     }//GEN-LAST:event_tbPetugasMouseReleased
 
+    private void MnSkriningResikoJatuhRajalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSkriningResikoJatuhRajalActionPerformed
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, data registrasi sudah habis...!!!!");
+            TNoRM.requestFocus();
+        }else if(TPasien.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu data pasien dengan menklik data pada table...!!!");
+            tbPetugas.requestFocus();
+        }else{
+            if(tbPetugas.getSelectedRow()!= -1){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                RMSkriningResikoJatuhRajal form=new RMSkriningResikoJatuhRajal(null,false);
+                form.emptTeks();
+                form.isCek();
+                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setLocationRelativeTo(internalFrame1);
+                form.setVisible(true);
+                form.setNoRm(TNoRw.getText(),DTPCari2.getDate());
+                form.tampil();
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }
+    }//GEN-LAST:event_MnSkriningResikoJatuhRajalActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -14801,6 +14842,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private javax.swing.JMenuItem MnSPBK1;
     private javax.swing.JMenuItem MnSignInSebelumAnestesi;
     private javax.swing.JMenuItem MnSignOutSebelumMenutupLuka;
+    private javax.swing.JMenuItem MnSkriningResikoJatuhRajal;
     private javax.swing.JMenu MnStatus;
     private javax.swing.JMenuItem MnStatusBaru;
     private javax.swing.JMenuItem MnStatusLama;
@@ -15440,6 +15482,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         MnPersetujuanPenolakanTindakan.setEnabled(akses.getpersetujuan_penolakan_tindakan());
         MnPulangAtasPermintaanSendiri.setEnabled(akses.getsurat_pulang_atas_permintaan_sendiri());
         MnPemantauanPEWSAnak.setEnabled(akses.getpemantauan_pews_anak());
+        MnSkriningResikoJatuhRajal.setEnabled(akses.getskrining_resiko_jatuh_rajal());
         MnPenilaianRisikoJatuhDewasa.setEnabled(akses.getpenilaian_lanjutan_resiko_jatuh_dewasa());
         MnPenilaianRisikoJatuhAnak.setEnabled(akses.getpenilaian_lanjutan_resiko_jatuh_anak());
         MnPenilaianAwalMedisRalanGeriatri.setEnabled(akses.getpenilaian_awal_medis_ralan_geriatri());

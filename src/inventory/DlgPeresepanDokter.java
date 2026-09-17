@@ -41,6 +41,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import kepegawaian.DlgCariDokter;
+import simrskhanza.DlgCariPeriksaLab;
 import widget.Button;
 
 /**
@@ -393,6 +394,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         } catch (Exception e) {
             RESEPRAJALKEPLAN="no";
         }
+        ChkJln.setEnabled(true);
     }    
     
 
@@ -409,6 +411,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         ppBersihkan = new javax.swing.JMenuItem();
         ppStok1 = new javax.swing.JMenuItem();
         ppStokOpname = new javax.swing.JMenuItem();
+        ppCekLDLLab = new javax.swing.JMenuItem();
         KdPj = new widget.TextBox();
         LPpn = new widget.Label();
         jLabel6 = new widget.Label();
@@ -503,6 +506,22 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
             }
         });
         Popup.add(ppStokOpname);
+
+        ppCekLDLLab.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppCekLDLLab.setForeground(new java.awt.Color(50, 50, 50));
+        ppCekLDLLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppCekLDLLab.setText("Cek Riwayat LDL Lab");
+        ppCekLDLLab.setToolTipText("");
+        ppCekLDLLab.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppCekLDLLab.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppCekLDLLab.setName("ppCekLDLLab"); // NOI18N
+        ppCekLDLLab.setPreferredSize(new java.awt.Dimension(200, 25));
+        ppCekLDLLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppCekLDLLabActionPerformed(evt);
+            }
+        });
+        Popup.add(ppCekLDLLab);
 
         KdPj.setHighlighter(null);
         KdPj.setName("KdPj"); // NOI18N
@@ -767,7 +786,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         jLabel8.setBounds(0, 42, 72, 23);
 
         DTPBeri.setForeground(new java.awt.Color(50, 70, 50));
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-02-2026" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-09-2026" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
         DTPBeri.setOpaque(false);
@@ -1564,6 +1583,17 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_ppStokOpnameActionPerformed
 
+    private void ppCekLDLLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppCekLDLLabActionPerformed
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgCariPeriksaLab sRiwayatLab=new DlgCariPeriksaLab(null,false);
+        sRiwayatLab.isCek();
+        sRiwayatLab.SetNoRwLDL(TNoRw.getText());
+        sRiwayatLab.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        sRiwayatLab.setLocationRelativeTo(internalFrame1);
+        sRiwayatLab.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_ppCekLDLLabActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1626,6 +1656,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.Label label9;
     private widget.panelisi panelisi3;
     private javax.swing.JMenuItem ppBersihkan;
+    private javax.swing.JMenuItem ppCekLDLLab;
     private javax.swing.JMenuItem ppStok1;
     private javax.swing.JMenuItem ppStokOpname;
     private widget.Table tbDetailResepObatRacikan;
@@ -3930,6 +3961,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     
     public void MatikanJam(){
         ChkJln.setSelected(false);
+        ChkJln.setEnabled(false);
     }
 
     private void SetHarga() {

@@ -47,7 +47,7 @@ public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
         this.setLocation(10,2);
         setSize(656,250);
 
-        Object[] row={"No.Berkas","Diagnosa","Judul","No.Revisi","Tgl Berlaku","Catatan Khusus"};
+        Object[] row={"No.Berkas","Diagnosa","Judul","No.Revisi","Tgl Berlaku","Catatan Khusus","Max.Hari Rawat"};
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -57,7 +57,7 @@ public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(70);
@@ -70,12 +70,14 @@ public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
             }else if(i==4){
                 column.setPreferredWidth(80);
             }else if(i==5){
-                column.setPreferredWidth(500);
+                column.setPreferredWidth(420);
+            }else if(i==6){
+                column.setPreferredWidth(80);
             }
         }
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
         
-        Object[] rowAspek={"No","Lvl.List","No.List","","Isi Aspek","Kosongi?"};
+        Object[] rowAspek={"No","Lvl.List","No.List","","Isi Aspek","Kosongi?","Wajib Isi"};
         tabModeAspek=new DefaultTableModel(null,rowAspek){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -84,7 +86,7 @@ public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
         tbAspek.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbAspek.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         
-         for (int i = 0; i < 6; i++) {
+         for (int i = 0; i < 7; i++) {
             TableColumn columnAspek = tbAspek.getColumnModel().getColumn(i);
             if(i==0){
                 columnAspek.setMinWidth(0);
@@ -99,8 +101,10 @@ public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
             }else if(i==3){
                 columnAspek.setPreferredWidth(50);
             }else if(i==4){
-                columnAspek.setPreferredWidth(750);
+                columnAspek.setPreferredWidth(700);
             }else if(i==5){
+                columnAspek.setPreferredWidth(50);
+            }else if(i==6){
                 columnAspek.setPreferredWidth(50);
             }
         }
@@ -128,8 +132,10 @@ public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
                     }
                 }
             });
-        } 
-        
+        }
+        java.awt.EventQueue.invokeLater(() -> {
+            tampil();
+        });
     }   
 
     /** This method is called from within the constructor to
@@ -388,7 +394,8 @@ public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
                                     rs.getString("no_urut"),rs.getInt("lvl_list"),
                                     rs.getInt("lvl_list")==0?rs.getString("no_list"):"",
                                     rs.getInt("lvl_list")!=0?rs.getString("no_list"):"",
-                                    rs.getString("isi_aspek"),rs.getInt("kosongi")==1?"Ya":"Tidak"
+                                    rs.getString("isi_aspek"),rs.getInt("kosongi")==1?"Ya":"Tidak",
+                                    rs.getObject("wajib_isi") == null ? "":rs.getObject("wajib_isi")
                                 });
                             }
                         } catch (Exception e) {
@@ -463,7 +470,7 @@ public final class MasterCariBerkasClinicalPathway extends javax.swing.JDialog {
                 while(rs.next()){
                     tabMode.addRow(new Object[]{
                         rs.getString("no_berkas"),rs.getString("diagnosa_cp"),rs.getString("judul_cp"),
-                        rs.getString("no_revisi"),rs.getString("tgl_berlaku"),rs.getString("catatan_khusus")
+                        rs.getString("no_revisi"),rs.getString("tgl_berlaku"),rs.getString("catatan_khusus"),rs.getString("max_hari_dirawat")
                     });
                 }
             } catch (Exception e) {

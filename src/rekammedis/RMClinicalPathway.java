@@ -79,7 +79,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         
         tabMode=new DefaultTableModel(null,new Object[]{
             "No.Rawat","No.RM","Nama Pasien","J.K.","Tgl.Lahir","Kode Diagnosa","Diagnosa","Lama Dirawat","Tgl.Asuhan","Judul Berkas","No.Revisi","Tgl.Berlaku","Catatan Khusus",
-            "Kd.Dokter","Dokter","Kd.Perawat","Perawat","Kd.Petugas","Petugas Verifikasi"
+            "Min Hari Rawat","Kd.Dokter","Dokter","Kd.Perawat","Perawat","Kd.Petugas","Petugas Verifikasi"
         }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -89,7 +89,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         tbClinicalPathway.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbClinicalPathway.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 19; i++) {
+        for (i = 0; i < 20; i++) {
             TableColumn column = tbClinicalPathway.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(105);
@@ -120,28 +120,32 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
             }else if(i==12){
                 column.setPreferredWidth(300);
             }else if(i==13){
-                column.setPreferredWidth(80);
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+                column.setPreferredWidth(0);
             }else if(i==14){
-                column.setPreferredWidth(120);
+                column.setPreferredWidth(80);
             }else if(i==15){
-                column.setPreferredWidth(80);
-            }else if(i==16){
                 column.setPreferredWidth(120);
-            }else if(i==17){
+            }else if(i==16){
                 column.setPreferredWidth(80);
+            }else if(i==17){
+                column.setPreferredWidth(120);
             }else if(i==18){
+                column.setPreferredWidth(80);
+            }else if(i==19){
                 column.setPreferredWidth(120);
             }
         }
         tbClinicalPathway.setDefaultRenderer(Object.class, new WarnaTable());
 
-        Object[] rowAspek = {"No.Urut","Lvl.List","Kosongi?","No","","Aspek Pelayanan","H-1"};
+        Object[] rowAspek = {"No.Urut","Lvl.List","Kosongi?","Wajib Isi","No","","Aspek Pelayanan","H-1"};
         tabModeAspek=new DefaultTableModel(null,rowAspek){
             @Override 
             public boolean isCellEditable(int rowIndex, int colIndex){
                 String kosongi = String.valueOf(getValueAt(rowIndex, 2));
 
-                if(colIndex >= 6 && kosongi.equals("0")) {
+                if(colIndex >= 7 && kosongi.equals("0")) {
                     return true;
                 }
                 
@@ -156,13 +160,13 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         
         for (i = 0; i < tbAspekPelayanan.getColumnCount(); i++) {
             TableColumn columnAspek = tbAspekPelayanan.getColumnModel().getColumn(i);
-            if (i <= 2) {
+            if (i <= 3) {
                 columnAspek.setMinWidth(0);
                 columnAspek.setMaxWidth(0);
                 columnAspek.setPreferredWidth(0);
-            } else if (i == 3 || i == 4) {
+            } else if (i == 4 || i == 5) {
                 columnAspek.setPreferredWidth(25);
-            } else if (i == 5) {
+            } else if (i == 6) {
                 columnAspek.setPreferredWidth(500);
             } else {
                 columnAspek.setPreferredWidth(40);
@@ -350,6 +354,8 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
                     TNoRevisiBerkas.setText(berkascp.getTable().getValueAt(berkascp.getTable().getSelectedRow(),3).toString());
                     TTglBerlakuBerkas.setText(berkascp.getTable().getValueAt(berkascp.getTable().getSelectedRow(),4).toString());
                     TCatatan.setText(berkascp.getTable().getValueAt(berkascp.getTable().getSelectedRow(),5).toString());
+                    LamaDirawat.setText(berkascp.getTable().getValueAt(berkascp.getTable().getSelectedRow(),6).toString());
+                    MaxHariRawat.setText(berkascp.getTable().getValueAt(berkascp.getTable().getSelectedRow(),6).toString());
                     generateKolom();
                 }   
             }
@@ -435,6 +441,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         jSeparator3 = new javax.swing.JSeparator();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         cetakCP = new javax.swing.JMenuItem();
+        MaxHariRawat = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
         panelGlass8 = new widget.panelisi();
         BtnSimpan = new widget.Button();
@@ -558,7 +565,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         TAlasan.setBounds(110, 40, 610, 23);
 
         TglVariasi.setForeground(new java.awt.Color(50, 70, 50));
-        TglVariasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-06-2026" }));
+        TglVariasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-09-2026" }));
         TglVariasi.setDisplayFormat("dd-MM-yyyy");
         TglVariasi.setName("TglVariasi"); // NOI18N
         TglVariasi.setOpaque(false);
@@ -693,6 +700,9 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(cetakCP);
+
+        MaxHariRawat.setFocusable(false);
+        MaxHariRawat.setName("MaxHariRawat"); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -940,7 +950,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         label11.setBounds(670, 40, 30, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-06-2026" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-09-2026" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1050,7 +1060,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         FormInput.add(BtnPerawat);
         BtnPerawat.setBounds(580, 188, 28, 23);
 
-        label19.setText("Pelaksana Verifikasi :");
+        label19.setText("Verifikator :");
         label19.setName("label19"); // NOI18N
         label19.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(label19);
@@ -1278,7 +1288,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-06-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-09-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1292,7 +1302,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-06-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-09-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1368,14 +1378,14 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
     }else if(KdPelaksana.getText().equals("")){
         Valid.textKosong(KdPelaksana, "Pelaksana Verifikasi");
     }else{
-        if(Sequel.menyimpantf("clinical_pathway","?,?,?,?,?,?,?,?,?,?,?,?","Data",12,new String[]{ TNoRw.getText(),TKdDiagnosaCP.getText(),LamaDirawat.getText(),
+        if(Sequel.menyimpantf("clinical_pathway","?,?,?,?,?,?,?,?,?,?,?,?,?","Data",13,new String[]{ TNoRw.getText(),TKdDiagnosaCP.getText(),LamaDirawat.getText(),
             Valid.SetTgl(TglAsuhan.getSelectedItem()+""),TDiagnosaCP.getText(),TJudulBerkas.getText(),TNoRevisiBerkas.getText(),TTglBerlakuBerkas.getText(),TCatatan.getText(),
-            KdDPJP.getText(),KdPerawat.getText(),KdPelaksana.getText() })==true){
+            MaxHariRawat.getText(),KdDPJP.getText(),KdPerawat.getText(),KdPelaksana.getText() })==true){
             
             for(int rw = 0;rw < tabModeAspek.getRowCount();rw++){
                 String qValue = "'"+TNoRw.getText()+"','"+TKdDiagnosaCP.getText()+"','"+tabModeAspek.getValueAt(rw, 0)+"','"+tabModeAspek.getValueAt(rw, 1)+"','"+tabModeAspek.getValueAt(rw, 2)+"','"
-                        +tabModeAspek.getValueAt(rw, 3)+"','"+tabModeAspek.getValueAt(rw, 4)+"','"+tabModeAspek.getValueAt(rw, 5).toString().trim()+"'";
-                for(int col = 6; col < 15; col++) {
+                        +tabModeAspek.getValueAt(rw, 3)+"','"+tabModeAspek.getValueAt(rw, 4)+"','"+tabModeAspek.getValueAt(rw, 5).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 6).toString().trim()+"'";
+                for(int col = 7; col < 16; col++) {
                     if(col < tabModeAspek.getColumnCount()) {
                         Object val = tabModeAspek.getValueAt(rw, col);
 
@@ -1430,7 +1440,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
             if(akses.getkode().equals("Admin Utama")){
                 hapus();
             }else{
-                if(KdPelaksana.getText().equals(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),18).toString())){
+                if(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),18).toString().equals(akses.getkode())){
                     hapus();
                 }else{
                     JOptionPane.showMessageDialog(null,"Hanya bisa dihapus oleh petugas yang bersangkutan..!!");
@@ -1467,15 +1477,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         Valid.textKosong(KdPelaksana, "Pelaksana Verifikasi");
     }else{
         if(tbClinicalPathway.getSelectedRow()!= -1){
-            if(akses.getkode().equals("Admin Utama")){
-                edit();
-            }else{
-                if(KdPelaksana.getText().equals(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),18).toString())){
-                    edit();
-                }else{
-                    JOptionPane.showMessageDialog(null,"Hanya bisa diedit oleh petugas pelaksana yang bersangkutan..!!");
-                }
-            }
+            edit();
         } else {
             JOptionPane.showMessageDialog(null, "Silahkan pilih data yang ingin diubah terlebih dahulu!!!");
         }
@@ -1918,10 +1920,33 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
                                                            htmlContent.append("<td valign='top' align='center' width='3%'>").append(rs3.getString("sub_no_list")).append("</td>")
                                                                    .append("<td valign='top'>").append(rs3.getString("aspek_pelayanan")).append("</td>");
                                                        }
+                                                        Object col_w_isi = rs3.getObject("wajib_isi");
+                                                        String[] col_wajib = null;
+                                                        String wajib_isi = "";
+                                                        if(col_w_isi != null){
+                                                            wajib_isi = col_w_isi.toString();
+                                                            if (!wajib_isi.isBlank()){
+                                                                col_wajib = wajib_isi.split(",");
+                                                            }
+                                                        }
+                                                        int lamaRawat = rs2.getInt("lama_rawat");
+                                                        // Aman NPE: Menangani null pada kolom 'kosongi'
+                                                        boolean isKosongi = "0".equals(rs3.getString("kosongi"));
 
-                                                       for(int hari=1;hari<=rs2.getInt("lama_rawat");hari++){
-                                                            htmlContent.append("<td valign='top' align='center' width='7%' ").append(rs3.getString("kosongi").equals("0")?">":"bgcolor='#F0F0F0'>").append((rs3.getObject("h"+hari) == null?"":rs3.getObject("h"+hari).toString())).append("</td>");
-                                                       }
+                                                        for (int hari = 1; hari <= lamaRawat; hari++) {
+                                                            String valHari = rs3.getObject("h" + hari) == null ? "" : rs3.getObject("h" + hari).toString();
+                                                            boolean isHariWajib = col_wajib != null && java.util.Arrays.asList(col_wajib).contains(String.valueOf(hari));
+
+                                                            if (wajib_isi.contains("-") || isHariWajib) {
+                                                                htmlContent.append("<td valign='top' align='center' width='7%' ")
+                                                                           .append(isKosongi ? ">" : "bgcolor='#F0F0F0'>")
+                                                                           .append("( ").append(valHari).append(" )</td>");
+                                                            } else {
+                                                                htmlContent.append("<td valign='top' align='center' width='7%' ")
+                                                                           .append(isKosongi ? ">" : "bgcolor='#F0F0F0'>")
+                                                                           .append(valHari).append("</td>");
+                                                            }
+                                                        }
                                             htmlContent.append(
                                                    "</tr>");
                                         }
@@ -2051,7 +2076,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
                                         "<tr align='center' class='head1'>"+
                                             "<td valign='top' width='33%' bgcolor='#FFFAF8'>Dokter Penanggung Jawab Pasien</td>"+
                                             "<td valign='top' width='33%' bgcolor='#FFFAF8'>Perawat Penanggung Jawab</td>"+
-                                            "<td valign='top' width='33%' bgcolor='#FFFAF8'>Pelaksana Verifikasi</td>"+
+                                            "<td valign='top' width='33%' bgcolor='#FFFAF8'>Verifikator</td>"+
                                         "</tr>"+
                                         "<tr align='center'>"+
                                             "<td valign='top' width='33%'><br>( "+rs2.getString("dokter")+" "+rs2.getString("nm_dokter")+" )<br>&nbsp;</td>"+
@@ -2158,6 +2183,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
     private widget.Label LCount;
     private widget.TextBox LamaDirawat;
     private widget.editorpane LoadHTML;
+    private widget.TextBox MaxHariRawat;
     private widget.TextBox NmDPJP;
     private widget.TextBox NmPelaksana;
     private widget.TextBox NmPerawat;
@@ -2276,7 +2302,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
                     tabMode.addRow(new String[]{
                         rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien"),rs.getString("jk"),rs.getString("tgl_lahir"),
                         rs.getString("no_berkas"),rs.getString("diagnosa_cp"),rs.getString("lama_rawat"),rs.getString("tgl_asuhan"),rs.getString("judul_cp"),rs.getString("no_revisi_cp"),rs.getString("tgl_berlaku_cp"),rs.getString("catatan_khusus_cp"),
-                        rs.getString("dokter"),rs.getString("nm_dokter"),rs.getString("perawat"),rs.getString("nm_petugas"),rs.getString("pelaksana"),rs.getString("nm_pegawai")
+                        rs.getString("max_hari_dirawat_cp"),rs.getString("dokter"),rs.getString("nm_dokter"),rs.getString("perawat"),rs.getString("nm_petugas"),rs.getString("pelaksana"),rs.getString("nm_pegawai")
                     });
                 }
             } catch (Exception e) {
@@ -2305,7 +2331,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
                 rs=ps.executeQuery();
                 while(rs.next()){
                     tabModeAspek.addRow(new String[]{
-                        rs.getString("no_urut"),rs.getString("lvl_list"),rs.getString("kosongi"),
+                        rs.getString("no_urut"),rs.getString("lvl_list"),rs.getString("kosongi"),rs.getObject("wajib_isi").toString(),
                         rs.getString("lvl_list").equals("0")?rs.getString("no_list"):"",rs.getString("lvl_list").equals("0")?"":rs.getString("no_list"),
                         rs.getString("isi_aspek")
                     });
@@ -2329,7 +2355,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         if(!TKdDiagnosaCP.getText().equals("") && !LamaDirawat.getText().equals("")){
             DefaultTableModel model = (DefaultTableModel) tbAspekPelayanan.getModel();
             int jumlah = Valid.SetInteger(LamaDirawat.getText());
-            model.setColumnCount(6);
+            model.setColumnCount(7);
 
             for (int i = 1; i <= jumlah; i++) {
                 model.addColumn("H-"+i);
@@ -2348,11 +2374,12 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
                         row.add(rs.getString("no_urut"));
                         row.add(rs.getString("lvl_list"));
                         row.add(rs.getString("kosongi"));
+                        row.add(rs.getObject("wajib_isi").toString());
                         row.add(rs.getString("lvl_list").equals("0") ? rs.getString("no_list") : "");
                         row.add(rs.getString("lvl_list").equals("0") ? "" : rs.getString("sub_no_list"));
                         row.add(rs.getString("aspek_pelayanan"));
 
-                        for(int col = 9; col <= (jumlah+9); col++){
+                        for(int col = 10; col <= (jumlah+10); col++){
                             row.add(rs.getString(col) == null ? "" : rs.getString(col));
                         }
 
@@ -2410,11 +2437,6 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
 
     public void emptTeks() {
         TglAsuhan.setDate(new Date());
-        TNoRw.setText("");
-        TNoRM.setText("");
-        TPasien.setText("");
-        JnsKelamin.setText("");
-        TglLahir.setText("");
         TKdDiagnosaCP.setText("");
         TDiagnosaCP.setText("");
         LamaDirawat.setText("1");
@@ -2426,10 +2448,15 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         NmDPJP.setText("");
         KdPerawat.setText("");
         NmPerawat.setText("");
-        KdPelaksana.setText("");
-        NmPelaksana.setText("");
         Valid.tabelKosong(tabModeAspek);
         Valid.tabelKosong(tabModeVariasi);
+        BtnSimpan.setEnabled(true);
+        BtnHapus.setEnabled(true);
+        TglAsuhan.setEditable(true);
+        LamaDirawat.setEditable(true);
+        BtnDPJP.setEnabled(true);
+        BtnPerawat.setEnabled(true);
+        BtnPelaksana.setEnabled(true);
     }
 
     private void getData() {
@@ -2445,14 +2472,32 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
             TNoRevisiBerkas.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),10).toString());
             TTglBerlakuBerkas.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),11).toString());
             TCatatan.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),12).toString());
-            KdDPJP.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),13).toString());
-            NmDPJP.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),14).toString());
-            KdPerawat.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),15).toString());
-            NmPerawat.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),16).toString());
-            KdPelaksana.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),17).toString());
-            NmPelaksana.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),18).toString());
+            MaxHariRawat.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),13).toString());
+            KdDPJP.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),14).toString());
+            NmDPJP.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),15).toString());
+            KdPerawat.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),16).toString());
+            NmPerawat.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),17).toString());
+            KdPelaksana.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),18).toString());
+            NmPelaksana.setText(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),19).toString());
             tampilAspek(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),0).toString(), tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),5).toString());
             tampilVarian(tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),0).toString(), tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),5).toString());
+            if(!tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),18).toString().equals(akses.getkode()) && !akses.getkode().equals("Admin Utama")){
+                BtnSimpan.setEnabled(false);
+                BtnHapus.setEnabled(false);
+                TglAsuhan.setEditable(false);
+                LamaDirawat.setEditable(false);
+                BtnDPJP.setEnabled(false);
+                BtnPerawat.setEnabled(false);
+                BtnPelaksana.setEnabled(false);
+            } else {
+                BtnSimpan.setEnabled(true);
+                BtnHapus.setEnabled(true);
+                TglAsuhan.setEditable(true);
+                LamaDirawat.setEditable(true);
+                BtnDPJP.setEnabled(true);
+                BtnPerawat.setEnabled(true);
+                BtnPelaksana.setEnabled(true);
+            }
             ignoreDocumentEvent=false;
         }
     }
@@ -2492,6 +2537,14 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari1.setDate(tgl2);
         isRawat(); 
+        tampil();
+        if (tbClinicalPathway.getRowCount() > 0) {
+            SwingUtilities.invokeLater(() -> {
+                tbClinicalPathway.setRowSelectionInterval(0, 0);
+                getData();
+            });
+        }
+
     }
     
     public void isCek(){
@@ -2499,8 +2552,6 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         BtnHapus.setEnabled(akses.getclinicalpathway());
         BtnEdit.setEnabled(akses.getclinicalpathway());
         if(akses.getjml2()>=1){
-            KdPelaksana.setEditable(false);
-            BtnPelaksana.setEnabled(false);
             KdPelaksana.setText(akses.getkode());
             NmPelaksana.setText(pegawai.tampil3(KdPelaksana.getText()));
             if(NmPelaksana.getText().equals("")){
@@ -2532,16 +2583,16 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
     }
     
     private void edit() {
-        if(Sequel.mengedittf("clinical_pathway","no_rawat=?","no_rawat=?, no_berkas=?, lama_rawat=?, tgl_asuhan=?, diagnosa_cp=?, judul_cp=?, no_revisi_cp=?, tgl_berlaku_cp=?, catatan_khusus_cp=?, dokter=?, perawat=?, pelaksana=?",13,new String[]{ 
+        if(Sequel.mengedittf("clinical_pathway","no_rawat=?","no_rawat=?, no_berkas=?, lama_rawat=?, tgl_asuhan=?, diagnosa_cp=?, judul_cp=?, no_revisi_cp=?, tgl_berlaku_cp=?, catatan_khusus_cp=?, max_hari_dirawat_cp=?, dokter=?, perawat=?, pelaksana=?",14,new String[]{ 
             TNoRw.getText(),TKdDiagnosaCP.getText(),LamaDirawat.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+""),
-            TDiagnosaCP.getText(),TJudulBerkas.getText(),TNoRevisiBerkas.getText(),TTglBerlakuBerkas.getText(),TCatatan.getText(),
+            TDiagnosaCP.getText(),TJudulBerkas.getText(),TNoRevisiBerkas.getText(),TTglBerlakuBerkas.getText(),TCatatan.getText(),MaxHariRawat.getText(),
             KdDPJP.getText(),KdPerawat.getText(),KdPelaksana.getText(),tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),0).toString() })==true){
 
             Sequel.meghapus("clinical_pathway_aspek","no_rawat","no_berkas",tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),0).toString(), tbClinicalPathway.getValueAt(tbClinicalPathway.getSelectedRow(),5).toString());
             for(int rw = 0;rw < tabModeAspek.getRowCount();rw++){
                 String qValue = "'"+TNoRw.getText()+"','"+TKdDiagnosaCP.getText()+"','"+tabModeAspek.getValueAt(rw, 0)+"','"+tabModeAspek.getValueAt(rw, 1)+"','"+tabModeAspek.getValueAt(rw, 2)+"','"
-                        +tabModeAspek.getValueAt(rw, 3)+"','"+tabModeAspek.getValueAt(rw, 4)+"','"+tabModeAspek.getValueAt(rw, 5).toString().trim()+"'";
-                for(int col = 6; col < 15; col++) {
+                        +tabModeAspek.getValueAt(rw, 3)+"','"+tabModeAspek.getValueAt(rw, 4)+"','"+tabModeAspek.getValueAt(rw, 5).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 6).toString().trim()+"'";
+                for(int col = 7; col < 16; col++) {
                     if(col < tabModeAspek.getColumnCount()) {
                         Object val = tabModeAspek.getValueAt(rw, col);
 
@@ -2575,7 +2626,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         if(!TKdDiagnosaCP.getText().equals("") && !LamaDirawat.getText().equals("")){
             DefaultTableModel model = (DefaultTableModel) tbAspekPelayanan.getModel();
             int jumlah = Valid.SetInteger(LamaDirawat.getText());
-            model.setColumnCount(6);
+            model.setColumnCount(7);
 
             for (int i = 1; i <= jumlah; i++) {
                 model.addColumn("H-"+i);
@@ -2591,13 +2642,13 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         for (int i = 0;i < tbAspekPelayanan.getColumnCount();i++) {
             TableColumn column =tbAspekPelayanan.getColumnModel().getColumn(i);
 
-            if (i <= 2) {
+            if (i <= 3) {
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
                 column.setPreferredWidth(0);
-            } else if (i == 3 || i == 4) {
+            } else if (i == 4 || i == 5) {
                 column.setPreferredWidth(25);
-            } else if (i == 5) {
+            } else if (i == 6) {
                 column.setPreferredWidth(500);
             } else {
                 column.setPreferredWidth(40);
@@ -2611,7 +2662,7 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
         combo.addItem("Y");
         combo.addItem("-");
         
-        for (int i = 6; i < tbAspekPelayanan.getColumnCount(); i++) {
+        for (int i = 7; i < tbAspekPelayanan.getColumnCount(); i++) {
             tbAspekPelayanan.getColumnModel().getColumn(i).setCellEditor(new DefaultCellEditor(combo));
         }
     }
