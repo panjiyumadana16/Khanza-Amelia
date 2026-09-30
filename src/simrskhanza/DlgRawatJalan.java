@@ -2004,7 +2004,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-09-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-09-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2018,7 +2018,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-09-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-09-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -3916,7 +3916,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel87.setText("Recommendation (R) :");
         jLabel87.setName("jLabel87"); // NOI18N
         panelGlass16.add(jLabel87);
-        jLabel87.setBounds(480, 40, 110, 23);
+        jLabel87.setBounds(460, 40, 130, 23);
 
         scrollPane9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane9.setName("scrollPane9"); // NOI18N
@@ -4126,7 +4126,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         jLabel23.setBounds(554, 10, 60, 23);
 
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-09-2026" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "14-09-2026" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -7380,38 +7380,44 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                     }
                     break;
                 case 8:
-                if(tbSBAR.getSelectedRow()>-1){
-                    if(akses.getkode().equals("Admin Utama")){
-                        Sequel.mengedittf("catatan_sbar","no_rawat='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),1)+
-                            "' and tanggal='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),4)+
-                            "' and jam='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),5)+
-                            "' and kd_dokter='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),6)+"'",
-                            "no_rawat='"+TNoRw.getText()+"',kd_dokter='"+KdDokSBAR.getText()+"',tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
-                            "jam='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',situation='"+TSituation.getText()+"',"+
-                            "background='"+TBackground.getText()+"',assessment='"+TAssessment.getText()+"',recommendation='"+TRecommendation.getText()+"',"+
-                            "saran_dokter='"+TSaranDokter.getText()+"',nip='"+KdPegSBAR.getText()+"'");
-                    }else if(akses.getkode().equals(tbSBAR.getValueAt(i,13).toString())){
-                        if(tbSBAR.getValueAt(i,16).toString().equals("") || tbSBAR.getValueAt(i,15).toString().equals("belum")){
-                            Sequel.mengedittf("catatan_sbar","no_rawat='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),1)+
-                                "' and tanggal='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),4)+
-                                "' and jam='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),5)+
-                                "' and kd_dokter='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),6)+"'",
-                                "no_rawat='"+TNoRw.getText()+"',kd_dokter='"+KdDokSBAR.getText()+"',tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
-                                "jam='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',situation='"+TSituation.getText()+"',"+
-                                "background='"+TBackground.getText()+"',assessment='"+TAssessment.getText()+"',recommendation='"+TRecommendation.getText()+"',"+
-                                "saran_dokter='"+TSaranDokter.getText()+"',nip='"+KdPegSBAR.getText()+"'");
-                                isCek();
-                        }else {
-                            JOptionPane.showMessageDialog(null,"Catatan SBAR sudah diverifikasi, tidak dapat melakukan edit..!!!");
+                    if((!KdPegSBAR.getText().trim().equals(""))&&(!TPegawaiSBAR.getText().trim().equals(""))&&(!KdDokSBAR.getText().trim().equals(""))&&(!TDokterSBAR.getText().trim().equals(""))
+                            &&(!TSituation.getText().trim().equals(""))&&(!TBackground.getText().trim().equals(""))&&(!TAssessment.getText().trim().equals(""))&&(!TRecommendation.getText().trim().equals(""))&&(!TSaranDokter.getText().trim().equals(""))){
+                        if(tbSBAR.getSelectedRow()>-1){
+                            if(akses.getkode().equals("Admin Utama")){
+                                Sequel.mengedittf("catatan_sbar","no_rawat='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),1)+
+                                    "' and tanggal='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),4)+
+                                    "' and jam='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),5)+
+                                    "' and kd_dokter='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),6)+"'",
+                                    "no_rawat='"+TNoRw.getText()+"',kd_dokter='"+KdDokSBAR.getText()+"',tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
+                                    "jam='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',situation='"+TSituation.getText()+"',"+
+                                    "background='"+TBackground.getText()+"',assessment='"+TAssessment.getText()+"',recommendation='"+TRecommendation.getText()+"',"+
+                                    "saran_dokter='"+TSaranDokter.getText()+"',nip='"+KdPegSBAR.getText()+"'");
+                            }else if(akses.getkode().equals(tbSBAR.getValueAt(i,13).toString())){
+                                if(tbSBAR.getValueAt(i,16).toString().equals("") || tbSBAR.getValueAt(i,15).toString().equals("belum")){
+                                    Sequel.mengedittf("catatan_sbar","no_rawat='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),1)+
+                                        "' and tanggal='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),4)+
+                                        "' and jam='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),5)+
+                                        "' and kd_dokter='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),6)+"'",
+                                        "no_rawat='"+TNoRw.getText()+"',kd_dokter='"+KdDokSBAR.getText()+"',tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
+                                        "jam='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',situation='"+TSituation.getText()+"',"+
+                                        "background='"+TBackground.getText()+"',assessment='"+TAssessment.getText()+"',recommendation='"+TRecommendation.getText()+"',"+
+                                        "saran_dokter='"+TSaranDokter.getText()+"',nip='"+KdPegSBAR.getText()+"'");
+                                        isCek();
+                                }else {
+                                    JOptionPane.showMessageDialog(null,"Catatan SBAR sudah diverifikasi, tidak dapat melakukan edit..!!!");
+                                }
+                            }else {
+                                JOptionPane.showMessageDialog(null,"Hanya bisa diedit oleh petugas yang bersangkutan..!!");
+                            }
+                            TampilkanData();
+                        }else{
+                            JOptionPane.showMessageDialog(rootPane,"Silahkan pilih data yang mau diganti..!!");
+                            TCari.requestFocus();
                         }
-                    }else {
-                        JOptionPane.showMessageDialog(null,"Hanya bisa diedit oleh petugas yang bersangkutan..!!");
+                    }else{
+                            JOptionPane.showMessageDialog(null,"Ada isian yang masih kosong, periksa kembali form Catatan SBAR..!!");
+                            TSituation.requestFocus();
                     }
-                    TampilkanData();
-                }else{
-                    JOptionPane.showMessageDialog(rootPane,"Silahkan pilih data yang mau diganti..!!");
-                    TCari.requestFocus();
-                }   
                 break;
                 default:                
                     break;
@@ -11343,9 +11349,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             TBackground.setText(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),9).toString());
             TAssessment.setText(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),10).toString());  
             TRecommendation.setText(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),11).toString());  
-            TSaranDokter.setText(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),12).toString());  
-            KdPegSBAR.setText(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),13).toString());
-            TPegawaiSBAR.setText(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),14).toString());  
+            TSaranDokter.setText(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),12).toString()); 
         }
     }
     

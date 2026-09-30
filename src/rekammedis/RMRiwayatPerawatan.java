@@ -11,7 +11,6 @@
 
 package rekammedis;
 
-import com.sun.mail.handlers.text_html;
 import fungsi.WarnaTable;
 import fungsi.akses;
 import fungsi.batasInput;
@@ -50,14 +49,14 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
+import java.awt.GridLayout;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-import java.util.EnumMap;
+import java.util.Date;
+import javax.swing.JPanel;
+import widget.Tanggal;
 
 /**
  *
@@ -356,6 +355,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         chkAsuhanMedisRanapNeonatus = new widget.CekBox();
         chkAsuhanMedisHemodialisa = new widget.CekBox();
         chkKlasifikasiRobson = new widget.CekBox();
+        chkCatatanSBAR = new widget.CekBox();
         chkEdukasiPasienTerintegrasiRawatJalan = new widget.CekBox();
         chkPemeriksaanRalan = new widget.CekBox();
         chkPemeriksaanObstetriRalan = new widget.CekBox();
@@ -697,7 +697,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         FormMenu.setBackground(new java.awt.Color(255, 255, 255));
         FormMenu.setBorder(null);
         FormMenu.setName("FormMenu"); // NOI18N
-        FormMenu.setPreferredSize(new java.awt.Dimension(255, 2750));
+        FormMenu.setPreferredSize(new java.awt.Dimension(255, 2904));
         FormMenu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 1, 1));
 
         chkSemua.setSelected(true);
@@ -1016,6 +1016,14 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         chkKlasifikasiRobson.setOpaque(false);
         chkKlasifikasiRobson.setPreferredSize(new java.awt.Dimension(245, 22));
         FormMenu.add(chkKlasifikasiRobson);
+
+        chkCatatanSBAR.setSelected(true);
+        chkCatatanSBAR.setText("Catatan SBAR");
+        chkCatatanSBAR.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        chkCatatanSBAR.setName("chkCatatanSBAR"); // NOI18N
+        chkCatatanSBAR.setOpaque(false);
+        chkCatatanSBAR.setPreferredSize(new java.awt.Dimension(245, 22));
+        FormMenu.add(chkCatatanSBAR);
 
         chkEdukasiPasienTerintegrasiRawatJalan.setSelected(true);
         chkEdukasiPasienTerintegrasiRawatJalan.setText("Edukasi Pasien & Keluarga Rawat Jalan");
@@ -2211,6 +2219,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             chkAsuhanMedisRalanParu.setSelected(true);
             chkKlasifikasiRobson.setSelected(true);
             chkClinicalPathway.setSelected(true);
+            chkCatatanSBAR.setSelected(true);
         }else{
             chkTriase.setSelected(false);
             chkAsuhanKeperawatanRalan.setSelected(false);
@@ -2335,6 +2344,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             chkAsuhanMedisRalanParu.setSelected(false);
             chkKlasifikasiRobson.setSelected(false);
             chkClinicalPathway.setSelected(false);
+            chkCatatanSBAR.setSelected(false);
         }
     }//GEN-LAST:event_chkSemuaItemStateChanged
 
@@ -2470,6 +2480,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private widget.CekBox chkCatatanObservasiRanap;
     private widget.CekBox chkCatatanObservasiRanapKebidanan;
     private widget.CekBox chkCatatanObservasiRanapPostPartum;
+    private widget.CekBox chkCatatanSBAR;
     private widget.CekBox chkChecklistKriteriaKeluarHCU;
     private widget.CekBox chkChecklistKriteriaKeluarICU;
     private widget.CekBox chkChecklistKriteriaMasukHCU;
@@ -3034,6 +3045,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     menampilkanKlasifikasiRobson(rs.getString("no_rawat"));
                     //menampilkan follow up DBD
                     menampilkanFollowUpDBD(rs.getString("no_rawat"));
+                    //menampilkan catatan SBAR
+                    menampilkanCatatanSBAR(rs.getString("no_rawat"));
                     //menampilkan reaksi tranfusi
                     menampilkanMonitoringReaksiTranfusi(rs.getString("no_rawat"));
                     //menampilkan skrining resiko jatuh rajal
@@ -5193,16 +5206,72 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private void verifSBAR(String tipe, String norwSBAR, String tglSBAR, String jamSBAR, String kdDokterSBAR) {
         int reply = JOptionPane.NO_OPTION;
         LocalDateTime now = LocalDateTime.now();
-        String waktuVerifikasi = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         if(tipe.equals("verif")){
             if(kdDokterSBAR.equals(akses.getkode()) || akses.getkode().equals("Admin Utama")){
-                reply = JOptionPane.showConfirmDialog(rootPane, "Apakah anda yakin untuk Verifikasi Catatan SBAR ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-                if(reply == JOptionPane.YES_OPTION){
-                    Sequel.mengedittf("catatan_sbar","no_rawat='"+norwSBAR+"' and tanggal='"+tglSBAR+"' and jam='"+jamSBAR+"' and kd_dokter='"+kdDokterSBAR+"'",
-                        "waktu_verifikasi='"+waktuVerifikasi+"'");
-                    JOptionPane.showMessageDialog(null,"Berhasil Verifikasi Catatan SBAR..!!");
-                    tampilSBAR();
+                Tanggal tglField = new widget.Tanggal();
+                tglField.setModel(new javax.swing.DefaultComboBoxModel(new String[] { now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) }));
+                tglField.setDisplayFormat("yyyy-MM-dd");
+                tglField.setOpaque(false);
+                tglField.setForeground(new java.awt.Color(50, 70, 50));
+                
+                widget.ComboBox jamField = new widget.ComboBox();
+                jamField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { 
+                    "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", 
+                    "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" 
+                }));
+                jamField.setSelectedItem(now.format(DateTimeFormatter.ofPattern("HH")));
+
+                String[] menitDetikArray = new String[60];
+                for (int i = 0; i < 60; i++) {
+                    menitDetikArray[i] = String.format("%02d", i);
                 }
+
+                widget.ComboBox menitField = new widget.ComboBox();
+                menitField.setModel(new javax.swing.DefaultComboBoxModel<>(menitDetikArray));
+                menitField.setSelectedItem(now.format(DateTimeFormatter.ofPattern("mm")));
+
+                widget.ComboBox detikField = new widget.ComboBox();
+                detikField.setModel(new javax.swing.DefaultComboBoxModel<>(menitDetikArray));
+                detikField.setSelectedItem(now.format(DateTimeFormatter.ofPattern("ss")));
+
+                JPanel timePanel = new JPanel(new GridLayout(1, 3, 3, 0));
+                timePanel.setOpaque(false);
+                timePanel.add(jamField);
+                timePanel.add(menitField);
+                timePanel.add(detikField);
+
+                JPanel panel = new JPanel(new GridLayout(1, 2, 5, 0));
+                panel.setPreferredSize(new Dimension(300, 18));
+                panel.add(tglField);
+                panel.add(timePanel);
+                
+
+                int result = JOptionPane.showConfirmDialog(null,panel,"Input Waktu Verifikasi SBAR : ",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+                if (result == JOptionPane.OK_OPTION) {
+                    String jamStr = jamField.getSelectedItem()+":"+menitField.getSelectedItem()+":"+detikField.getSelectedItem();
+                    String fullDateTimeStr = tglField.getSelectedItem().toString().trim()+" "+jamStr;
+
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        sdf.setLenient(false);
+
+                        Date datetime = sdf.parse(fullDateTimeStr);
+
+                        Sequel.mengedittf("catatan_sbar","no_rawat='"+norwSBAR+"' and tanggal='"+tglSBAR+"' and jam='"+jamSBAR+"' and kd_dokter='"+kdDokterSBAR+"'",
+                            "waktu_verifikasi='"+sdf.format(datetime)+"'");
+                        JOptionPane.showMessageDialog(null,"Berhasil Verifikasi Catatan SBAR..!!");
+                        tampilSBAR();
+                    } catch (Exception e) {
+                        // Tampilkan pesan error jika format input salah
+                        JOptionPane.showMessageDialog(
+                                null, 
+                                "Format Tanggal/Jam Salah!\nGunakan format Thn-Bln-Hr Jam:Mnt:Dtk", 
+                                "Error Format", 
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                }
+                
             }else {
                 JOptionPane.showMessageDialog(null,"Hanya bisa diverifikasi oleh Dokter yang bersangkutan..!!");
             }
@@ -14115,7 +14184,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                         "<td valign='top' align='center'></td>"+
                                         "<td valign='top' align='center'></td>"+
                                         "<td valign='top' colspan='2'>Evaluasi</td>"+
-                                        "<td valign='top' colspan='7'> : "+rs2.getString("evaluasi")+"</td>"+
+                                        "<td valign='top' colspan='7'> : "+rs2.getString("evaluasi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
                                      "</tr>");
                             }
 
@@ -21701,6 +21770,85 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             }
         } catch (Exception e) {
             System.out.println("Notif Follow Up DBD : "+e);
+        }
+    }
+    
+    private void menampilkanCatatanSBAR(String norawat) {
+        try {
+            if(chkCatatanSBAR.isSelected()==true){//ganti ke chkCatatanSBAR
+                try {
+                    rs2=koneksi.prepareStatement(
+                            "select catatan_sbar.*,pegawai.nama,dokter.nm_dokter from catatan_sbar "+
+                            "inner join pegawai on catatan_sbar.nip=pegawai.nik inner join dokter on catatan_sbar.kd_dokter=dokter.kd_dokter where "+
+                            "catatan_sbar.no_rawat='"+rs.getString("no_rawat")+"' "+
+                            "order by catatan_sbar.tanggal,catatan_sbar.jam").executeQuery();
+                    if(rs2.next()){
+                        htmlContent.append(
+                            "<tr class='isi'>"+ 
+                                "<td valign='top' width='2%'></td>"+        
+                                "<td valign='top' width='18%'>Catatan SBAR</td>"+
+                                "<td valign='top' width='1%' align='center'>:</td>"+
+                                "<td valign='top' width='79%'>"+
+                                  "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                    "<tr class='isi'>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='5%'>Tanggal Jam</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='12%'>Pemberi Asuhan</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='14%'>Situation (S)</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='14%'>Background (B)</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='14%'>Assessment (A)</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='14%'>Recommendation (R)</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='14%'>Saran Dokter</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='13%'>Status Verifikasi</td>"+
+                                    "</tr>");
+                        rs2.beforeFirst();
+                        while(rs2.next()){
+                            htmlContent.append(                             
+                            "<tr class='isi'>"+
+                                "<td align='center'>"+rs2.getString("tanggal")+"<br>"+rs2.getString("jam")+"</td>"+
+                                "<td align='center'>Dari :<br>"+rs2.getString("kd_dokter")+"<br>"+rs2.getString("nm_dokter")+"<br><br>Kepada :<br>"+rs2.getString("nip")+"<br>"+rs2.getString("nama")+"</td>"+
+                                "<td align='left'>"+rs2.getString("situation").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                "<td align='left'>"+rs2.getString("background").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                "<td align='left'>"+rs2.getString("assessment").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                "<td align='left'>"+rs2.getString("recommendation").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"+
+                                "<td align='left'>"+rs2.getString("saran_dokter").replaceAll("(\r\n|\r|\n|\n\r)","<br>")+"</td>"
+                            );
+                            if(rs2.getObject("waktu_verifikasi") == null || rs2.getObject("waktu_verifikasi").equals("")){
+                                htmlContent.append("<td align='center' style='background-color:#ffcccc'>Belum diVerifikasi</td>");
+                            } else {
+                                String isiQR = "Catatatan S.B.A.R diverifikasi oleh : ("+rs2.getString("kd_dokter")+") "+rs2.getString("nm_dokter")+" pada "+rs2.getString("waktu_verifikasi");
+                                Map<EncodeHintType, Object> hints = new HashMap<>();
+                                hints.put(EncodeHintType.MARGIN, 0);
+                                hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+
+                                BitMatrix matrix = new MultiFormatWriter().encode(isiQR, BarcodeFormat.QR_CODE, 300, 300, hints);
+                                matrix = cleanQuietZone(matrix);
+
+                                File tempFile = File.createTempFile("qr_sbar_" + rs2.getString("waktu_verifikasi").replaceAll("\\D", ""), ".png");
+                                tempFile.deleteOnExit();
+                                MatrixToImageWriter.writeToFile(matrix, "PNG", tempFile);
+                                String qrPath = tempFile.toURI().toURL().toString();
+
+                                htmlContent.append("<td align='center' style='background-color:#ccffd2'>");
+                                htmlContent.append("<img src='"+qrPath+"' width='100' height='100'><br>("+rs2.getString("kd_dokter")+") "+rs2.getString("nm_dokter")+"<br>"+rs2.getString("waktu_verifikasi")+"</td>");
+                            }
+                            htmlContent.append("</tr>");
+                        }
+                        htmlContent.append(
+                                    "</table>"+
+                                "</td>"+
+                            "</tr>"
+                        );
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : "+e);
+                } finally{
+                    if(rs2!=null){
+                        rs2.close();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif Catatan SBAR : "+e);
         }
     }
     
