@@ -932,6 +932,7 @@ import rekammedis.RMUjiFungsiKFR;
 import rekammedis.RMKlasifikasiRobson;
 import rekammedis.MasterBerkasClinicalPathway;
 import rekammedis.RMClinicalPathway;
+import rekammedis.RMPenilaianStrokeNIHSS;
 import rekammedis.RMSkriningResikoJatuhRajal;
 import setting.DlgJamDietPasien;
 import setting.DlgPasswordBPJS;
@@ -1641,6 +1642,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnMasterBerkasCP = new widget.ButtonBig();
         btnClinicalPathway = new widget.ButtonBig();
         btnSkriningResikoJatuhRajal = new widget.ButtonBig();
+        btnPenilaianNIHSS = new widget.ButtonBig();
         internalFrame1 = new widget.InternalFrame();
         BtnMenu = new widget.ButtonBig();
         jSeparator4 = new javax.swing.JSeparator();
@@ -1937,7 +1939,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12/05/2026" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13/10/2026" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -7034,6 +7036,17 @@ public class frmUtama extends javax.swing.JFrame {
         btnSkriningResikoJatuhRajal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSkriningResikoJatuhRajalActionPerformed(evt);
+            }
+        });
+
+        btnPenilaianNIHSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/iconfinder_report-clipboard-medical-checklist-healthcare_5859123.png"))); // NOI18N
+        btnPenilaianNIHSS.setText("Penilaian NIHSS");
+        btnPenilaianNIHSS.setIconTextGap(0);
+        btnPenilaianNIHSS.setName("btnPenilaianNIHSS"); // NOI18N
+        btnPenilaianNIHSS.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnPenilaianNIHSS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPenilaianNIHSSActionPerformed(evt);
             }
         });
 
@@ -14606,6 +14619,19 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnSkriningResikoJatuhRajalActionPerformed
 
+    private void btnPenilaianNIHSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPenilaianNIHSSActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMPenilaianStrokeNIHSS form=new RMPenilaianStrokeNIHSS(null,false);
+        form.isCek();
+        form.emptTeks();
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnPenilaianNIHSSActionPerformed
+
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -21561,6 +21587,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnPengeluaranIpsrs;
     private widget.ButtonBig btnPenggajian;
     private widget.ButtonBig btnPenggunaObatResep;
+    private widget.ButtonBig btnPenilaianNIHSS;
     private widget.ButtonBig btnPenjualan;
     private widget.ButtonBig btnPenjualanPerTanggal;
     private widget.ButtonBig btnPenyakitPD3I;
@@ -25748,6 +25775,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getskrining_resiko_jatuh_rajal()==true){
                 Panelmenu.add(btnSkriningResikoJatuhRajal);
+                jmlmenu++;
+            }
+                    
+            if(akses.getpenilaian_nihss()==true){
+                Panelmenu.add(btnPenilaianNIHSS);
                 jmlmenu++;
             }
         }else if(cmbMenu.getSelectedIndex()==13){  
@@ -31995,6 +32027,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         
         if(akses.getskrining_resiko_jatuh_rajal()==true){
             Panelmenu.add(btnSkriningResikoJatuhRajal);
+            jmlmenu++;
+        }
+        
+        if(akses.getpenilaian_nihss()==true){
+            Panelmenu.add(btnPenilaianNIHSS);
             jmlmenu++;
         }
     }
@@ -39047,6 +39084,13 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         if(akses.getskrining_resiko_jatuh_rajal()==true){
             if(btnSkriningResikoJatuhRajal.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
                 Panelmenu.add(btnSkriningResikoJatuhRajal);
+                jmlmenu++;
+            }
+        }
+        
+        if(akses.getpenilaian_nihss()==true){
+            if(btnPenilaianNIHSS.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnPenilaianNIHSS);
                 jmlmenu++;
             }
         }

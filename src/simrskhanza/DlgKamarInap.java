@@ -128,6 +128,7 @@ import rekammedis.RMPenilaianPreOperasi;
 import rekammedis.RMPenilaianPsikologi;
 import rekammedis.RMPenilaianRisikoDekubitus;
 import rekammedis.RMPenilaianRisikoJatuhNeonatus;
+import rekammedis.RMPenilaianStrokeNIHSS;
 import rekammedis.RMPenilaianTambahanBunuhDiri;
 import rekammedis.RMPenilaianTambahanGeriatri;
 import rekammedis.RMPenilaianTambahanMelarikanDiri;
@@ -869,6 +870,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnPenilaianKecemasanAnak = new javax.swing.JMenuItem();
         MnPenilaianPasienPenyakitMenular = new javax.swing.JMenuItem();
         MnPenilaianPsikolog = new javax.swing.JMenuItem();
+        MnPenilaianStrokeNIHSS = new javax.swing.JMenuItem();
         MnHemodialisa = new javax.swing.JMenuItem();
         MnPengkajianRestrain = new javax.swing.JMenuItem();
         MnKlasifikasiRobson = new javax.swing.JMenuItem();
@@ -2237,6 +2239,22 @@ public class DlgKamarInap extends javax.swing.JDialog {
             }
         });
         MnPenilaianLain.add(MnPenilaianPsikolog);
+
+        MnPenilaianStrokeNIHSS.setBackground(new java.awt.Color(255, 255, 254));
+        MnPenilaianStrokeNIHSS.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnPenilaianStrokeNIHSS.setForeground(new java.awt.Color(50, 50, 50));
+        MnPenilaianStrokeNIHSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnPenilaianStrokeNIHSS.setText("Penilaian Stroke NIHSS");
+        MnPenilaianStrokeNIHSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnPenilaianStrokeNIHSS.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnPenilaianStrokeNIHSS.setName("MnPenilaianStrokeNIHSS"); // NOI18N
+        MnPenilaianStrokeNIHSS.setPreferredSize(new java.awt.Dimension(200, 26));
+        MnPenilaianStrokeNIHSS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnPenilaianStrokeNIHSSActionPerformed(evt);
+            }
+        });
+        MnPenilaianLain.add(MnPenilaianStrokeNIHSS);
 
         MnHemodialisa.setBackground(new java.awt.Color(255, 255, 254));
         MnHemodialisa.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -5778,7 +5796,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         R2.setPreferredSize(new java.awt.Dimension(90, 23));
         panelCari.add(R2);
 
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-05-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-09-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -5801,7 +5819,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel22.setPreferredSize(new java.awt.Dimension(25, 23));
         panelCari.add(jLabel22);
 
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-05-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-09-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -5827,7 +5845,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         R3.setPreferredSize(new java.awt.Dimension(75, 23));
         panelCari.add(R3);
 
-        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-05-2026" }));
+        DTPCari3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-09-2026" }));
         DTPCari3.setDisplayFormat("dd-MM-yyyy");
         DTPCari3.setName("DTPCari3"); // NOI18N
         DTPCari3.setOpaque(false);
@@ -5850,7 +5868,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel25.setPreferredSize(new java.awt.Dimension(25, 23));
         panelCari.add(jLabel25);
 
-        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-05-2026" }));
+        DTPCari4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "03-09-2026" }));
         DTPCari4.setDisplayFormat("dd-MM-yyyy");
         DTPCari4.setName("DTPCari4"); // NOI18N
         DTPCari4.setOpaque(false);
@@ -16099,6 +16117,28 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         }
     }//GEN-LAST:event_MnClinicalPathwayActionPerformed
 
+    private void MnPenilaianStrokeNIHSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPenilaianStrokeNIHSSActionPerformed
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            TCari.requestFocus();
+        }else if(TPasien.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbKamIn.requestFocus();
+        }else{
+            if(tbKamIn.getSelectedRow()!= -1){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                RMPenilaianStrokeNIHSS nihss=new RMPenilaianStrokeNIHSS(null,false);
+                nihss.emptTeks();
+                nihss.isCek();
+                nihss.setNoRm(TNoRwCari.getText(), Valid.SetTgl2(TNoRwCari.getText().replaceAll("/", "-").substring(0, 10)));
+                nihss.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                nihss.setLocationRelativeTo(internalFrame1);
+                nihss.setVisible(true);
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }
+    }//GEN-LAST:event_MnPenilaianStrokeNIHSSActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -16267,6 +16307,7 @@ private void MnRujukMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JMenuItem MnPenilaianRisikoJatuhLansia;
     private javax.swing.JMenuItem MnPenilaianRisikoJatuhNeonatus;
     private javax.swing.JMenuItem MnPenilaianRisikoJatuhPsikiatri;
+    private javax.swing.JMenuItem MnPenilaianStrokeNIHSS;
     private javax.swing.JMenuItem MnPenilaianTambahanBunuhDiri;
     private javax.swing.JMenuItem MnPenilaianTambahanGeriatri;
     private javax.swing.JMenuItem MnPenilaianTambahanMalarikanDiri;

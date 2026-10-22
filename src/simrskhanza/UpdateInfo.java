@@ -79,7 +79,7 @@ public class UpdateInfo extends JFrame{
         this.add(pan1);
         pack();
         show();
-        this.setSize(300, 200);
+        this.setSize(600, 700);
     }
     private void update()
     {

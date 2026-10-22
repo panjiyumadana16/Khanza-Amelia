@@ -119,6 +119,8 @@ public class InventoryStokAkhirFarmasiPerTanggal extends javax.swing.JDialog {
     private void initComponents() {
 
         Kd2 = new widget.TextBox();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        ppDownloadExcel = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         scrollPane1 = new widget.ScrollPane();
         tbDokter = new widget.Table();
@@ -145,6 +147,24 @@ public class InventoryStokAkhirFarmasiPerTanggal extends javax.swing.JDialog {
         Kd2.setName("Kd2"); // NOI18N
         Kd2.setPreferredSize(new java.awt.Dimension(207, 23));
 
+        jPopupMenu1.setName("jPopupMenu1"); // NOI18N
+
+        ppDownloadExcel.setBackground(new java.awt.Color(255, 255, 254));
+        ppDownloadExcel.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ppDownloadExcel.setForeground(new java.awt.Color(50, 50, 50));
+        ppDownloadExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        ppDownloadExcel.setText("Download Excel");
+        ppDownloadExcel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ppDownloadExcel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        ppDownloadExcel.setName("ppDownloadExcel"); // NOI18N
+        ppDownloadExcel.setPreferredSize(new java.awt.Dimension(190, 25));
+        ppDownloadExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppDownloadExcelActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(ppDownloadExcel);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
@@ -153,6 +173,7 @@ public class InventoryStokAkhirFarmasiPerTanggal extends javax.swing.JDialog {
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
+        scrollPane1.setComponentPopupMenu(jPopupMenu1);
         scrollPane1.setName("scrollPane1"); // NOI18N
         scrollPane1.setOpaque(true);
 
@@ -167,6 +188,7 @@ public class InventoryStokAkhirFarmasiPerTanggal extends javax.swing.JDialog {
 
             }
         ));
+        tbDokter.setComponentPopupMenu(jPopupMenu1);
         tbDokter.setName("tbDokter"); // NOI18N
         scrollPane1.setViewportView(tbDokter);
 
@@ -578,6 +600,10 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
         // TODO add your handling code here:
     }//GEN-LAST:event_KdGudangKeyPressed
 
+    private void ppDownloadExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppDownloadExcelActionPerformed
+        Valid.exportTableToCSV(tbDokter,"StokAkhirFarmasi_"+ThnCari.getSelectedItem().toString()+"-"+BlnCari.getSelectedItem().toString()+"-"+TglCari.getSelectedItem().toString());
+    }//GEN-LAST:event_ppDownloadExcelActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -610,11 +636,13 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     private widget.Button btnBarang1;
     private widget.InternalFrame internalFrame1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private widget.Label label10;
     private widget.Label label11;
     private widget.Label label19;
     private widget.panelisi panelisi1;
     private widget.panelisi panelisi4;
+    private javax.swing.JMenuItem ppDownloadExcel;
     private widget.ScrollPane scrollPane1;
     private widget.Table tbDokter;
     // End of variables declaration//GEN-END:variables

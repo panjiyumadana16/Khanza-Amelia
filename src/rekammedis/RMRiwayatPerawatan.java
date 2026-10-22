@@ -419,6 +419,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         chkAsuhanTambahanBunuhDiri = new widget.CekBox();
         chkAsuhanTambahanPerilakuKekerasan = new widget.CekBox();
         chkAsuhanTambahanMelarikanDiri = new widget.CekBox();
+        chkPenilaianStrokeNIHSS = new widget.CekBox();
         chkPenilaianPasienTerminal = new widget.CekBox();
         chkPenilaianKorbanKekerasan = new widget.CekBox();
         chkPenilaianLevelKecemasanRanapAnak = new widget.CekBox();
@@ -1529,6 +1530,14 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         chkAsuhanTambahanMelarikanDiri.setPreferredSize(new java.awt.Dimension(245, 22));
         FormMenu.add(chkAsuhanTambahanMelarikanDiri);
 
+        chkPenilaianStrokeNIHSS.setSelected(true);
+        chkPenilaianStrokeNIHSS.setText("Penilaian Stroke NIHSS");
+        chkPenilaianStrokeNIHSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        chkPenilaianStrokeNIHSS.setName("chkPenilaianStrokeNIHSS"); // NOI18N
+        chkPenilaianStrokeNIHSS.setOpaque(false);
+        chkPenilaianStrokeNIHSS.setPreferredSize(new java.awt.Dimension(245, 22));
+        FormMenu.add(chkPenilaianStrokeNIHSS);
+
         chkPenilaianPasienTerminal.setSelected(true);
         chkPenilaianPasienTerminal.setText("Penilaian Pasien Terminal");
         chkPenilaianPasienTerminal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -2521,6 +2530,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private widget.CekBox chkPenilaianPasienKeracunan;
     private widget.CekBox chkPenilaianPasienPenyakitMenular;
     private widget.CekBox chkPenilaianPasienTerminal;
+    private widget.CekBox chkPenilaianStrokeNIHSS;
     private widget.CekBox chkPenilaianUlangNyeri;
     private widget.CekBox chkPerencanaanPemulangan;
     private widget.CekBox chkPotonganBiaya;
@@ -3103,6 +3113,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     menampilkanHasilPemeriksaanUSG(rs.getString("no_rawat"));
                     //menampilkan dokumentasi tindakan ESWL
                     menampilkanDokumentasiTindakanESWL(rs.getString("no_rawat"));
+                    //menampilkan penilaian stroke NIHSS
+                    menampilkanPenilaianStrokeNIHSS(rs.getString("no_rawat"));
                     //menampilkan konseling farmasi
                     menampilkanPenilaianPasienTerminal(rs.getString("no_rawat"));
                     //menampilkan korban kekerasan
@@ -21849,6 +21861,114 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             }
         } catch (Exception e) {
             System.out.println("Notif Catatan SBAR : "+e);
+        }
+    }
+    
+    private void menampilkanPenilaianStrokeNIHSS(String norawat) {
+        try {
+            if(chkPenilaianStrokeNIHSS.isSelected()==true){
+                try {
+                    rs2=koneksi.prepareStatement(
+                            "select penilaian_nihss.*,pegawai.nama from penilaian_nihss "+
+                            "inner join pegawai on penilaian_nihss.kd_penilai=pegawai.nik where "+
+                            "penilaian_nihss.no_rawat='"+rs.getString("no_rawat")+"' order by penilaian_nihss.tgl_pemeriksaan").executeQuery();
+                    if(rs2.next()){
+                        htmlContent.append(
+                            "<tr class='isi'>"+ 
+                                "<td valign='top' width='2%'></td>"+        
+                                "<td valign='top' width='18%'>Penilaian Stroke NIHSS</td>"+
+                                "<td valign='top' width='1%' align='center'>:</td>"+
+                                "<td valign='top' width='79%'>"+
+                                  "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                    "<tr class='isi'>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='8%' rowspan='3'>Tgl Penilaian</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='12%' rowspan='3'>Petugas Penilai</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='60%' colspan='15'>Skor Penilaian</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='8%' rowspan='3'>Total Skor</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='12%' rowspan='3'>Keterangan</td>"+
+                                    "</tr>"+
+                                    "<tr class='isi'>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>1A</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>1B</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>1C</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>2</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>3</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>4</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='8%' colspan='2'>5</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='8%' colspan='2'>6</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>7</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>8</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>9</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>10</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>11</td>"+
+                                    "</tr>"+
+                                    "<tr class='isi'>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kanan</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kiri</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kanan</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kiri</td>"+
+                                    "</tr>");
+                        rs2.beforeFirst();
+                        while(rs2.next()){
+                            htmlContent.append(                             
+                            "<tr class='isi'>"+
+                                "<td align='center'>"+rs2.getString("tgl_pemeriksaan")+"</td>"+
+                                "<td align='center'>"+rs2.getString("kd_penilai")+"<br>"+rs2.getString("nama")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_1a")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_1b")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_1c")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_2")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_3")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_4")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_5kanan")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_5kiri")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_6kanan")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_6kiri")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_7")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_8")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_9")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_10")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_11")+"</td>"+
+                                "<td align='center'>"+rs2.getString("total_skor")+"</td>"+
+                                "<td align='center'>Defisit Neurologis "+rs2.getString("defisit_neurologis")+"</td>"+
+                            "</tr>"
+                            );
+                            
+                            if (!rs2.getString("j_5kanan").trim().isEmpty() || !rs2.getString("j_5kiri").trim().isEmpty() ||
+                                !rs2.getString("j_6kanan").trim().isEmpty() || !rs2.getString("j_6kiri").trim().isEmpty() ||
+                                !rs2.getString("j_7").trim().isEmpty() || !rs2.getString("j_10").trim().isEmpty()) {
+                                htmlContent.append(
+                                "<tr class='isi'>"+
+                                    "<td align='right' colspan='2'>Jelaskan : </td>"+
+                                    "<td align='left' colspan='17'>"+
+                                        "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'><tr class='isi'>"+
+                                            (rs2.getString("j_5kanan").isEmpty()?"":"<td align='right' width='7%'> UN 5 Kanan</td><td> : "+rs2.getString("j_5kanan")+"</td>")+
+                                            (rs2.getString("j_5kiri").isEmpty()?"":"<td align='right' width='7%'> UN 5 Kiri</td><td> : "+rs2.getString("j_5kiri")+"</td>")+
+                                            (rs2.getString("j_6kanan").isEmpty()?"":"<td align='right' width='7%'> UN 6 Kanan</td><td> : "+rs2.getString("j_6kanan")+"</td>")+
+                                            (rs2.getString("j_6kiri").isEmpty()?"":"<td align='right' width='7%'> UN 6 Kiri</td><td> : "+rs2.getString("j_6kiri")+"</td>")+
+                                            (rs2.getString("j_7").isEmpty()?"":"<td align='right' width='7%'> UN 7</td><td> : "+rs2.getString("j_7")+"</td>")+
+                                            (rs2.getString("j_10").isEmpty()?"":"<td align='right' width='7%'> UN 10</td><td> : "+rs2.getString("j_10")+"</td>")+
+                                        "</tr></table>"+
+                                    "</td>"+
+                                "</tr>");
+                            }
+                        }
+                        htmlContent.append(
+                                    "</table>"+
+                                "</td>"+
+                            "</tr>"
+                        );
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : "+e);
+                } finally{
+                    if(rs2!=null){
+                        rs2.close();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif Penilaian NIHSS : "+e);
         }
     }
     

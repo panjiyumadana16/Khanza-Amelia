@@ -105,6 +105,7 @@ import rekammedis.RMPenilaianPreOperasi;
 import rekammedis.RMPenilaianPsikologi;
 import rekammedis.RMPenilaianRisikoDekubitus;
 import rekammedis.RMPenilaianRisikoJatuhNeonatus;
+import rekammedis.RMPenilaianStrokeNIHSS;
 import rekammedis.RMPenilaianTambahanBunuhDiri;
 import rekammedis.RMPenilaianTambahanGeriatri;
 import rekammedis.RMPenilaianTambahanMelarikanDiri;
@@ -1480,6 +1481,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         BtnPenilaianKorbanKekerasan = new widget.Button();
         BtnPenilaianKecemasanAnak = new widget.Button();
         BtnPenilaianPasienPenyakitMenular = new widget.Button();
+        BtnPenilaianStrokeNIHSS = new widget.Button();
         BtnPenilaianTambahanGeriatri = new widget.Button();
         BtnPenilaianTambahanBunuhDiri = new widget.Button();
         BtnPenilaianTambahanPerilakuKekerasan = new widget.Button();
@@ -1688,7 +1690,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         panelGlass10.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-09-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-09-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1702,7 +1704,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         panelGlass10.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-09-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-09-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -3609,7 +3611,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         TPasien.setBounds(283, 10, 260, 23);
 
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-09-2026" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-09-2026" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -5000,6 +5002,23 @@ public final class DlgRawatInap extends javax.swing.JDialog {
             }
         });
         FormMenu.add(BtnPenilaianPasienPenyakitMenular);
+
+        BtnPenilaianStrokeNIHSS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); // NOI18N
+        BtnPenilaianStrokeNIHSS.setText("Penilaian Stroke NIHSS");
+        BtnPenilaianStrokeNIHSS.setFocusPainted(false);
+        BtnPenilaianStrokeNIHSS.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        BtnPenilaianStrokeNIHSS.setGlassColor(new java.awt.Color(255, 255, 255));
+        BtnPenilaianStrokeNIHSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnPenilaianStrokeNIHSS.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        BtnPenilaianStrokeNIHSS.setName("BtnPenilaianStrokeNIHSS"); // NOI18N
+        BtnPenilaianStrokeNIHSS.setPreferredSize(new java.awt.Dimension(190, 23));
+        BtnPenilaianStrokeNIHSS.setRoundRect(false);
+        BtnPenilaianStrokeNIHSS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPenilaianStrokeNIHSSActionPerformed(evt);
+            }
+        });
+        FormMenu.add(BtnPenilaianStrokeNIHSS);
 
         BtnPenilaianTambahanGeriatri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); // NOI18N
         BtnPenilaianTambahanGeriatri.setText("Tambahan Pasien Geriatri");
@@ -9185,6 +9204,23 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
     }//GEN-LAST:event_BtnVerifikasiSBARKeyPressed
 
+    private void BtnPenilaianStrokeNIHSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPenilaianStrokeNIHSSActionPerformed
+        if(TPasien.getText().trim().equals("")||TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        }else{
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMPenilaianStrokeNIHSS form=new RMPenilaianStrokeNIHSS(null,false);
+            form.emptTeks();
+            form.isCek();
+            form.setNoRm(TNoRw.getText(),Valid.SetTgl2(TNoRw.getText().replaceAll("/", "-").substring(0, 10)));
+            form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnPenilaianStrokeNIHSSActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -9268,6 +9304,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnPenilaianPreOperasi;
     private widget.Button BtnPenilaianPsikolog;
     private widget.Button BtnPenilaianResikoDekubitus;
+    private widget.Button BtnPenilaianStrokeNIHSS;
     private widget.Button BtnPenilaianTambahanBunuhDiri;
     private widget.Button BtnPenilaianTambahanGeriatri;
     private widget.Button BtnPenilaianTambahanMelarikanDiri;
@@ -10222,6 +10259,10 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
         BtnClinicalPathway.setVisible(akses.getclinicalpathway());
         if(akses.getclinicalpathway()==true){
+            tinggi=tinggi+24;
+        }
+        BtnPenilaianStrokeNIHSS.setVisible(akses.getpenilaian_nihss());
+        if(akses.getpenilaian_nihss()==true){
             tinggi=tinggi+24;
         }
         FormMenu.setPreferredSize(new Dimension(195,(tinggi+58)));

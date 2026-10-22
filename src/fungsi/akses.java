@@ -5952,5 +5952,6 @@ public final class akses {
     public static boolean getclinicalpathway() {return akses.tindakan_ranap;}
     public static boolean getmasterberkas_cp() {return akses.master_rencana_keperawatan;}
     public static boolean getskrining_resiko_jatuh_rajal(){return akses.tindakan_ralan;}
+    public static boolean getpenilaian_nihss() {return akses.tindakan_ranap;}
     
 }   

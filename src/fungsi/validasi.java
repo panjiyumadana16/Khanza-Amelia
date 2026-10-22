@@ -51,6 +51,7 @@ import widget.ComboBox;
 import widget.Tanggal;
 import widget.TextArea;
 import java.io.File;
+import javax.swing.JFileChooser;
 /**
  *
  * @author Owner
@@ -1429,5 +1430,100 @@ public final class validasi {
      */
     public static int milliToDay(long milli) {
         return (int) ((double) milli / (1000 * 24 * 60 * 60));
+    }
+    
+    public String cleanAndFormatNumber(Object value) {
+        if (value == null) return "";
+
+        // 1. Jika tipe datanya asli Angka (Integer, Double, Float, BigDecimal, dll)
+        if (value instanceof Number) {
+            // Mengubah ke String tanpa pemisah ribuan dan menggunakan koma untuk desimal
+            return String.format(java.util.Locale.forLanguageTag("id-ID"), "%.2f", ((Number) value).doubleValue())
+                         .replaceAll(",00$", ""); // Hapus ,00 jika angka bulat
+        }
+
+        String valStr = value.toString().trim();
+
+        // Jika bukan teks berisi angka, kembalikan teks aslinya
+        if (!valStr.matches("^[0-9.,\\-+]+$")) {
+            return valStr;
+        }
+
+        // 2. Jika teks berisi angka dengan pemisah (Format Indonesia: 1.500,50 atau Format US: 1,500.50)
+        int lastDot = valStr.lastIndexOf('.');
+        int lastComma = valStr.lastIndexOf(',');
+
+        if (lastDot != -1 && lastComma != -1) {
+            if (lastDot < lastComma) {
+                // Format Indonesia (1.500,50) -> hapus titik
+                valStr = valStr.replace(".", "");
+            } else {
+                // Format US/Internasional (1,500.50) -> hapus koma dan ubah titik desimal jadi koma
+                valStr = valStr.replace(",", "").replace(".", ",");
+            }
+        } else if (lastDot != -1 && lastComma == -1) {
+            // Hanya ada titik (bisa jadi ribuan "1.000" atau desimal US "1500.50")
+            // Jika titik berada di 3 digit terakhir, kemungkinan desimal US (misal: 1500.50)
+            int digitsAfterDot = valStr.length() - 1 - lastDot;
+            if (digitsAfterDot == 3 && valStr.length() > 4) {
+                // Pemisah ribuan (1.000) -> hapus titik
+                valStr = valStr.replace(".", "");
+            } else if (digitsAfterDot <= 2) {
+                // Desimal US (1500.50) -> ubah titik ke koma desimal
+                valStr = valStr.replace(".", ",");
+            }
+        } else if (lastComma != -1 && lastDot == -1) {
+            // Hanya ada koma (bisa jadi ribuan US "1,000" atau desimal Indonesia "1500,50")
+            int digitsAfterComma = valStr.length() - 1 - lastComma;
+            if (digitsAfterComma == 3 && valStr.length() > 4) {
+                // Pemisah ribuan US (1,000) -> hapus koma
+                valStr = valStr.replace(",", "");
+            }
+        }
+
+        return valStr;
+    }
+    
+    
+    public void exportTableToCSV(JTable table, String nama_file) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Simpan sebagai CSV");
+        fileChooser.setSelectedFile(new java.io.File(nama_file+".csv"));
+        
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            java.io.File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+            if (!filePath.endsWith(".csv")) filePath += ".csv";
+
+            try (java.io.FileWriter writer = new java.io.FileWriter(filePath)) {
+                javax.swing.table.TableModel model = table.getModel();
+
+                // Write Header
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    writer.write("\"" + model.getColumnName(col) + "\"");
+                    if (col < model.getColumnCount() - 1) writer.write(";");
+                }
+                writer.write("\n");
+
+                // Write Data
+                for (int row = 0; row < model.getRowCount(); row++) {
+                    for (int col = 0; col < model.getColumnCount(); col++) {
+                        Object value = model.getValueAt(row, col);
+                        String valStr = cleanAndFormatNumber(value);
+                        valStr = valStr.replace("\"", "\"\"");
+
+                        writer.write("\"" + valStr + "\"");
+                        if (col < model.getColumnCount() - 1) {
+                            writer.write(";"); // 
+                        }
+                    }
+                    writer.write("\n");
+                }
+
+                JOptionPane.showMessageDialog(null, "Data berhasil di-export ke CSV!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error Export CSV: " + e.getMessage());
+            }
+        }
     }
 }
