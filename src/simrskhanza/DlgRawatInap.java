@@ -6969,8 +6969,8 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                     "jam='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',situation='"+TSituation.getText()+"',"+
                                     "background='"+TBackground.getText()+"',assessment='"+TAssessment.getText()+"',recommendation='"+TRecommendation.getText()+"',"+
                                     "saran_dokter='"+TSaranDokter.getText()+"',nip='"+KdPegSBAR.getText()+"'");
-                            }else if(akses.getkode().equals(tbSBAR.getValueAt(i,13).toString())){
-                                if(tbSBAR.getValueAt(i,16).toString().equals("") || tbSBAR.getValueAt(i,15).toString().equals("belum")){
+                            }else if(akses.getkode().equals(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),13).toString())){
+                                if(tbSBAR.getValueAt(tbSBAR.getSelectedRow(),16).toString().equals("") || tbSBAR.getValueAt(tbSBAR.getSelectedRow(),15).toString().equals("belum")){
                                     Sequel.mengedittf("catatan_sbar","no_rawat='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),1)+
                                         "' and tanggal='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),4)+
                                         "' and jam='"+tbSBAR.getValueAt(tbSBAR.getSelectedRow(),5)+

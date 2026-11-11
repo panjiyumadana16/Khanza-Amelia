@@ -871,7 +871,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
             })==true){
                 Sequel.meghapustf("aspek_berkas_cp","no_berkas",tabMode.getValueAt(tbBerkas.getSelectedRow(), 0).toString().trim());
                 for(int rw = 0; rw < tabModeAspek.getRowCount();rw++){
-                    Sequel.menyimpantf("aspek_berkas_cp","'"+TNoBerkas.getText().trim()+"',"+tabModeAspek.getValueAt(rw, 1)+",'"+tabModeAspek.getValueAt(rw, 2)+"','"+tabModeAspek.getValueAt(rw, 3).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 4).toString().trim()+"',"+tabModeAspek.getValueAt(rw, 5)+",'"+tabModeAspek.getValueAt(rw, 6)+"'","Urutan Aspek");
+                    Sequel.menyimpantf("aspek_berkas_cp","'"+TNoBerkas.getText().trim()+"',"+tabModeAspek.getValueAt(rw, 1)+",'"+tabModeAspek.getValueAt(rw, 2)+"','"+tabModeAspek.getValueAt(rw, 3).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 4).toString().trim()+"',"+tabModeAspek.getValueAt(rw, 5)+",'"+(tabModeAspek.getValueAt(rw, 6)==null?"":tabModeAspek.getValueAt(rw, 6).toString())+"'","Urutan Aspek");
                 }
                 JOptionPane.showMessageDialog(null,"Berhasil edit Berkas Clinical Pathway...!!!");
                 tampil();
@@ -939,7 +939,7 @@ public class MasterBerkasClinicalPathway extends javax.swing.JDialog {
         }else{
             if(Sequel.menyimpantf("master_berkas_cp","'"+TNoBerkas.getText().trim()+"','"+TNoRevisi.getText()+"','"+Valid.SetTgl(TglBerlaku.getSelectedItem()+"")+"','"+TDiagnosa.getText().trim()+"','"+TJudulBerkas.getText().trim()+"','"+TACatatan.getText()+"','"+TMaxHariRawat.getText()+"'","Nomor Berkas")==true){
                 for(int rw = 0; rw < tabModeAspek.getRowCount();rw++){
-                    Sequel.menyimpantf("aspek_berkas_cp","'"+TNoBerkas.getText().trim()+"',"+tabModeAspek.getValueAt(rw, 1)+",'"+tabModeAspek.getValueAt(rw, 2)+"','"+tabModeAspek.getValueAt(rw, 3).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 4).toString().trim()+"',"+tabModeAspek.getValueAt(rw, 5)+",'"+tabModeAspek.getValueAt(rw, 6)+"'","Urutan Aspek");
+                    Sequel.menyimpantf("aspek_berkas_cp","'"+TNoBerkas.getText().trim()+"',"+tabModeAspek.getValueAt(rw, 1)+",'"+tabModeAspek.getValueAt(rw, 2)+"','"+tabModeAspek.getValueAt(rw, 3).toString().trim()+"','"+tabModeAspek.getValueAt(rw, 4).toString().trim()+"',"+tabModeAspek.getValueAt(rw, 5)+",'"+(tabModeAspek.getValueAt(rw, 6)==null?"":tabModeAspek.getValueAt(rw, 6).toString())+"'","Urutan Aspek");
                 }
                 JOptionPane.showMessageDialog(null,"Berhasil menyimpan Berkas Clinical Pathway...!!!");
                 tampil();

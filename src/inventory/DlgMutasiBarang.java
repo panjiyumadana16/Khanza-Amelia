@@ -586,7 +586,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                             if(Sequel.menyimpantf2("mutasibarang","'"+tbDokter.getValueAt(i,3).toString()+"','"+Valid.SetAngka(tbDokter.getValueAt(i,0).toString())+"',"+
                                 "'"+Valid.SetAngka(tbDokter.getValueAt(i,1).toString())+"','"+kddari.getText()+"','"+kdke.getText()+"',"+
                                 "'"+Valid.SetTgl(Tanggal.getSelectedItem()+"")+" "+Tanggal.getSelectedItem().toString().substring(11,19)+"',"+
-                                "'"+Keterangan.getText()+"','"+(tbDokter.getValueAt(i,8).toString().isEmpty()?"":tbDokter.getValueAt(i,8).toString())+"','"+(tbDokter.getValueAt(i,9).toString().isEmpty()?"":tbDokter.getValueAt(i,9).toString())+"'",
+                                "'"+Keterangan.getText()+"','"+(tbDokter.getValueAt(i,8) == null?"":tbDokter.getValueAt(i,8).toString())+"','"+(tbDokter.getValueAt(i,9) == null?"":tbDokter.getValueAt(i,9).toString())+"'",
                                 "Mutasi Antar bangsal")==true){
                                 if(aktifkanbatch.equals("yes")){
                                     Trackobat.catatRiwayat(tbDokter.getValueAt(i,3).toString(),0,Valid.SetAngka(tbDokter.getValueAt(i,0).toString()),"Mutasi",akses.getkode(),kddari.getText(),"Simpan",tbDokter.getValueAt(i,8).toString(),tbDokter.getValueAt(i,9).toString(),Keterangan.getText()+", dari "+nmdari.getText()+" ke "+nmke.getText());

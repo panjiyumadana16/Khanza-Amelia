@@ -1976,14 +1976,21 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
                                     try {
                                         rs3=koneksi.prepareStatement("select clinical_pathway_varian.*, pegawai.nama from clinical_pathway_varian inner join pegawai on clinical_pathway_varian.petugas=pegawai.nik "+
                                                 "where clinical_pathway_varian.no_rawat='"+rs2.getString("no_rawat")+"' and clinical_pathway_varian.no_berkas='"+rs2.getString("no_berkas")+"' order by clinical_pathway_varian.tgl_variasi asc").executeQuery();
-                                        while(rs3.next()){
+                                        if(rs3.next()){
+                                            while(rs3.next()){
+                                                htmlContent.append(
+                                                    "<tr>").append(
+                                                        "<td valign='top'>").append(rs3.getString("variasi_pelayanan")).append("</td>").append(
+                                                        "<td valign='top' align='center'>").append(rs3.getString("tgl_variasi")).append("</td>").append(
+                                                        "<td valign='top'>").append(rs3.getString("alasan")).append("</td>").append(
+                                                        "<td valign='top'>").append(rs3.getString("petugas")+" "+rs3.getString("nama")).append("</td>").append(
+                                                    "</tr>");
+                                            }
+                                        } else {
                                             htmlContent.append(
-                                                "<tr>").append(
-                                                    "<td valign='top'>").append(rs3.getString("variasi_pelayanan")).append("</td>").append(
-                                                    "<td valign='top' align='center'>").append(rs3.getString("tgl_variasi")).append("</td>").append(
-                                                    "<td valign='top'>").append(rs3.getString("alasan")).append("</td>").append(
-                                                    "<td valign='top'>").append(rs3.getString("petugas")+" "+rs3.getString("nama")).append("</td>").append(
-                                                "</tr>");
+                                                    "<tr>").append(
+                                                        "<td valign='middle' align='center' colspan='4'>Tidak ada Varian</td>").append(
+                                                    "</tr>");
                                         }
                                     } catch (Exception e) {
                                         System.out.println("Notif : "+e);
@@ -2116,15 +2123,39 @@ public final class RMClinicalPathway extends javax.swing.JDialog {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(f));            
                 bw.write(LoadHTML.getText().replaceAll("<head>","<head>"+
                             "<link href=\"file2.css\" rel=\"stylesheet\" type=\"text/css\" />"+
-                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
-                                "<tr class='isi2'>"+
-                                    "<td valign='top' align='center'>"+
-                                        "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
-                                        akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
-                                        akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+   
-                                    "</td>"+
-                               "</tr>"+
-                            "</table>")
+                                "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                    "<tr class='isi'>"+
+                                        "<td valign='top' align='center' width='75%'>"+
+                                            "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
+                                            akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
+                                            akses.getkontakrs()+", E-mail : "+akses.getemailrs()+
+                                        "</td>"+
+                                        "<td valign='top' width='25%' rowspan='2'>"+
+                                            "<table width='100%' border='0' align='center' cellpadding='1px' cellspacing='0' class='tbl_form'>"+
+                                                "<tr class='isi2'>"+
+                                                    "<td valign='top' width='15%'>No.RM</td>"+
+                                                    "<td valign='top'>: "+TNoRM.getText()+"</td>"+
+                                                "</tr>"+
+                                                "<tr class='isi2'>"+
+                                                    "<td valign='top' width='15%'>Nama</td>"+
+                                                    "<td valign='top'>: "+TPasien.getText()+"</td>"+
+                                                "</tr>"+
+                                                "<tr class='isi2'>"+
+                                                    "<td valign='top' width='15%'>Tgl.Lahir</td>"+
+                                                    "<td valign='top'>: "+TglLahir.getText()+"</td>"+
+                                                "</tr>"+
+                                                "<tr class='isi2'>"+
+                                                    "<td valign='top' width='15%'>Ruang</td>"+
+                                                    "<td valign='top'>: "+Sequel.cariIsi("select kd_kamar from kamar_inap where no_rawat=? order by tgl_masuk desc, jam_masuk desc limit 1", TNoRw.getText())+"</td>"+
+                                                "</tr>"+
+                                                "<tr class='isi2'>"+
+                                                    "<td valign='top' width='15%'>Alamat</td>"+
+                                                    "<td valign='top'>: "+Sequel.cariIsi("select alamat from pasien where no_rkm_medis=?", TNoRM.getText())+"</td>"+
+                                                "</tr>"+
+                                            "</table>"+
+                                        "</td>"+
+                                    "</tr>"+
+                            "</table><br>")
                 );
                 bw.close();                         
                 Desktop.getDesktop().browse(f.toURI());
