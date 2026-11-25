@@ -24,12 +24,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
-import javax.swing.SwingWorker;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -65,7 +62,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         
         tabMode=new DefaultTableModel(null,new Object[]{
             "No.Rawat","No.RM","Nama Pasien","Tgl.Lahir","J.K.","Kode Penilai","Nama Penilai","Tgl.Pemeriksaan","Total Skor","Defisit Neurologis","1 A","1 B","1 C",
-            "2","3","4","5 Kanan","Pnj. 5 Kanan","5 Kiri","Pnj. 5 Kiri","6 Kanan","Pnj. 6 Kanan","6 Kiri","Pnj. 6 Kiri","7","Pnj. 7","8","9","10","Pnj. 10","11"
+            "2","3","4","5 Kiri","Pnj. 5 Kiri","5 Kanan","Pnj. 5 Kanan","6 Kiri","Pnj. 6 Kiri","6 Kanan","Pnj. 6 Kanan","7","Pnj. 7","8","9","10","Pnj. 10","11"
         }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -316,23 +313,23 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         jrb4Nilai3 = new javax.swing.JRadioButton();
         label21 = new widget.Label();
         label22 = new widget.Label();
-        jrb5KananNilai0 = new javax.swing.JRadioButton();
-        jrb5KananNilai1 = new javax.swing.JRadioButton();
-        jrb5KananNilai2 = new javax.swing.JRadioButton();
-        jrb5KananNilai3 = new javax.swing.JRadioButton();
-        jrb5KananNilai4 = new javax.swing.JRadioButton();
-        jrb5KananNilaiUN = new javax.swing.JRadioButton();
-        label24 = new widget.Label();
-        tb5KananUN = new widget.TextBox();
-        label25 = new widget.Label();
         jrb5KiriNilai0 = new javax.swing.JRadioButton();
         jrb5KiriNilai1 = new javax.swing.JRadioButton();
         jrb5KiriNilai2 = new javax.swing.JRadioButton();
         jrb5KiriNilai3 = new javax.swing.JRadioButton();
         jrb5KiriNilai4 = new javax.swing.JRadioButton();
         jrb5KiriNilaiUN = new javax.swing.JRadioButton();
-        label26 = new widget.Label();
+        label24 = new widget.Label();
         tb5KiriUN = new widget.TextBox();
+        label25 = new widget.Label();
+        jrb5KananNilai0 = new javax.swing.JRadioButton();
+        jrb5KananNilai1 = new javax.swing.JRadioButton();
+        jrb5KananNilai2 = new javax.swing.JRadioButton();
+        jrb5KananNilai3 = new javax.swing.JRadioButton();
+        jrb5KananNilai4 = new javax.swing.JRadioButton();
+        jrb5KananNilaiUN = new javax.swing.JRadioButton();
+        label26 = new widget.Label();
+        tb5KananUN = new widget.TextBox();
         label28 = new widget.Label();
         label29 = new widget.Label();
         jrb6KananNilai0 = new javax.swing.JRadioButton();
@@ -386,8 +383,8 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         lblSkor2 = new widget.Label();
         lblSkor3 = new widget.Label();
         lblSkor4 = new widget.Label();
-        lblSkor5Kanan = new widget.Label();
         lblSkor5Kiri = new widget.Label();
+        lblSkor5Kanan = new widget.Label();
         lblSkor6Kanan = new widget.Label();
         lblSkor6Kiri = new widget.Label();
         lblSkor7 = new widget.Label();
@@ -700,7 +697,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         label11.setBounds(592, 40, 110, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2026-11-10 08:21:41" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2026-11-17 12:50:45" }));
         TglAsuhan.setDisplayFormat("yyyy-MM-dd HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1335,11 +1332,180 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         label21.setBounds(10, 840, 700, 23);
 
         label22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label22.setText("a. Tungkai Kanan");
+        label22.setText("a. Tungkai Kiri");
         label22.setName("label22"); // NOI18N
         label22.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(label22);
         label22.setBounds(20, 1290, 690, 23);
+
+        jrb5KiriNilai0.setBackground(new java.awt.Color(247, 247, 247));
+        btnG5Kiri.add(jrb5KiriNilai0);
+        jrb5KiriNilai0.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jrb5KiriNilai0.setForeground(new java.awt.Color(51, 51, 51));
+        jrb5KiriNilai0.setText("<html> Tidak ada drift; lengan dapat diangkat 90 (45)°, selama minimal 10 detik penuh </html>");
+        jrb5KiriNilai0.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        jrb5KiriNilai0.setBorderPainted(true);
+        jrb5KiriNilai0.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jrb5KiriNilai0.setFocusPainted(false);
+        jrb5KiriNilai0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai0.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
+        jrb5KiriNilai0.setIconTextGap(2);
+        jrb5KiriNilai0.setName("jrb5KiriNilai0"); // NOI18N
+        jrb5KiriNilai0.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        jrb5KiriNilai0.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jrb5KiriNilai0.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jrb5KiriNilai0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb5KiriActionPerformed(evt);
+            }
+        });
+        FormInput.add(jrb5KiriNilai0);
+        jrb5KiriNilai0.setBounds(40, 880, 140, 120);
+
+        jrb5KiriNilai1.setBackground(new java.awt.Color(247, 247, 247));
+        btnG5Kiri.add(jrb5KiriNilai1);
+        jrb5KiriNilai1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jrb5KiriNilai1.setForeground(new java.awt.Color(51, 51, 51));
+        jrb5KiriNilai1.setText("<html> Drift; lengan dapat diangkat 90 (45)° namun turun sebelum 10 detik, tidak mengenai tempat tidur </html>");
+        jrb5KiriNilai1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        jrb5KiriNilai1.setBorderPainted(true);
+        jrb5KiriNilai1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jrb5KiriNilai1.setFocusPainted(false);
+        jrb5KiriNilai1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
+        jrb5KiriNilai1.setIconTextGap(2);
+        jrb5KiriNilai1.setName("jrb5KiriNilai1"); // NOI18N
+        jrb5KiriNilai1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        jrb5KiriNilai1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jrb5KiriNilai1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jrb5KiriNilai1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb5KiriActionPerformed(evt);
+            }
+        });
+        FormInput.add(jrb5KiriNilai1);
+        jrb5KiriNilai1.setBounds(190, 880, 140, 120);
+
+        jrb5KiriNilai2.setBackground(new java.awt.Color(247, 247, 247));
+        btnG5Kiri.add(jrb5KiriNilai2);
+        jrb5KiriNilai2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jrb5KiriNilai2.setForeground(new java.awt.Color(51, 51, 51));
+        jrb5KiriNilai2.setText("<html> Ada upaya melawan gravitasi; lengan tidak dapat diangkat atau dipertahankan dalam posisi 90 (40)°, jatuh mengenai tempat tidur </html>");
+        jrb5KiriNilai2.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        jrb5KiriNilai2.setBorderPainted(true);
+        jrb5KiriNilai2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jrb5KiriNilai2.setFocusPainted(false);
+        jrb5KiriNilai2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
+        jrb5KiriNilai2.setIconTextGap(2);
+        jrb5KiriNilai2.setName("jrb5KiriNilai2"); // NOI18N
+        jrb5KiriNilai2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        jrb5KiriNilai2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jrb5KiriNilai2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jrb5KiriNilai2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb5KiriActionPerformed(evt);
+            }
+        });
+        FormInput.add(jrb5KiriNilai2);
+        jrb5KiriNilai2.setBounds(340, 880, 140, 120);
+
+        jrb5KiriNilai3.setBackground(new java.awt.Color(247, 247, 247));
+        btnG5Kiri.add(jrb5KiriNilai3);
+        jrb5KiriNilai3.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jrb5KiriNilai3.setForeground(new java.awt.Color(51, 51, 51));
+        jrb5KiriNilai3.setText("<html> Tidak ada upaya melawan gravitasi, tidak mampu mengangkat, hanya bergeser </html>");
+        jrb5KiriNilai3.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        jrb5KiriNilai3.setBorderPainted(true);
+        jrb5KiriNilai3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jrb5KiriNilai3.setFocusPainted(false);
+        jrb5KiriNilai3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
+        jrb5KiriNilai3.setIconTextGap(2);
+        jrb5KiriNilai3.setName("jrb5KiriNilai3"); // NOI18N
+        jrb5KiriNilai3.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        jrb5KiriNilai3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jrb5KiriNilai3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jrb5KiriNilai3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb5KiriActionPerformed(evt);
+            }
+        });
+        FormInput.add(jrb5KiriNilai3);
+        jrb5KiriNilai3.setBounds(490, 880, 140, 120);
+
+        jrb5KiriNilai4.setBackground(new java.awt.Color(247, 247, 247));
+        btnG5Kiri.add(jrb5KiriNilai4);
+        jrb5KiriNilai4.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jrb5KiriNilai4.setForeground(new java.awt.Color(51, 51, 51));
+        jrb5KiriNilai4.setText("<html> Tidak ada gerakan </html>");
+        jrb5KiriNilai4.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        jrb5KiriNilai4.setBorderPainted(true);
+        jrb5KiriNilai4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jrb5KiriNilai4.setFocusPainted(false);
+        jrb5KiriNilai4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilai4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
+        jrb5KiriNilai4.setIconTextGap(2);
+        jrb5KiriNilai4.setName("jrb5KiriNilai4"); // NOI18N
+        jrb5KiriNilai4.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        jrb5KiriNilai4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jrb5KiriNilai4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jrb5KiriNilai4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb5KiriActionPerformed(evt);
+            }
+        });
+        FormInput.add(jrb5KiriNilai4);
+        jrb5KiriNilai4.setBounds(640, 880, 140, 120);
+
+        jrb5KiriNilaiUN.setBackground(new java.awt.Color(247, 247, 247));
+        btnG5Kiri.add(jrb5KiriNilaiUN);
+        jrb5KiriNilaiUN.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        jrb5KiriNilaiUN.setForeground(new java.awt.Color(51, 51, 51));
+        jrb5KiriNilaiUN.setText("<html> Amputasi atau fusi sendi, jelaskan... </html>");
+        jrb5KiriNilaiUN.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
+        jrb5KiriNilaiUN.setBorderPainted(true);
+        jrb5KiriNilaiUN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jrb5KiriNilaiUN.setFocusPainted(false);
+        jrb5KiriNilaiUN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilaiUN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jrb5KiriNilaiUN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
+        jrb5KiriNilaiUN.setIconTextGap(2);
+        jrb5KiriNilaiUN.setName("jrb5KiriNilaiUN"); // NOI18N
+        jrb5KiriNilaiUN.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
+        jrb5KiriNilaiUN.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jrb5KiriNilaiUN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jrb5KiriNilaiUN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrb5KiriActionPerformed(evt);
+            }
+        });
+        FormInput.add(jrb5KiriNilaiUN);
+        jrb5KiriNilaiUN.setBounds(40, 1010, 210, 44);
+
+        label24.setText("Jelaskan :");
+        label24.setName("label24"); // NOI18N
+        label24.setPreferredSize(new java.awt.Dimension(70, 23));
+        FormInput.add(label24);
+        label24.setBounds(250, 1030, 80, 23);
+
+        tb5KiriUN.setEnabled(false);
+        tb5KiriUN.setName("tb5KiriUN"); // NOI18N
+        tb5KiriUN.setPreferredSize(new java.awt.Dimension(207, 23));
+        FormInput.add(tb5KiriUN);
+        tb5KiriUN.setBounds(340, 1030, 440, 23);
+
+        label25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        label25.setText("b. Lengan Kanan");
+        label25.setName("label25"); // NOI18N
+        label25.setPreferredSize(new java.awt.Dimension(70, 23));
+        FormInput.add(label25);
+        label25.setBounds(20, 1060, 690, 23);
 
         jrb5KananNilai0.setBackground(new java.awt.Color(247, 247, 247));
         btnG5Kanan.add(jrb5KananNilai0);
@@ -1365,7 +1531,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb5KananNilai0);
-        jrb5KananNilai0.setBounds(40, 880, 140, 120);
+        jrb5KananNilai0.setBounds(40, 1080, 140, 120);
 
         jrb5KananNilai1.setBackground(new java.awt.Color(247, 247, 247));
         btnG5Kanan.add(jrb5KananNilai1);
@@ -1390,7 +1556,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb5KananNilai1);
-        jrb5KananNilai1.setBounds(190, 880, 140, 120);
+        jrb5KananNilai1.setBounds(190, 1080, 140, 120);
 
         jrb5KananNilai2.setBackground(new java.awt.Color(247, 247, 247));
         btnG5Kanan.add(jrb5KananNilai2);
@@ -1415,7 +1581,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb5KananNilai2);
-        jrb5KananNilai2.setBounds(340, 880, 140, 120);
+        jrb5KananNilai2.setBounds(340, 1080, 140, 120);
 
         jrb5KananNilai3.setBackground(new java.awt.Color(247, 247, 247));
         btnG5Kanan.add(jrb5KananNilai3);
@@ -1440,7 +1606,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb5KananNilai3);
-        jrb5KananNilai3.setBounds(490, 880, 140, 120);
+        jrb5KananNilai3.setBounds(490, 1080, 140, 120);
 
         jrb5KananNilai4.setBackground(new java.awt.Color(247, 247, 247));
         btnG5Kanan.add(jrb5KananNilai4);
@@ -1465,7 +1631,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb5KananNilai4);
-        jrb5KananNilai4.setBounds(640, 880, 140, 120);
+        jrb5KananNilai4.setBounds(640, 1080, 140, 120);
 
         jrb5KananNilaiUN.setBackground(new java.awt.Color(247, 247, 247));
         btnG5Kanan.add(jrb5KananNilaiUN);
@@ -1490,177 +1656,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb5KananNilaiUN);
-        jrb5KananNilaiUN.setBounds(40, 1010, 210, 44);
-
-        label24.setText("Jelaskan :");
-        label24.setName("label24"); // NOI18N
-        label24.setPreferredSize(new java.awt.Dimension(70, 23));
-        FormInput.add(label24);
-        label24.setBounds(250, 1030, 80, 23);
-
-        tb5KananUN.setEnabled(false);
-        tb5KananUN.setName("tb5KananUN"); // NOI18N
-        tb5KananUN.setPreferredSize(new java.awt.Dimension(207, 23));
-        FormInput.add(tb5KananUN);
-        tb5KananUN.setBounds(340, 1030, 440, 23);
-
-        label25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label25.setText("b. Lengan Kiri");
-        label25.setName("label25"); // NOI18N
-        label25.setPreferredSize(new java.awt.Dimension(70, 23));
-        FormInput.add(label25);
-        label25.setBounds(20, 1060, 690, 23);
-
-        jrb5KiriNilai0.setBackground(new java.awt.Color(247, 247, 247));
-        btnG5Kiri.add(jrb5KiriNilai0);
-        jrb5KiriNilai0.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jrb5KiriNilai0.setForeground(new java.awt.Color(51, 51, 51));
-        jrb5KiriNilai0.setSelected(true);
-        jrb5KiriNilai0.setText("<html> Tidak ada drift; lengan dapat diangkat 90 (45)°, selama minimal 10 detik penuh </html>");
-        jrb5KiriNilai0.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        jrb5KiriNilai0.setBorderPainted(true);
-        jrb5KiriNilai0.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jrb5KiriNilai0.setFocusPainted(false);
-        jrb5KiriNilai0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai0.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
-        jrb5KiriNilai0.setIconTextGap(2);
-        jrb5KiriNilai0.setName("jrb5KiriNilai0"); // NOI18N
-        jrb5KiriNilai0.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        jrb5KiriNilai0.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jrb5KiriNilai0.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jrb5KiriNilai0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb5KiriActionPerformed(evt);
-            }
-        });
-        FormInput.add(jrb5KiriNilai0);
-        jrb5KiriNilai0.setBounds(40, 1080, 140, 120);
-
-        jrb5KiriNilai1.setBackground(new java.awt.Color(247, 247, 247));
-        btnG5Kiri.add(jrb5KiriNilai1);
-        jrb5KiriNilai1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jrb5KiriNilai1.setForeground(new java.awt.Color(51, 51, 51));
-        jrb5KiriNilai1.setText("<html> Drift; lengan dapat diangkat 90 (45)° namun turun sebelum 10 detik, tidak mengenai tempat tidur </html>");
-        jrb5KiriNilai1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        jrb5KiriNilai1.setBorderPainted(true);
-        jrb5KiriNilai1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jrb5KiriNilai1.setFocusPainted(false);
-        jrb5KiriNilai1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
-        jrb5KiriNilai1.setIconTextGap(2);
-        jrb5KiriNilai1.setName("jrb5KiriNilai1"); // NOI18N
-        jrb5KiriNilai1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        jrb5KiriNilai1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jrb5KiriNilai1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jrb5KiriNilai1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb5KiriActionPerformed(evt);
-            }
-        });
-        FormInput.add(jrb5KiriNilai1);
-        jrb5KiriNilai1.setBounds(190, 1080, 140, 120);
-
-        jrb5KiriNilai2.setBackground(new java.awt.Color(247, 247, 247));
-        btnG5Kiri.add(jrb5KiriNilai2);
-        jrb5KiriNilai2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jrb5KiriNilai2.setForeground(new java.awt.Color(51, 51, 51));
-        jrb5KiriNilai2.setText("<html> Ada upaya melawan gravitasi; lengan tidak dapat diangkat atau dipertahankan dalam posisi 90 (40)°, jatuh mengenai tempat tidur </html>");
-        jrb5KiriNilai2.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        jrb5KiriNilai2.setBorderPainted(true);
-        jrb5KiriNilai2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jrb5KiriNilai2.setFocusPainted(false);
-        jrb5KiriNilai2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
-        jrb5KiriNilai2.setIconTextGap(2);
-        jrb5KiriNilai2.setName("jrb5KiriNilai2"); // NOI18N
-        jrb5KiriNilai2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        jrb5KiriNilai2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jrb5KiriNilai2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jrb5KiriNilai2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb5KiriActionPerformed(evt);
-            }
-        });
-        FormInput.add(jrb5KiriNilai2);
-        jrb5KiriNilai2.setBounds(340, 1080, 140, 120);
-
-        jrb5KiriNilai3.setBackground(new java.awt.Color(247, 247, 247));
-        btnG5Kiri.add(jrb5KiriNilai3);
-        jrb5KiriNilai3.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jrb5KiriNilai3.setForeground(new java.awt.Color(51, 51, 51));
-        jrb5KiriNilai3.setText("<html> Tidak ada upaya melawan gravitasi, tidak mampu mengangkat, hanya bergeser </html>");
-        jrb5KiriNilai3.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        jrb5KiriNilai3.setBorderPainted(true);
-        jrb5KiriNilai3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jrb5KiriNilai3.setFocusPainted(false);
-        jrb5KiriNilai3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
-        jrb5KiriNilai3.setIconTextGap(2);
-        jrb5KiriNilai3.setName("jrb5KiriNilai3"); // NOI18N
-        jrb5KiriNilai3.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        jrb5KiriNilai3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jrb5KiriNilai3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jrb5KiriNilai3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb5KiriActionPerformed(evt);
-            }
-        });
-        FormInput.add(jrb5KiriNilai3);
-        jrb5KiriNilai3.setBounds(490, 1080, 140, 120);
-
-        jrb5KiriNilai4.setBackground(new java.awt.Color(247, 247, 247));
-        btnG5Kiri.add(jrb5KiriNilai4);
-        jrb5KiriNilai4.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jrb5KiriNilai4.setForeground(new java.awt.Color(51, 51, 51));
-        jrb5KiriNilai4.setText("<html> Tidak ada gerakan </html>");
-        jrb5KiriNilai4.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        jrb5KiriNilai4.setBorderPainted(true);
-        jrb5KiriNilai4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jrb5KiriNilai4.setFocusPainted(false);
-        jrb5KiriNilai4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilai4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
-        jrb5KiriNilai4.setIconTextGap(2);
-        jrb5KiriNilai4.setName("jrb5KiriNilai4"); // NOI18N
-        jrb5KiriNilai4.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        jrb5KiriNilai4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jrb5KiriNilai4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jrb5KiriNilai4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb5KiriActionPerformed(evt);
-            }
-        });
-        FormInput.add(jrb5KiriNilai4);
-        jrb5KiriNilai4.setBounds(640, 1080, 140, 120);
-
-        jrb5KiriNilaiUN.setBackground(new java.awt.Color(247, 247, 247));
-        btnG5Kiri.add(jrb5KiriNilaiUN);
-        jrb5KiriNilaiUN.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        jrb5KiriNilaiUN.setForeground(new java.awt.Color(51, 51, 51));
-        jrb5KiriNilaiUN.setText("<html> Amputasi atau fusi sendi, jelaskan... </html>");
-        jrb5KiriNilaiUN.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        jrb5KiriNilaiUN.setBorderPainted(true);
-        jrb5KiriNilaiUN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jrb5KiriNilaiUN.setFocusPainted(false);
-        jrb5KiriNilaiUN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilaiUN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jrb5KiriNilaiUN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/iconkosong.png"))); // NOI18N
-        jrb5KiriNilaiUN.setIconTextGap(2);
-        jrb5KiriNilaiUN.setName("jrb5KiriNilaiUN"); // NOI18N
-        jrb5KiriNilaiUN.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
-        jrb5KiriNilaiUN.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jrb5KiriNilaiUN.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jrb5KiriNilaiUN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb5KiriActionPerformed(evt);
-            }
-        });
-        FormInput.add(jrb5KiriNilaiUN);
-        jrb5KiriNilaiUN.setBounds(40, 1210, 210, 44);
+        jrb5KananNilaiUN.setBounds(40, 1210, 210, 44);
 
         label26.setText("Jelaskan :");
         label26.setName("label26"); // NOI18N
@@ -1668,11 +1664,11 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         FormInput.add(label26);
         label26.setBounds(250, 1230, 80, 23);
 
-        tb5KiriUN.setEnabled(false);
-        tb5KiriUN.setName("tb5KiriUN"); // NOI18N
-        tb5KiriUN.setPreferredSize(new java.awt.Dimension(207, 23));
-        FormInput.add(tb5KiriUN);
-        tb5KiriUN.setBounds(340, 1230, 440, 23);
+        tb5KananUN.setEnabled(false);
+        tb5KananUN.setName("tb5KananUN"); // NOI18N
+        tb5KananUN.setPreferredSize(new java.awt.Dimension(207, 23));
+        FormInput.add(tb5KananUN);
+        tb5KananUN.setBounds(340, 1230, 440, 23);
 
         label28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label28.setText("6. MOTORIK TUNGKAI");
@@ -1682,17 +1678,16 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         label28.setBounds(10, 1270, 700, 23);
 
         label29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label29.setText("a. Lengan Kanan");
+        label29.setText("a. Lengan Kiri");
         label29.setName("label29"); // NOI18N
         label29.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(label29);
         label29.setBounds(20, 860, 690, 23);
 
         jrb6KananNilai0.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kanan.add(jrb6KananNilai0);
+        btnG6Kiri.add(jrb6KananNilai0);
         jrb6KananNilai0.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KananNilai0.setForeground(new java.awt.Color(51, 51, 51));
-        jrb6KananNilai0.setSelected(true);
         jrb6KananNilai0.setText("<html> Tidak ada drift; tungkai dapat dipertahankan dalam posisi 30°, minimal 5 detik </html>");
         jrb6KananNilai0.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
         jrb6KananNilai0.setBorderPainted(true);
@@ -1712,10 +1707,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KananNilai0);
-        jrb6KananNilai0.setBounds(40, 1310, 140, 120);
+        jrb6KananNilai0.setBounds(40, 1510, 140, 120);
 
         jrb6KananNilai1.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kanan.add(jrb6KananNilai1);
+        btnG6Kiri.add(jrb6KananNilai1);
         jrb6KananNilai1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KananNilai1.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KananNilai1.setText("<html> Drift; tungkai jatuh persis 5 detik, namun tidak mengenai tempat tidur </html>");
@@ -1737,10 +1732,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KananNilai1);
-        jrb6KananNilai1.setBounds(190, 1310, 140, 120);
+        jrb6KananNilai1.setBounds(190, 1510, 140, 120);
 
         jrb6KananNilai2.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kanan.add(jrb6KananNilai2);
+        btnG6Kiri.add(jrb6KananNilai2);
         jrb6KananNilai2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KananNilai2.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KananNilai2.setText("<html> Ada upaya melawan gravitasi; tungkai jatuh mengenai tempat tidur dalam 5 detik, namun ada upaya melawan gravitasi</html>");
@@ -1762,10 +1757,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KananNilai2);
-        jrb6KananNilai2.setBounds(340, 1310, 140, 120);
+        jrb6KananNilai2.setBounds(340, 1510, 140, 120);
 
         jrb6KananNilai3.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kanan.add(jrb6KananNilai3);
+        btnG6Kiri.add(jrb6KananNilai3);
         jrb6KananNilai3.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KananNilai3.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KananNilai3.setText("<html> Tidak ada upaya melawan gravitasi </html>");
@@ -1787,10 +1782,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KananNilai3);
-        jrb6KananNilai3.setBounds(490, 1310, 140, 120);
+        jrb6KananNilai3.setBounds(490, 1510, 140, 120);
 
         jrb6KananNilai4.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kanan.add(jrb6KananNilai4);
+        btnG6Kiri.add(jrb6KananNilai4);
         jrb6KananNilai4.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KananNilai4.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KananNilai4.setText("<html> Tidak ada gerakan </html>");
@@ -1812,10 +1807,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KananNilai4);
-        jrb6KananNilai4.setBounds(640, 1310, 140, 120);
+        jrb6KananNilai4.setBounds(640, 1510, 140, 120);
 
         jrb6KananNilaiUN.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kanan.add(jrb6KananNilaiUN);
+        btnG6Kiri.add(jrb6KananNilaiUN);
         jrb6KananNilaiUN.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KananNilaiUN.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KananNilaiUN.setText("<html> Amputasi atau fusi sendi, jelaskan... </html>");
@@ -1837,29 +1832,29 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KananNilaiUN);
-        jrb6KananNilaiUN.setBounds(40, 1440, 210, 44);
+        jrb6KananNilaiUN.setBounds(40, 1640, 210, 44);
 
         label30.setText("Jelaskan :");
         label30.setName("label30"); // NOI18N
         label30.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(label30);
-        label30.setBounds(250, 1460, 80, 23);
+        label30.setBounds(250, 1660, 80, 23);
 
         tb6KananUN.setEnabled(false);
         tb6KananUN.setName("tb6KananUN"); // NOI18N
         tb6KananUN.setPreferredSize(new java.awt.Dimension(207, 23));
         FormInput.add(tb6KananUN);
-        tb6KananUN.setBounds(340, 1460, 440, 23);
+        tb6KananUN.setBounds(340, 1660, 440, 23);
 
         label31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        label31.setText("b. Tungkai Kiri");
+        label31.setText("b. Tungkai Kanan");
         label31.setName("label31"); // NOI18N
         label31.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(label31);
         label31.setBounds(20, 1490, 690, 23);
 
         jrb6KiriNilai0.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kiri.add(jrb6KiriNilai0);
+        btnG6Kanan.add(jrb6KiriNilai0);
         jrb6KiriNilai0.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KiriNilai0.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KiriNilai0.setSelected(true);
@@ -1882,10 +1877,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KiriNilai0);
-        jrb6KiriNilai0.setBounds(40, 1510, 140, 120);
+        jrb6KiriNilai0.setBounds(40, 1310, 140, 120);
 
         jrb6KiriNilai1.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kiri.add(jrb6KiriNilai1);
+        btnG6Kanan.add(jrb6KiriNilai1);
         jrb6KiriNilai1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KiriNilai1.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KiriNilai1.setText("<html> Drift; tungkai jatuh persis 5 detik, namun tidak mengenai tempat tidur </html>");
@@ -1907,10 +1902,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KiriNilai1);
-        jrb6KiriNilai1.setBounds(190, 1510, 140, 120);
+        jrb6KiriNilai1.setBounds(190, 1310, 140, 120);
 
         jrb6KiriNilai2.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kiri.add(jrb6KiriNilai2);
+        btnG6Kanan.add(jrb6KiriNilai2);
         jrb6KiriNilai2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KiriNilai2.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KiriNilai2.setText("<html> Ada upaya melawan gravitasi; tungkai jatuh mengenai tempat tidur dalam 5 detik, namun ada upaya melawan gravitasi</html>");
@@ -1932,10 +1927,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KiriNilai2);
-        jrb6KiriNilai2.setBounds(340, 1510, 140, 120);
+        jrb6KiriNilai2.setBounds(340, 1310, 140, 120);
 
         jrb6KiriNilai3.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kiri.add(jrb6KiriNilai3);
+        btnG6Kanan.add(jrb6KiriNilai3);
         jrb6KiriNilai3.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KiriNilai3.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KiriNilai3.setText("<html> Tidak ada upaya melawan gravitasi </html>");
@@ -1957,10 +1952,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KiriNilai3);
-        jrb6KiriNilai3.setBounds(490, 1510, 140, 120);
+        jrb6KiriNilai3.setBounds(490, 1310, 140, 120);
 
         jrb6KiriNilai4.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kiri.add(jrb6KiriNilai4);
+        btnG6Kanan.add(jrb6KiriNilai4);
         jrb6KiriNilai4.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KiriNilai4.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KiriNilai4.setText("<html> Tidak ada gerakan </html>");
@@ -1982,10 +1977,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KiriNilai4);
-        jrb6KiriNilai4.setBounds(640, 1510, 140, 120);
+        jrb6KiriNilai4.setBounds(640, 1310, 140, 120);
 
         jrb6KiriNilaiUN.setBackground(new java.awt.Color(247, 247, 247));
-        btnG6Kiri.add(jrb6KiriNilaiUN);
+        btnG6Kanan.add(jrb6KiriNilaiUN);
         jrb6KiriNilaiUN.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jrb6KiriNilaiUN.setForeground(new java.awt.Color(51, 51, 51));
         jrb6KiriNilaiUN.setText("<html> Amputasi atau fusi sendi, jelaskan... </html>");
@@ -2007,19 +2002,19 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         });
         FormInput.add(jrb6KiriNilaiUN);
-        jrb6KiriNilaiUN.setBounds(40, 1640, 210, 44);
+        jrb6KiriNilaiUN.setBounds(40, 1440, 210, 44);
 
         label32.setText("Jelaskan :");
         label32.setName("label32"); // NOI18N
         label32.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(label32);
-        label32.setBounds(250, 1660, 80, 23);
+        label32.setBounds(250, 1460, 80, 23);
 
         tb6KiriUN.setEnabled(false);
         tb6KiriUN.setName("tb6KiriUN"); // NOI18N
         tb6KiriUN.setPreferredSize(new java.awt.Dimension(207, 23));
         FormInput.add(tb6KiriUN);
-        tb6KiriUN.setBounds(340, 1660, 440, 23);
+        tb6KiriUN.setBounds(340, 1460, 440, 23);
 
         label33.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         label33.setText("7. ATAKSIA ANGGOTA GERAK");
@@ -2600,15 +2595,6 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         FormInput.add(lblSkor4);
         lblSkor4.setBounds(791, 730, 160, 100);
 
-        lblSkor5Kanan.setBackground(new java.awt.Color(244, 244, 244));
-        lblSkor5Kanan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSkor5Kanan.setText("0");
-        lblSkor5Kanan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblSkor5Kanan.setName("lblSkor5Kanan"); // NOI18N
-        lblSkor5Kanan.setPreferredSize(new java.awt.Dimension(70, 23));
-        FormInput.add(lblSkor5Kanan);
-        lblSkor5Kanan.setBounds(791, 880, 160, 180);
-
         lblSkor5Kiri.setBackground(new java.awt.Color(244, 244, 244));
         lblSkor5Kiri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSkor5Kiri.setText("0");
@@ -2616,7 +2602,16 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         lblSkor5Kiri.setName("lblSkor5Kiri"); // NOI18N
         lblSkor5Kiri.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(lblSkor5Kiri);
-        lblSkor5Kiri.setBounds(791, 1080, 160, 180);
+        lblSkor5Kiri.setBounds(791, 880, 160, 180);
+
+        lblSkor5Kanan.setBackground(new java.awt.Color(244, 244, 244));
+        lblSkor5Kanan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSkor5Kanan.setText("0");
+        lblSkor5Kanan.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblSkor5Kanan.setName("lblSkor5Kanan"); // NOI18N
+        lblSkor5Kanan.setPreferredSize(new java.awt.Dimension(70, 23));
+        FormInput.add(lblSkor5Kanan);
+        lblSkor5Kanan.setBounds(791, 1080, 160, 180);
 
         lblSkor6Kanan.setBackground(new java.awt.Color(244, 244, 244));
         lblSkor6Kanan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2625,7 +2620,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         lblSkor6Kanan.setName("lblSkor6Kanan"); // NOI18N
         lblSkor6Kanan.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(lblSkor6Kanan);
-        lblSkor6Kanan.setBounds(791, 1310, 160, 180);
+        lblSkor6Kanan.setBounds(790, 1510, 160, 180);
 
         lblSkor6Kiri.setBackground(new java.awt.Color(244, 244, 244));
         lblSkor6Kiri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2634,7 +2629,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         lblSkor6Kiri.setName("lblSkor6Kiri"); // NOI18N
         lblSkor6Kiri.setPreferredSize(new java.awt.Dimension(70, 23));
         FormInput.add(lblSkor6Kiri);
-        lblSkor6Kiri.setBounds(791, 1510, 160, 180);
+        lblSkor6Kiri.setBounds(790, 1310, 160, 180);
 
         lblSkor7.setBackground(new java.awt.Color(244, 244, 244));
         lblSkor7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2824,7 +2819,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-11-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-11-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -2838,7 +2833,7 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-11-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-11-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -3026,14 +3021,14 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>2</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>3</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>4</td>"+
-                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>5 Kanan</td>"+
-                        "<td valign='middle' bgcolor='#FFFFF8' align='center'>Pnj. 5 Kanan</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>5 Kiri</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center'>Pnj. 5 Kiri</td>"+
-                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>6 Kanan</td>"+
-                        "<td valign='middle' bgcolor='#FFFFF8' align='center'>Pnj. 6 Kanan</td>"+
+                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>5 Kanan</td>"+
+                        "<td valign='middle' bgcolor='#FFFFF8' align='center'>Pnj. 5 Kanan</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>6 Kiri</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center'>Pnj. 6 Kiri</td>"+
+                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>6 Kanan</td>"+
+                        "<td valign='middle' bgcolor='#FFFFF8' align='center'>Pnj. 6 Kanan</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>7</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center'>Pnj. 7</td>"+
                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='2%'>8</td>"+
@@ -3238,10 +3233,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
                             "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>11</td>"+
                         "</tr>"+
                         "<tr class='isi-head'>"+
-                            "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kanan</td>"+
                             "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kiri</td>"+
                             "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kanan</td>"+
                             "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kiri</td>"+
+                            "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kanan</td>"+
                         "</tr>");
                     while(rs.next()){
                                 htmlContent.append(                             
@@ -3254,10 +3249,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
                                     "<td align='center'>"+rs.getString("p_2")+"</td>"+
                                     "<td align='center'>"+rs.getString("p_3")+"</td>"+
                                     "<td align='center'>"+rs.getString("p_4")+"</td>"+
-                                    "<td align='center'>"+rs.getString("p_5kanan")+"</td>"+
                                     "<td align='center'>"+rs.getString("p_5kiri")+"</td>"+
-                                    "<td align='center'>"+rs.getString("p_6kanan")+"</td>"+
+                                    "<td align='center'>"+rs.getString("p_5kanan")+"</td>"+
                                     "<td align='center'>"+rs.getString("p_6kiri")+"</td>"+
+                                    "<td align='center'>"+rs.getString("p_6kanan")+"</td>"+
                                     "<td align='center'>"+rs.getString("p_7")+"</td>"+
                                     "<td align='center'>"+rs.getString("p_8")+"</td>"+
                                     "<td align='center'>"+rs.getString("p_9")+"</td>"+
@@ -3276,10 +3271,10 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
                                         "<td align='right' colspan='2'>Jelaskan Nilai UN</td>"+
                                         "<td align='left' colspan='17'>"+
                                             "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'><tr class='isi2'>"+
-                                                (rs.getString("j_5kanan").isEmpty()?"":"<td align='right' width='7%'>5 Kanan</td><td> : "+rs.getString("j_5kanan")+"</td>")+
                                                 (rs.getString("j_5kiri").isEmpty()?"":"<td align='right' width='7%'>5 Kiri</td><td> : "+rs.getString("j_5kiri")+"</td>")+
-                                                (rs.getString("j_6kanan").isEmpty()?"":"<td align='right' width='7%'>6 Kanan</td><td> : "+rs.getString("j_6kanan")+"</td>")+
+                                                (rs.getString("j_5kanan").isEmpty()?"":"<td align='right' width='7%'>5 Kanan</td><td> : "+rs.getString("j_5kanan")+"</td>")+
                                                 (rs.getString("j_6kiri").isEmpty()?"":"<td align='right' width='7%'>6 Kiri</td><td> : "+rs.getString("j_6kiri")+"</td>")+
+                                                (rs.getString("j_6kanan").isEmpty()?"":"<td align='right' width='7%'>6 Kanan</td><td> : "+rs.getString("j_6kanan")+"</td>")+
                                                 (rs.getString("j_7").isEmpty()?"":"<td align='right' width='7%'>7</td><td> : "+rs.getString("j_7")+"</td>")+
                                                 (rs.getString("j_10").isEmpty()?"":"<td align='right' width='7%'>10</td><td> : "+rs.getString("j_10")+"</td>")+
                                             "</tr></table>"+
@@ -3450,21 +3445,6 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jrb4ActionPerformed
 
-    private void jrb5KananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb5KananActionPerformed
-        javax.swing.JRadioButton selectedRadio = (javax.swing.JRadioButton) evt.getSource();
-        String varName = selectedRadio.getName();
-    
-        if (varName != null && varName.contains("Nilai")) {
-            String nilai = varName.substring(varName.indexOf("Nilai") + 5);
-            lblSkor5Kanan.setText(nilai);
-            if(nilai.equals("UN")){
-                tb5KananUN.setEnabled(true);
-            } else {
-                tb5KananUN.setEnabled(false);
-            }
-        }
-    }//GEN-LAST:event_jrb5KananActionPerformed
-
     private void jrb5KiriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb5KiriActionPerformed
         javax.swing.JRadioButton selectedRadio = (javax.swing.JRadioButton) evt.getSource();
         String varName = selectedRadio.getName();
@@ -3479,6 +3459,21 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jrb5KiriActionPerformed
+
+    private void jrb5KananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb5KananActionPerformed
+        javax.swing.JRadioButton selectedRadio = (javax.swing.JRadioButton) evt.getSource();
+        String varName = selectedRadio.getName();
+    
+        if (varName != null && varName.contains("Nilai")) {
+            String nilai = varName.substring(varName.indexOf("Nilai") + 5);
+            lblSkor5Kanan.setText(nilai);
+            if(nilai.equals("UN")){
+                tb5KananUN.setEnabled(true);
+            } else {
+                tb5KananUN.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_jrb5KananActionPerformed
 
     private void jrb6KananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb6KananActionPerformed
         javax.swing.JRadioButton selectedRadio = (javax.swing.JRadioButton) evt.getSource();
@@ -3811,8 +3806,8 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
                 while(rs.next()){
                     tabMode.addRow(new String[]{
                         rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien"),rs.getString("tgl_lahir"),rs.getString("jk"),rs.getString("kd_penilai"),rs.getString("nama"),rs.getString("tgl_pemeriksaan"),
-                        rs.getString("total_skor"),rs.getString("defisit_neurologis"),rs.getString("p_1a"),rs.getString("p_1b"),rs.getString("p_1c"),rs.getString("p_2"),rs.getString("p_3"),rs.getString("p_4"),rs.getString("p_5kanan"),
-                        rs.getString("j_5kanan"),rs.getString("p_5kiri"),rs.getString("j_5kiri"),rs.getString("p_6kanan"),rs.getString("j_6kanan"),rs.getString("p_6kiri"),rs.getString("j_6kiri"),
+                        rs.getString("total_skor"),rs.getString("defisit_neurologis"),rs.getString("p_1a"),rs.getString("p_1b"),rs.getString("p_1c"),rs.getString("p_2"),rs.getString("p_3"),rs.getString("p_4"),rs.getString("p_5kiri"),rs.getString("j_5kiri"),
+                        rs.getString("p_5kanan"),rs.getString("j_5kanan"),rs.getString("p_6kiri"),rs.getString("j_6kiri"),rs.getString("p_6kanan"),rs.getString("j_6kanan"),
                         rs.getString("p_7"),rs.getString("j_7"),rs.getString("p_8"),rs.getString("p_9"),rs.getString("p_10"),rs.getString("j_10"),rs.getString("p_11")
                     });
                 }
@@ -3875,19 +3870,19 @@ public final class RMPenilaianStrokeNIHSS extends javax.swing.JDialog {
             selectRadioButton("2", tbObat.getValueAt(tbObat.getSelectedRow(),13).toString());
             selectRadioButton("3", tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
             selectRadioButton("4", tbObat.getValueAt(tbObat.getSelectedRow(),15).toString());
-            selectRadioButton("5Kanan", tbObat.getValueAt(tbObat.getSelectedRow(),16).toString());
-            selectRadioButton("5Kiri", tbObat.getValueAt(tbObat.getSelectedRow(),18).toString());
-            selectRadioButton("6Kanan", tbObat.getValueAt(tbObat.getSelectedRow(),20).toString());
-            selectRadioButton("6Kiri", tbObat.getValueAt(tbObat.getSelectedRow(),22).toString());
+            selectRadioButton("5Kiri", tbObat.getValueAt(tbObat.getSelectedRow(),16).toString());
+            selectRadioButton("5Kanan", tbObat.getValueAt(tbObat.getSelectedRow(),18).toString());
+            selectRadioButton("6Kiri", tbObat.getValueAt(tbObat.getSelectedRow(),20).toString());
+            selectRadioButton("6Kanan", tbObat.getValueAt(tbObat.getSelectedRow(),22).toString());
             selectRadioButton("7", tbObat.getValueAt(tbObat.getSelectedRow(),24).toString());
             selectRadioButton("8", tbObat.getValueAt(tbObat.getSelectedRow(),26).toString());
             selectRadioButton("9", tbObat.getValueAt(tbObat.getSelectedRow(),27).toString());
             selectRadioButton("10", tbObat.getValueAt(tbObat.getSelectedRow(),28).toString());
             selectRadioButton("11", tbObat.getValueAt(tbObat.getSelectedRow(),30).toString());
-            tb5KananUN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),17).toString());
-            tb5KiriUN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),19).toString());
-            tb6KananUN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),21).toString());
-            tb6KiriUN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),23).toString());
+            tb5KiriUN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),17).toString());
+            tb5KananUN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),19).toString());
+            tb6KiriUN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),21).toString());
+            tb6KananUN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),23).toString());
             tb7UN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),25).toString());
             tb10UN.setText(tbObat.getValueAt(tbObat.getSelectedRow(),29).toString());
         }

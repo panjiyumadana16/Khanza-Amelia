@@ -1638,7 +1638,7 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         panelGlass7.add(label40);
         label40.setBounds(10, 10, 200, 23);
 
-        tgl3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-07-2025 11:44:30" }));
+        tgl3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-11-2026 10:32:08" }));
         tgl3.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         tgl3.setName("tgl3"); // NOI18N
         panelGlass7.add(tgl3);
@@ -1651,7 +1651,7 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         panelGlass7.add(label12);
         label12.setBounds(10, 60, 200, 23);
 
-        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-07-2025 11:01:48" }));
+        tgl2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-11-2026 10:32:08" }));
         tgl2.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         tgl2.setName("tgl2"); // NOI18N
         panelGlass7.add(tgl2);
@@ -1773,7 +1773,7 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         internalFrame1.add(scrollPane1, java.awt.BorderLayout.CENTER);
 
         panelisi3.setName("panelisi3"); // NOI18N
-        panelisi3.setPreferredSize(new java.awt.Dimension(100, 73));
+        panelisi3.setPreferredSize(new java.awt.Dimension(100, 80));
         panelisi3.setLayout(null);
 
         label11.setText("Tanggal :");
@@ -1796,7 +1796,7 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         label13.setName("label13"); // NOI18N
         label13.setPreferredSize(new java.awt.Dimension(70, 23));
         panelisi3.add(label13);
-        label13.setBounds(385, 10, 60, 23);
+        label13.setBounds(350, 10, 60, 23);
 
         kdmem.setName("kdmem"); // NOI18N
         kdmem.setPreferredSize(new java.awt.Dimension(80, 23));
@@ -1806,13 +1806,13 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
             }
         });
         panelisi3.add(kdmem);
-        kdmem.setBounds(449, 10, 80, 23);
+        kdmem.setBounds(420, 10, 80, 23);
 
         nmmem.setEditable(false);
         nmmem.setName("nmmem"); // NOI18N
         nmmem.setPreferredSize(new java.awt.Dimension(207, 23));
         panelisi3.add(nmmem);
-        nmmem.setBounds(531, 10, 240, 23);
+        nmmem.setBounds(500, 10, 240, 23);
 
         BtnCari5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         BtnCari5.setMnemonic('2');
@@ -1825,7 +1825,7 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
             }
         });
         panelisi3.add(BtnCari5);
-        BtnCari5.setBounds(774, 10, 28, 23);
+        BtnCari5.setBounds(740, 10, 28, 23);
 
         label18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label18.setText("s.d.");

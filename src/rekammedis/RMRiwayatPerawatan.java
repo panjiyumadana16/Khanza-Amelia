@@ -21903,10 +21903,10 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%' rowspan='2'>11</td>"+
                                     "</tr>"+
                                     "<tr class='isi'>"+
-                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kanan</td>"+
                                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kiri</td>"+
                                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kanan</td>"+
                                         "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kiri</td>"+
+                                        "<td valign='middle' bgcolor='#FFFFF8' align='center' width='4%'>Kanan</td>"+
                                     "</tr>");
                         rs2.beforeFirst();
                         while(rs2.next()){
@@ -21920,10 +21920,10 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                 "<td align='center'>"+rs2.getString("p_2")+"</td>"+
                                 "<td align='center'>"+rs2.getString("p_3")+"</td>"+
                                 "<td align='center'>"+rs2.getString("p_4")+"</td>"+
-                                "<td align='center'>"+rs2.getString("p_5kanan")+"</td>"+
                                 "<td align='center'>"+rs2.getString("p_5kiri")+"</td>"+
-                                "<td align='center'>"+rs2.getString("p_6kanan")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_5kanan")+"</td>"+
                                 "<td align='center'>"+rs2.getString("p_6kiri")+"</td>"+
+                                "<td align='center'>"+rs2.getString("p_6kanan")+"</td>"+
                                 "<td align='center'>"+rs2.getString("p_7")+"</td>"+
                                 "<td align='center'>"+rs2.getString("p_8")+"</td>"+
                                 "<td align='center'>"+rs2.getString("p_9")+"</td>"+
@@ -21942,10 +21942,10 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                     "<td align='right' colspan='2'>Jelaskan : </td>"+
                                     "<td align='left' colspan='17'>"+
                                         "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'><tr class='isi'>"+
-                                            (rs2.getString("j_5kanan").isEmpty()?"":"<td align='right' width='7%'> UN 5 Kanan</td><td> : "+rs2.getString("j_5kanan")+"</td>")+
                                             (rs2.getString("j_5kiri").isEmpty()?"":"<td align='right' width='7%'> UN 5 Kiri</td><td> : "+rs2.getString("j_5kiri")+"</td>")+
-                                            (rs2.getString("j_6kanan").isEmpty()?"":"<td align='right' width='7%'> UN 6 Kanan</td><td> : "+rs2.getString("j_6kanan")+"</td>")+
+                                            (rs2.getString("j_5kanan").isEmpty()?"":"<td align='right' width='7%'> UN 5 Kanan</td><td> : "+rs2.getString("j_5kanan")+"</td>")+
                                             (rs2.getString("j_6kiri").isEmpty()?"":"<td align='right' width='7%'> UN 6 Kiri</td><td> : "+rs2.getString("j_6kiri")+"</td>")+
+                                            (rs2.getString("j_6kanan").isEmpty()?"":"<td align='right' width='7%'> UN 6 Kanan</td><td> : "+rs2.getString("j_6kanan")+"</td>")+
                                             (rs2.getString("j_7").isEmpty()?"":"<td align='right' width='7%'> UN 7</td><td> : "+rs2.getString("j_7")+"</td>")+
                                             (rs2.getString("j_10").isEmpty()?"":"<td align='right' width='7%'> UN 10</td><td> : "+rs2.getString("j_10")+"</td>")+
                                         "</tr></table>"+

@@ -47,6 +47,8 @@ public class LaporanTahunanIGD extends javax.swing.JDialog {
         LoadHTML4.setEditorKit(kit);
         LoadHTML5.setEditable(true);
         LoadHTML5.setEditorKit(kit);
+        LoadHTML6.setEditable(true);
+        LoadHTML6.setEditorKit(kit);
         StyleSheet styleSheet = kit.getStyleSheet();
         styleSheet.addRule(
                 ".isi td{border-right: 1px solid #e2e7dd;font: 8.5px tahoma;height:12px;border-bottom: 1px solid #e2e7dd;background: #ffffff;color:#323232;}"+
@@ -62,6 +64,7 @@ public class LaporanTahunanIGD extends javax.swing.JDialog {
         LoadHTML3.setDocument(doc);
         LoadHTML4.setDocument(doc);
         LoadHTML5.setDocument(doc);
+        LoadHTML6.setDocument(doc);
         
         Valid.LoadTahun(ThnCari);
     }
@@ -97,6 +100,8 @@ public class LaporanTahunanIGD extends javax.swing.JDialog {
         LoadHTML4 = new widget.editorpane();
         Scroll6 = new widget.ScrollPane();
         LoadHTML5 = new widget.editorpane();
+        Scroll7 = new widget.ScrollPane();
+        LoadHTML6 = new widget.editorpane();
 
         Kd2.setName("Kd2"); // NOI18N
         Kd2.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -258,6 +263,16 @@ public class LaporanTahunanIGD extends javax.swing.JDialog {
 
         TabRawat.addTab("Status Pelayanan", Scroll6);
 
+        Scroll7.setBorder(null);
+        Scroll7.setName("Scroll7"); // NOI18N
+        Scroll7.setOpaque(true);
+
+        LoadHTML6.setBorder(null);
+        LoadHTML6.setName("LoadHTML6"); // NOI18N
+        Scroll7.setViewportView(LoadHTML6);
+
+        TabRawat.addTab("Emergency / Triase", Scroll7);
+
         internalFrame1.add(TabRawat, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
@@ -295,7 +310,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                                         "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
                                         akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
                                         akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI RAWAT JALAN PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+        
+                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI GAWAT DARURAT PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+        
                                     "</td>"+
                                "</tr>"+
                             "</table>")
@@ -309,7 +324,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                                         "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
                                         akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
                                         akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI RAWAT JALAN PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
+                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI GAWAT DARURAT PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
                                     "</td>"+
                                "</tr>"+
                             "</table>")
@@ -323,7 +338,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                                         "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
                                         akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
                                         akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI RAWAT JALAN PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
+                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI GAWAT DARURAT PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
                                     "</td>"+
                                "</tr>"+
                             "</table>")
@@ -337,7 +352,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                                         "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
                                         akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
                                         akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI RAWAT JALAN PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
+                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI GAWAT DARURAT PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
                                     "</td>"+
                                "</tr>"+
                             "</table>")
@@ -351,7 +366,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                                         "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
                                         akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
                                         akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI RAWAT JALAN PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
+                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI GAWAT DARURAT PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
                                     "</td>"+
                                "</tr>"+
                             "</table>")
@@ -365,13 +380,27 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                                         "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
                                         akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
                                         akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI RAWAT JALAN PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
+                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI GAWAT DARURAT PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
                                     "</td>"+
                                "</tr>"+
                             "</table>")
                 );
                 bw.close();
-            }                          
+            }else if(TabRawat.getSelectedIndex()==6){
+                bw.write(LoadHTML6.getText().replaceAll("<head>","<head><link href=\"file2.css\" rel=\"stylesheet\" type=\"text/css\" />"+
+                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                "<tr class='isi5'>"+
+                                    "<td valign='top' align='center'>"+
+                                        "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
+                                        akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
+                                        akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
+                                        "<font size='2' face='Tahoma'>LAPORAN TAHUNAN INSTALASI GAWAT DARURAT PERIODE "+ThnCari.getSelectedItem()+"<br><br></font>"+      
+                                    "</td>"+
+                               "</tr>"+
+                            "</table>")
+                );
+                bw.close();
+            }                  
             Desktop.getDesktop().browse(f.toURI());
         } catch (Exception e) {
             System.out.println("Notifikasi : "+e);
@@ -446,6 +475,8 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
             prosesCari5();
         }else if(TabRawat.getSelectedIndex()==5){
             prosesCari6();
+        }else if(TabRawat.getSelectedIndex()==6){
+            prosesCari7();
         }
     }//GEN-LAST:event_TabRawatMouseClicked
 
@@ -475,12 +506,14 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
     private widget.editorpane LoadHTML3;
     private widget.editorpane LoadHTML4;
     private widget.editorpane LoadHTML5;
+    private widget.editorpane LoadHTML6;
     private widget.ScrollPane Scroll;
     private widget.ScrollPane Scroll1;
     private widget.ScrollPane Scroll2;
     private widget.ScrollPane Scroll3;
     private widget.ScrollPane Scroll4;
     private widget.ScrollPane Scroll6;
+    private widget.ScrollPane Scroll7;
     private javax.swing.JTabbedPane TabRawat;
     private widget.ComboBox ThnCari;
     private widget.Button btnCari;
@@ -1673,6 +1706,321 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
                 "</tr>"
             );
             LoadHTML4.setText(
+                    "<html>"+
+                      "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                       htmlContent.toString()+
+                      "</table>"+
+                    "</html>");
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        } 
+        this.setCursor(Cursor.getDefaultCursor());
+    }
+    
+    private void prosesCari7() {
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        try {
+            htmlContent = new StringBuilder();
+            htmlContent.append(                             
+                "<tr class='isi'>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='2%' rowspan='2'>No</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='20%' rowspan='2'>Status Emergency/Triase</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='78%' colspan='17'>Jumlah Pasien</td>"+
+                "</tr>"+                            
+                "<tr class='isi'>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Jan "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Feb "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Mar "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>TW I "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Apr "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Mei "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Jun "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>TW II "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Jul "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Agus "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Sep "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>TW III "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Okt "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Nov "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Des "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>TW IV "+ThnCari.getSelectedItem()+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFAFA' align='center'>Total</td>"+
+                "</tr>"
+            );            
+            
+            ttljan=0;ttlfeb=0;ttlmar=0;ttlapr=0;ttlmei=0;ttljun=0;ttljul=0;ttlagu=0;ttlsep=0;ttlokt=0;ttlnov=0;ttldes=0;
+            
+            jan=0;
+            jan=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-01'");
+            feb=0;
+            feb=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-02'");
+            mar=0;
+            mar=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-03'");
+            apr=0;
+            apr=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-04'");
+            mei=0;
+            mei=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-05'");
+            jun=0;
+            jun=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-06'");
+            jul=0;
+            jul=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-07'");
+            agu=0;
+            agu=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-08'");
+            sep=0;
+            sep=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-09'");
+            okt=0;
+            okt=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-10'");
+            nov=0;
+            nov=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-11'");
+            des=0;
+            des=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Hijau' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-12'");
+
+            ttljan=ttljan+jan;
+            ttlfeb=ttlfeb+feb;
+            ttlmar=ttlmar+mar;
+            ttlapr=ttlapr+apr;
+            ttlmei=ttlmei+mei;
+            ttljun=ttljun+jun;
+            ttljul=ttljul+jul;
+            ttlagu=ttlagu+agu;
+            ttlsep=ttlsep+sep;
+            ttlokt=ttlokt+okt;
+            ttlnov=ttlnov+nov;
+            ttldes=ttldes+des;
+                    
+            htmlContent.append(
+                "<tr class='isi'>"+
+                    "<td valign='middle' align='center'>1</td>"+
+                    "<td valign='middle' align='left' bgcolor='#C6EFCE'>Zona Hijau (Semi Urgensi)</td>"+
+                    "<td valign='middle' align='center'>"+jan+"</td>"+
+                    "<td valign='middle' align='center'>"+feb+"</td>"+
+                    "<td valign='middle' align='center'>"+mar+"</td>"+
+                    "<td valign='middle' align='center'>"+(jan+feb+mar)+"</td>"+
+                    "<td valign='middle' align='center'>"+apr+"</td>"+
+                    "<td valign='middle' align='center'>"+mei+"</td>"+
+                    "<td valign='middle' align='center'>"+jun+"</td>"+
+                    "<td valign='middle' align='center'>"+(apr+mei+jun)+"</td>"+
+                    "<td valign='middle' align='center'>"+jul+"</td>"+
+                    "<td valign='middle' align='center'>"+agu+"</td>"+
+                    "<td valign='middle' align='center'>"+sep+"</td>"+
+                    "<td valign='middle' align='center'>"+(jul+agu+sep)+"</td>"+
+                    "<td valign='middle' align='center'>"+okt+"</td>"+
+                    "<td valign='middle' align='center'>"+nov+"</td>"+
+                    "<td valign='middle' align='center'>"+des+"</td>"+
+                    "<td valign='middle' align='center'>"+(okt+nov+des)+"</td>"+
+                    "<td valign='middle' align='center'>"+(jan+feb+mar+apr+mei+jun+jul+agu+sep+okt+nov+des)+"</td>"+
+                "</tr>"
+            );
+            
+            jan=0;
+            jan=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-01'");
+            feb=0;
+            feb=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-02'");
+            mar=0;
+            mar=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-03'");
+            apr=0;
+            apr=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-04'");
+            mei=0;
+            mei=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-05'");
+            jun=0;
+            jun=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-06'");
+            jul=0;
+            jul=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-07'");
+            agu=0;
+            agu=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-08'");
+            sep=0;
+            sep=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-09'");
+            okt=0;
+            okt=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-10'");
+            nov=0;
+            nov=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-11'");
+            des=0;
+            des=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdsekunder on data_triase_igdsekunder.no_rawat = data_triase_igd.no_rawat where data_triase_igdsekunder.plan='Zona Kuning' and DATE_FORMAT(data_triase_igdsekunder.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-12'");
+
+            ttljan=ttljan+jan;
+            ttlfeb=ttlfeb+feb;
+            ttlmar=ttlmar+mar;
+            ttlapr=ttlapr+apr;
+            ttlmei=ttlmei+mei;
+            ttljun=ttljun+jun;
+            ttljul=ttljul+jul;
+            ttlagu=ttlagu+agu;
+            ttlsep=ttlsep+sep;
+            ttlokt=ttlokt+okt;
+            ttlnov=ttlnov+nov;
+            ttldes=ttldes+des;
+                    
+            htmlContent.append(
+                "<tr class='isi'>"+
+                    "<td valign='middle' align='center'>2</td>"+
+                    "<td valign='middle' align='left' bgcolor='#FFEB9C'>Zona Kuning (Urgensi)</td>"+
+                    "<td valign='middle' align='center'>"+jan+"</td>"+
+                    "<td valign='middle' align='center'>"+feb+"</td>"+
+                    "<td valign='middle' align='center'>"+mar+"</td>"+
+                    "<td valign='middle' align='center'>"+(jan+feb+mar)+"</td>"+
+                    "<td valign='middle' align='center'>"+apr+"</td>"+
+                    "<td valign='middle' align='center'>"+mei+"</td>"+
+                    "<td valign='middle' align='center'>"+jun+"</td>"+
+                    "<td valign='middle' align='center'>"+(apr+mei+jun)+"</td>"+
+                    "<td valign='middle' align='center'>"+jul+"</td>"+
+                    "<td valign='middle' align='center'>"+agu+"</td>"+
+                    "<td valign='middle' align='center'>"+sep+"</td>"+
+                    "<td valign='middle' align='center'>"+(jul+agu+sep)+"</td>"+
+                    "<td valign='middle' align='center'>"+okt+"</td>"+
+                    "<td valign='middle' align='center'>"+nov+"</td>"+
+                    "<td valign='middle' align='center'>"+des+"</td>"+
+                    "<td valign='middle' align='center'>"+(okt+nov+des)+"</td>"+
+                    "<td valign='middle' align='center'>"+(jan+feb+mar+apr+mei+jun+jul+agu+sep+okt+nov+des)+"</td>"+
+                "</tr>"
+            );
+            
+            jan=0;
+            jan=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-01'");
+            feb=0;
+            feb=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-02'");
+            mar=0;
+            mar=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-03'");
+            apr=0;
+            apr=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-04'");
+            mei=0;
+            mei=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-05'");
+            jun=0;
+            jun=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-06'");
+            jul=0;
+            jul=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-07'");
+            agu=0;
+            agu=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-08'");
+            sep=0;
+            sep=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-09'");
+            okt=0;
+            okt=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-10'");
+            nov=0;
+            nov=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-11'");
+            des=0;
+            des=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Kritis' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-12'");
+
+            ttljan=ttljan+jan;
+            ttlfeb=ttlfeb+feb;
+            ttlmar=ttlmar+mar;
+            ttlapr=ttlapr+apr;
+            ttlmei=ttlmei+mei;
+            ttljun=ttljun+jun;
+            ttljul=ttljul+jul;
+            ttlagu=ttlagu+agu;
+            ttlsep=ttlsep+sep;
+            ttlokt=ttlokt+okt;
+            ttlnov=ttlnov+nov;
+            ttldes=ttldes+des;
+                    
+            htmlContent.append(
+                "<tr class='isi'>"+
+                    "<td valign='middle' align='center'>3</td>"+
+                    "<td valign='middle' align='left' bgcolor='#FFC7CE'>Zona Merah (Emergensi) : Ruang Kritis</td>"+
+                    "<td valign='middle' align='center'>"+jan+"</td>"+
+                    "<td valign='middle' align='center'>"+feb+"</td>"+
+                    "<td valign='middle' align='center'>"+mar+"</td>"+
+                    "<td valign='middle' align='center'>"+(jan+feb+mar)+"</td>"+
+                    "<td valign='middle' align='center'>"+apr+"</td>"+
+                    "<td valign='middle' align='center'>"+mei+"</td>"+
+                    "<td valign='middle' align='center'>"+jun+"</td>"+
+                    "<td valign='middle' align='center'>"+(apr+mei+jun)+"</td>"+
+                    "<td valign='middle' align='center'>"+jul+"</td>"+
+                    "<td valign='middle' align='center'>"+agu+"</td>"+
+                    "<td valign='middle' align='center'>"+sep+"</td>"+
+                    "<td valign='middle' align='center'>"+(jul+agu+sep)+"</td>"+
+                    "<td valign='middle' align='center'>"+okt+"</td>"+
+                    "<td valign='middle' align='center'>"+nov+"</td>"+
+                    "<td valign='middle' align='center'>"+des+"</td>"+
+                    "<td valign='middle' align='center'>"+(okt+nov+des)+"</td>"+
+                    "<td valign='middle' align='center'>"+(jan+feb+mar+apr+mei+jun+jul+agu+sep+okt+nov+des)+"</td>"+
+                "</tr>"
+            );
+            
+            jan=0;
+            jan=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-01'");
+            feb=0;
+            feb=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-02'");
+            mar=0;
+            mar=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-03'");
+            apr=0;
+            apr=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-04'");
+            mei=0;
+            mei=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-05'");
+            jun=0;
+            jun=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-06'");
+            jul=0;
+            jul=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-07'");
+            agu=0;
+            agu=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-08'");
+            sep=0;
+            sep=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-09'");
+            okt=0;
+            okt=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-10'");
+            nov=0;
+            nov=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-11'");
+            des=0;
+            des=Sequel.cariInteger("select count(data_triase_igd.no_rawat) from data_triase_igd inner join data_triase_igdprimer on data_triase_igdprimer.no_rawat = data_triase_igd.no_rawat where data_triase_igdprimer.plan='Ruang Resusitasi' and DATE_FORMAT(data_triase_igdprimer.tanggaltriase, '%Y-%m')='"+ThnCari.getSelectedItem()+"-12'");
+
+            ttljan=ttljan+jan;
+            ttlfeb=ttlfeb+feb;
+            ttlmar=ttlmar+mar;
+            ttlapr=ttlapr+apr;
+            ttlmei=ttlmei+mei;
+            ttljun=ttljun+jun;
+            ttljul=ttljul+jul;
+            ttlagu=ttlagu+agu;
+            ttlsep=ttlsep+sep;
+            ttlokt=ttlokt+okt;
+            ttlnov=ttlnov+nov;
+            ttldes=ttldes+des;
+                    
+            htmlContent.append(
+                "<tr class='isi'>"+
+                    "<td valign='middle' align='center'>4</td>"+
+                    "<td valign='middle' align='left' bgcolor='#FFC7CE'>Zona Merah (Emergensi) : Ruang Resusitasi</td>"+
+                    "<td valign='middle' align='center'>"+jan+"</td>"+
+                    "<td valign='middle' align='center'>"+feb+"</td>"+
+                    "<td valign='middle' align='center'>"+mar+"</td>"+
+                    "<td valign='middle' align='center'>"+(jan+feb+mar)+"</td>"+
+                    "<td valign='middle' align='center'>"+apr+"</td>"+
+                    "<td valign='middle' align='center'>"+mei+"</td>"+
+                    "<td valign='middle' align='center'>"+jun+"</td>"+
+                    "<td valign='middle' align='center'>"+(apr+mei+jun)+"</td>"+
+                    "<td valign='middle' align='center'>"+jul+"</td>"+
+                    "<td valign='middle' align='center'>"+agu+"</td>"+
+                    "<td valign='middle' align='center'>"+sep+"</td>"+
+                    "<td valign='middle' align='center'>"+(jul+agu+sep)+"</td>"+
+                    "<td valign='middle' align='center'>"+okt+"</td>"+
+                    "<td valign='middle' align='center'>"+nov+"</td>"+
+                    "<td valign='middle' align='center'>"+des+"</td>"+
+                    "<td valign='middle' align='center'>"+(okt+nov+des)+"</td>"+
+                    "<td valign='middle' align='center'>"+(jan+feb+mar+apr+mei+jun+jul+agu+sep+okt+nov+des)+"</td>"+
+                "</tr>"
+            );
+            
+            htmlContent.append(
+                "<tr class='isi'>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='right' colspan='2'>JUMLAH : </td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttljan+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttlfeb+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttlmar+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+(ttljan+ttlfeb+ttlmar)+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttlapr+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttlmei+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttljun+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+(ttlapr+ttlmei+ttljun)+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttljul+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttlagu+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttlsep+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+(ttljul+ttlagu+ttlsep)+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttlokt+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttlnov+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+ttldes+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+(ttlokt+ttlnov+ttldes)+"</td>"+
+                    "<td valign='middle' bgcolor='#FFFFF8' align='center'>"+(ttljan+ttlfeb+ttlmar+ttlapr+ttlmei+ttljun+ttljul+ttlagu+ttlsep+ttlokt+ttlnov+ttldes)+"</td>"+
+                "</tr>"
+            );
+            LoadHTML6.setText(
                     "<html>"+
                       "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
                        htmlContent.toString()+

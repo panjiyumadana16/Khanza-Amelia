@@ -938,6 +938,7 @@ import setting.DlgJamDietPasien;
 import setting.DlgPasswordBPJS;
 import setting.DlgRuangOperasi;
 import setting.DlgSetHargaToko;
+import setting.DlgWarningCode;
 import smsui.frmSmsView;
 import surat.MasterTemplatePersetujuanPenolakanTindakan;
 import surat.PengumumanEPasien;
@@ -1040,13 +1041,19 @@ public class frmUtama extends javax.swing.JFrame {
     private final Properties prop = new Properties();  
     private int jmlmenu=0,grid=0,tinggi=0,i=0,menuawal=0;
     private String coder_nik="",pilihpage="",judulform="",tampilkantni=Sequel.cariIsi("select set_tni_polri.tampilkan_tni_polri from set_tni_polri"),
-            AKTIFKANTRACKSQL=koneksiDB.AKTIFKANTRACKSQL();
+            AKTIFKANTRACKSQL=koneksiDB.AKTIFKANTRACKSQL(), WARNINGCODEMATERNAL="";
+        // Tambahkan variabel global di class frmUtama
+    private javax.swing.Timer timerWarningCode;
+    private javax.sound.sampled.Clip alarmClip;
+    private String lastNotifKey = ""; // Penanda agar pop-up tidak muncul berulang kali
     
     private frmUtama() {
         super();
         initComponents();
         initKhanza();
         setIconImage(new ImageIcon(super.getClass().getResource("/picture/yaski24.png")).getImage());
+        if(koneksiDB.WARNINGCODEMATERNAL() != null) WARNINGCODEMATERNAL = koneksiDB.WARNINGCODEMATERNAL();
+        jalankanMonitorWarningCode();
         
         this.setExtendedState(MAXIMIZED_BOTH);
         //this.setSize(screen.width,screen.height);
@@ -1643,6 +1650,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnClinicalPathway = new widget.ButtonBig();
         btnSkriningResikoJatuhRajal = new widget.ButtonBig();
         btnPenilaianNIHSS = new widget.ButtonBig();
+        btnWarningCode = new widget.ButtonBig();
         internalFrame1 = new widget.InternalFrame();
         BtnMenu = new widget.ButtonBig();
         jSeparator4 = new javax.swing.JSeparator();
@@ -1939,7 +1947,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13/10/2026" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17/11/2026" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -7047,6 +7055,17 @@ public class frmUtama extends javax.swing.JFrame {
         btnPenilaianNIHSS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPenilaianNIHSSActionPerformed(evt);
+            }
+        });
+
+        btnWarningCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/iconfinder_dialog-warning_118940.png"))); // NOI18N
+        btnWarningCode.setText("Warning Code Control");
+        btnWarningCode.setIconTextGap(0);
+        btnWarningCode.setName("btnWarningCode"); // NOI18N
+        btnWarningCode.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnWarningCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWarningCodeActionPerformed(evt);
             }
         });
 
@@ -14632,6 +14651,19 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnPenilaianNIHSSActionPerformed
 
+    private void btnWarningCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWarningCodeActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgWarningCode form=new DlgWarningCode(null,false);
+        form.emptTeks();
+        form.tampil();
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnWarningCodeActionPerformed
+
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -21769,6 +21801,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnUTDPenyerahanDarah;
     private widget.ButtonBig btnUTDStokDarah;
     private widget.ButtonBig btnVakum;
+    private widget.ButtonBig btnWarningCode;
     private widget.ButtonBig btnakun_bayar;
     private widget.ButtonBig btnbayar_pemesanan;
     private widget.ButtonBig btnfee_bacaan_ekg;
@@ -26998,6 +27031,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
                 Panelmenu.add(btnRuangOperasi);
                 jmlmenu++;
             }
+            
+            if(akses.getwarning_code()==true){
+                Panelmenu.add(btnWarningCode);
+                jmlmenu++;
+            }
         }    
     }
 
@@ -32032,6 +32070,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         
         if(akses.getpenilaian_nihss()==true){
             Panelmenu.add(btnPenilaianNIHSS);
+            jmlmenu++;
+        }
+        
+        if(akses.getwarning_code()==true){
+            Panelmenu.add(btnWarningCode);
             jmlmenu++;
         }
     }
@@ -39095,6 +39138,13 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             }
         }
         
+        if(akses.getwarning_code()==true){
+            if(btnWarningCode.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnWarningCode);
+                jmlmenu++;
+            }
+        }
+        
     }
 
     private void initKhanza() {
@@ -43483,5 +43533,234 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         btnKirimCarePlanSatuSehat.setPreferredSize(new java.awt.Dimension(200, 90));
         btnKirimCarePlanSatuSehat.addActionListener(this::btnKirimCarePlanSatuSehatActionPerformed);
     }
+
+    // Panggil method ini di dalam constructor public frmUtama()
+    private void jalankanMonitorWarningCode() {
+        timerWarningCode = new javax.swing.Timer(5000, new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                cekWarningCode();
+            }
+        });
+        timerWarningCode.start();
+    }
+
+    private void cekWarningCode() {
+        try (java.sql.PreparedStatement ps = koneksiDB.condb().prepareStatement(
+                "SELECT code, keterangan FROM warning_code LIMIT 1");
+             java.sql.ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                String kode = rs.getString("code");
+                String ket = rs.getString("keterangan");
+                if (ket == null) ket = "";
+
+                // Buat kunci unik dari kombinasi code dan keterangan
+                String currentKey = kode + "|" + ket;
+
+                // Munculkan pop-up hanya jika ada peringatan baru yang belum ditampilkan
+                if (!currentKey.equals(lastNotifKey)) {
+                    lastNotifKey = currentKey;
+                    if(kode.equalsIgnoreCase("code maternal") && WARNINGCODEMATERNAL.equals("yes")){
+                        tampilkanNotifDaruratMaternal(kode, ket);
+                    } else if (!kode.equalsIgnoreCase("code maternal")) {
+                        tampilkanNotifDarurat(kode, ket);
+                    }
+                }
+            } else {
+                // Reset penanda jika tabel warning_code sudah dikosongkan (emergency selesai)
+                lastNotifKey = "";
+            }
+        } catch (Exception ex) {
+            System.out.println("Notif Warning Code Error : " + ex);
+        }
+    }
+
+    private void tampilkanNotifDaruratMaternal(String kode, String keterangan) {
+        // Mulai memutar alarm berulang
+        putarAlarmBerulang("suara/alarm_maternal.wav");
+
+        javax.swing.JDialog dialog = new javax.swing.JDialog(this, "PERINGATAN DARURAT!", false);
+        dialog.setAlwaysOnTop(true);
+        dialog.setSize(480, 260);
+        dialog.setLocationRelativeTo(null);
+
+        dialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                hentikanAlarm();
+            }
+        });
+
+        // Panel Utama (Ungu Gelap)
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.BorderLayout(12, 12));
+        panel.setBackground(new java.awt.Color(102, 0, 102)); 
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(18, 20, 18, 20));
+
+        javax.swing.JLabel lblJudul = new javax.swing.JLabel("!!! " + kode.toUpperCase() + " !!!", javax.swing.SwingConstants.CENTER);
+        lblJudul.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 22));
+        lblJudul.setForeground(java.awt.Color.WHITE);
+
+        // Kotak Keterangan (Warna Ungu Terang / Lavender)
+        javax.swing.JTextArea txtInfo = new javax.swing.JTextArea(keterangan);
+        txtInfo.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 15));
+        txtInfo.setForeground(new java.awt.Color(51, 0, 51)); // Teks ungu sangat gelap agar kontras & mudah dibaca
+        txtInfo.setBackground(new java.awt.Color(243, 229, 245)); // Latar kotak ungu terang (lavender)
+        txtInfo.setEditable(false);
+        txtInfo.setLineWrap(true);
+        txtInfo.setWrapStyleWord(true);
+
+        // Beri garis bingkai luar dan jarak tepi dalam (padding) agar membentuk kotak rapi
+        txtInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(206, 147, 216), 2), // Garis tepi ungu cerah
+            javax.swing.BorderFactory.createEmptyBorder(12, 14, 12, 14) // Jarak teks dari pinggir kotak
+        ));
+
+        // Bungkus dalam JScrollPane agar teks panjang tetap rapi dan tidak meluber
+        javax.swing.JScrollPane scrollInfo = new javax.swing.JScrollPane(txtInfo);
+        scrollInfo.setBorder(null);
+
+        // Tombol Tutup
+        javax.swing.JButton btnTutup = new javax.swing.JButton("MATIKAN ALARM & TUTUP");
+        btnTutup.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 12));
+        btnTutup.setBackground(java.awt.Color.WHITE);
+        btnTutup.setForeground(new java.awt.Color(102, 0, 102));
+        btnTutup.setFocusPainted(false);
+        btnTutup.addActionListener(e -> {
+            hentikanAlarm();
+            dialog.dispose();
+        });
+
+        panel.add(lblJudul, java.awt.BorderLayout.NORTH);
+        panel.add(scrollInfo, java.awt.BorderLayout.CENTER);
+        panel.add(btnTutup, java.awt.BorderLayout.SOUTH);
+
+        dialog.add(panel);
+        dialog.setVisible(true);
+    }
     
+    private void tampilkanNotifDarurat(String kode, String keterangan) {
+        // Mulai memutar alarm berulang
+        putarAlarmBerulang("suara/alarm_warning.wav");
+
+        javax.swing.JDialog dialog = new javax.swing.JDialog(this, "PERINGATAN DARURAT!", false);
+        dialog.setAlwaysOnTop(true);
+        dialog.setSize(480, 260);
+        dialog.setLocationRelativeTo(null);
+
+        dialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                hentikanAlarm();
+            }
+        });
+
+        // Panel Utama (Ungu Gelap)
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.BorderLayout(12, 12));
+        if(kode.equalsIgnoreCase("code red")){
+            panel.setBackground(new java.awt.Color(255, 0, 0)); 
+        }
+        if(kode.equalsIgnoreCase("code blue")){
+            panel.setBackground(new java.awt.Color(0, 0, 255)); 
+        }
+        if(kode.equalsIgnoreCase("code pink")){
+            panel.setBackground(new java.awt.Color(255, 0, 255)); 
+        }
+        if(kode.equalsIgnoreCase("code black")){
+            panel.setBackground(new java.awt.Color(0, 0, 0)); 
+        }
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(18, 20, 18, 20));
+
+        javax.swing.JLabel lblJudul = new javax.swing.JLabel("!!! " + kode.toUpperCase() + " !!!", javax.swing.SwingConstants.CENTER);
+        lblJudul.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 22));
+        lblJudul.setForeground(java.awt.Color.WHITE);
+
+        // Kotak Keterangan (Warna Ungu Terang / Lavender)
+        javax.swing.JTextArea txtInfo = new javax.swing.JTextArea(keterangan);
+        txtInfo.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 15));
+        if(kode.equalsIgnoreCase("code red")){
+            txtInfo.setForeground(new java.awt.Color(0, 0, 0));
+            txtInfo.setBackground(new java.awt.Color(255, 204, 204));
+        }
+        if(kode.equalsIgnoreCase("code blue")){
+            txtInfo.setForeground(new java.awt.Color(0, 0, 0));
+            txtInfo.setBackground(new java.awt.Color(204, 204, 255));
+        }
+        if(kode.equalsIgnoreCase("code pink")){
+            txtInfo.setForeground(new java.awt.Color(0, 0, 0));
+            txtInfo.setBackground(new java.awt.Color(255, 204, 255));
+        }
+        if(kode.equalsIgnoreCase("code black")){
+            txtInfo.setForeground(new java.awt.Color(0, 0, 0));
+            txtInfo.setBackground(new java.awt.Color(255, 255, 255));
+        }
+        txtInfo.setEditable(false);
+        txtInfo.setLineWrap(true);
+        txtInfo.setWrapStyleWord(true);
+
+        // Beri garis bingkai luar dan jarak tepi dalam (padding) agar membentuk kotak rapi
+        txtInfo.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51), 2),
+            javax.swing.BorderFactory.createEmptyBorder(12, 14, 12, 14)
+        ));
+
+        // Bungkus dalam JScrollPane agar teks panjang tetap rapi dan tidak meluber
+        javax.swing.JScrollPane scrollInfo = new javax.swing.JScrollPane(txtInfo);
+        scrollInfo.setBorder(null);
+
+        // Tombol Tutup
+        javax.swing.JButton btnTutup = new javax.swing.JButton("MATIKAN ALARM & TUTUP");
+        btnTutup.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 12));
+        btnTutup.setBackground(java.awt.Color.WHITE);
+        btnTutup.setForeground(new java.awt.Color(51, 51, 51));
+        btnTutup.setFocusPainted(false);
+        btnTutup.addActionListener(e -> {
+            hentikanAlarm();
+            dialog.dispose();
+        });
+
+        panel.add(lblJudul, java.awt.BorderLayout.NORTH);
+        panel.add(scrollInfo, java.awt.BorderLayout.CENTER);
+        panel.add(btnTutup, java.awt.BorderLayout.SOUTH);
+
+        dialog.add(panel);
+        dialog.setVisible(true);
+    }
+
+
+    private void putarAlarmBerulang(String pathAlarm) {
+        hentikanAlarm(); // Pastikan tidak ada audio sebelumnya yang bertumpuk
+        try {
+            java.io.File fileAudio = new java.io.File(pathAlarm);
+            if (fileAudio.exists()) {
+                javax.sound.sampled.AudioInputStream audioStream = 
+                    javax.sound.sampled.AudioSystem.getAudioInputStream(fileAudio);
+                alarmClip = javax.sound.sampled.AudioSystem.getClip();
+                alarmClip.open(audioStream);
+                alarmClip.loop(javax.sound.sampled.Clip.LOOP_CONTINUOUSLY); // Mengulang tanpa henti
+                alarmClip.start();
+            } else {
+                // Fallback bunyi beep sistem jika file .wav tidak ditemukan di PC klien
+                java.awt.Toolkit.getDefaultToolkit().beep();
+                System.out.println("File alarm tidak ditemukan: " + fileAudio.getAbsolutePath());
+            }
+        } catch (Exception ex) {
+            java.awt.Toolkit.getDefaultToolkit().beep();
+            System.out.println("Gagal memutar alarm: " + ex);
+        }
+    }
+
+    private void hentikanAlarm() {
+        if (alarmClip != null) {
+            if (alarmClip.isRunning()) {
+                alarmClip.stop();
+            }
+            alarmClip.close();
+            alarmClip = null;
+        }
+    }
+
+
 }

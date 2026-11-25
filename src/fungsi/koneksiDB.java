@@ -1344,4 +1344,14 @@ public class koneksiDB {
         }
         return var;
     }
+    
+    public static String WARNINGCODEMATERNAL(){
+        try{
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var=prop.getProperty("WARNINGCODEMATERNAL");
+        }catch(Exception e){
+            var=""; 
+        }
+        return var;
+    }
 }
